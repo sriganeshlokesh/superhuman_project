@@ -1,0 +1,17 @@
+{
+  "name": "superhuman_project",
+  "version": "1.0.0",
+  "description": "Ecommerce Website for Gym Supplements",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "nodemon server.js"
+  },
+  "author": "Sriganesh Lokesh",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "nodemon": "^2.0.4"
+  }
+}
