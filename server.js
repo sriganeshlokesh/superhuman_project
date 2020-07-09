@@ -3,6 +3,7 @@ const app = express();
 require("dotenv").config(); // make use of environment variables
 const port = process.env.PORT || 5000;
 const mongoose = require("mongoose");
+const auth = require("./routes/auth");
 
 // Connect to Database
 mongoose
@@ -15,6 +16,9 @@ mongoose
   .then(() => {
     console.log("Connected to Database");
   });
+
+// Routes Middleware
+app.use("/api/auth", auth);
 
 app.get("/", (req, res) => {
   res.send("Welcome to Superhuman Project");
