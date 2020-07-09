@@ -2,6 +2,19 @@ const express = require("express");
 const app = express();
 require("dotenv").config(); // make use of environment variables
 const port = process.env.PORT || 5000;
+const mongoose = require("mongoose");
+
+// Connect to Database
+mongoose
+  .connect(process.env.MONGO_URI, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    useCreateIndex: true,
+    useFindAndModify: true,
+  })
+  .then(() => {
+    console.log("Connected to Database");
+  });
 
 app.get("/", (req, res) => {
   res.send("Welcome to Superhuman Project");
