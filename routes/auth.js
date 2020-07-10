@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const { register, login, logout } = require("../controllers/auth");
+const { register, login, logout, protect } = require("../controllers/auth");
 
 // @route POST /api/auth/register
 // @desc Register user route

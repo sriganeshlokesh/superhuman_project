@@ -6,6 +6,7 @@ const mongoose = require("mongoose");
 const morgan = require("morgan");
 const cookieParser = require("cookie-parser");
 const auth = require("./routes/auth");
+const user = require("./routes/user");
 
 // Body Parsor Middleware
 app.use(express.json());
@@ -31,6 +32,7 @@ app.use(cookieParser());
 
 // Routes Middleware
 app.use("/api/auth", auth);
+app.use("/api/user", user);
 
 app.get("/", (req, res) => {
   res.send("Welcome to Superhuman Project");

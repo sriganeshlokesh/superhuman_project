@@ -89,3 +89,31 @@ exports.logout = (req, res) => {
     message: "Logout Successful",
   });
 };
+
+// Login Check
+exports.protect = expressJwt({
+  secret: process.env.JWT_SECRET,
+  userProperty: "auth",
+  algorithms: ["HS256"],
+});
+
+// User Authentication
+exports.isAuth = (req, res, next) => {
+  let user = req.profile && req.auth && req.profile._id == req.auth.id;
+  if (!user) {
+    return res.status(403).json({
+      errors: "Access Denied! Unauthorized User",
+    });
+  }
+  next();
+};
+
+// Admin Authentication
+exports.isAdmin = (req, res, next) => {
+  if (req.profile.role === 0) {
+    return res.status(403).json({
+      errors: "Access Denied. Admin Only",
+    });
+  }
+  next();
+};
