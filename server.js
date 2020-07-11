@@ -5,6 +5,7 @@ const port = process.env.PORT || 5000;
 const mongoose = require("mongoose");
 const morgan = require("morgan");
 const cookieParser = require("cookie-parser");
+const cors = require("cors");
 const auth = require("./routes/auth");
 const user = require("./routes/user");
 const category = require("./routes/category");
@@ -31,6 +32,9 @@ app.use(morgan("dev"));
 
 // Cookie Parser Middleware
 app.use(cookieParser());
+
+// Cors Middleware
+app.use(cors());
 
 // Routes Middleware
 app.use("/api/auth", auth);
