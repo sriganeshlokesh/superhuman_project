@@ -14,6 +14,10 @@ const {
   getAllCategories,
   getSearchProduct,
   getPhoto,
+  addProductLike,
+  unlikeProduct,
+  addComment,
+  deleteComment,
 } = require("../controllers/product");
 const { protect, isAdmin, isAuth } = require("../controllers/auth");
 const { userById } = require("../controllers/user");
@@ -53,6 +57,21 @@ router.post("/search", getSearchProduct);
 // @access Private
 router.post("/create/:id", protect, isAuth, isAdmin, createProduct);
 
+// @route POST /api/product/like/:productId/:id
+// @desc Add product like route
+// @access Private
+router.post("/like/:productId/:id", protect, isAuth, addProductLike);
+
+// @route POST /api/product/unlike/:productId/:id
+// @desc Unlike product like route
+// @access Private
+router.post("/unlike/:productId/:id", protect, isAuth, unlikeProduct);
+
+// @route POST /api/product/comment/:productId/:id
+// @desc Add product comment route
+// @access Private
+router.post("/comment/:productId/:id", protect, isAuth, addComment);
+
 // @route POST /api/product/info/:id/:productId
 // @desc Add product info route
 // @access Private
@@ -72,6 +91,16 @@ router.put("/info/:productId/:id", protect, isAuth, isAdmin, updateInfo);
 // @desc Delete product route
 // @access Private
 router.delete("/:productId/:id", protect, isAuth, isAdmin, deleteProduct);
+
+// @route DELETE /api/product/comment/:productId/:commentId/:id
+// @desc Delect product comment route
+// @access Private
+router.delete(
+  "/comment/:productId/:commentId/:id",
+  protect,
+  isAuth,
+  deleteComment
+);
 
 // Parameters
 

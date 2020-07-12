@@ -5,6 +5,7 @@ const _ = require("lodash");
 const validateProductInput = require("../validation/product");
 const { default: validator } = require("validator");
 const product = require("../validation/product");
+const { post } = require("../routes/product");
 
 // Get Product by Id
 exports.productById = (req, res, next, id) => {
@@ -37,7 +38,15 @@ exports.createProduct = (req, res) => {
       return res.status(400).json(errors);
     }
     // check for all fields
-    const { name, description, price, category, quantity } = fields;
+    let {
+      name,
+      description,
+      company,
+      price,
+      category,
+      quantity,
+      flavour,
+    } = fields;
 
     if (validator.isEmpty(name)) {
       errors.name = "Name field is required";
@@ -60,7 +69,20 @@ exports.createProduct = (req, res) => {
       return res.status(400).json(errors);
     }
 
-    let product = new Product(fields);
+    if (validator.isEmpty(company)) {
+      errors.company = "Company field is required";
+      return res.status(400).json(errors);
+    }
+
+    const productFields = {};
+    productFields.name = name;
+    productFields.description = description;
+    productFields.price = price;
+    productFields.category = category;
+    productFields.quantity = quantity;
+    productFields.company = company;
+    productFields.flavour = flavour.split(",");
+    let product = new Product(productFields);
 
     // 1kb = 1000
     // 1mb = 1000000
@@ -76,11 +98,100 @@ exports.createProduct = (req, res) => {
 
     product.save((err, result) => {
       if (err) {
-        errors.product = "Product not created";
-        return res.status(400).json(errors);
+        // errors.product = "Product not created";
+        return res.status(400).json(err);
       }
       res.json(result);
     });
+  });
+};
+
+// Add Product Like
+exports.addProductLike = (req, res) => {
+  let product = req.product;
+  let user = req.profile;
+  if (
+    product.likes.filter((like) => like.user.toString() === user._id.toString())
+      .length > 0
+  ) {
+    return res.status(400).json({
+      error: "User has already liked this product.",
+    });
+  }
+  // Add User ID to likes array
+  product.likes.push({ user: user._id });
+  product.save().then((product) => {
+    res.json(product);
+  });
+};
+
+// Unlike Product Like
+exports.unlikeProduct = (req, res) => {
+  let product = req.product;
+  let user = req.profile;
+  if (
+    product.likes.filter((like) => like.user.toString() === user._id.toString())
+      .length === 0
+  ) {
+    return res.status(400).json({
+      error: "User has not liked this product.",
+    });
+  }
+  // Remove like
+  const removeIndex = product.likes
+    .map((item) => item.user.toString())
+    .indexOf(user._id);
+  // Splice out of array;
+  product.likes.splice(removeIndex, 1);
+  product.save().then((product) => {
+    res.json(product);
+  });
+};
+
+// Add Comment to a Product
+exports.addComment = (req, res) => {
+  let product = req.product;
+  let user = req.profile;
+
+  const newComment = {
+    text: req.body.text,
+    name: user.name,
+    user: user._id,
+  };
+  // Add to comments
+  product.comments.unshift(newComment);
+  product
+    .save()
+    .then((product) => res.json(product))
+    .catch((err) => {
+      return res.status(400).json({
+        errors: "Comment not added",
+      });
+    });
+};
+
+// Delete Comment
+exports.deleteComment = (req, res) => {
+  let product = req.product;
+  let user = req.profile;
+  if (
+    product.comments.filter(
+      (comment) => comment._id.toString() === req.params.commentId
+    ).length === 0
+  ) {
+    return res.status(400).json({
+      errors: "Comment does not exist",
+    });
+  }
+  // Get Remove Index
+  const removeIndex = product.comments
+    .map((item) => item._id.toString())
+    .indexOf(req.params.commentId);
+
+  // Splice out of array
+  product.comments.splice(removeIndex, 1);
+  product.save().then((product) => {
+    res.json(product);
   });
 };
 
@@ -105,8 +216,13 @@ exports.addInfo = (req, res) => {
       calcium: req.body.calcium,
       potassium: req.body.potassium,
     };
-    product.info = newInfo;
-    product.save().then((product) => res.json(product));
+    if (_.isEmpty(product.info)) {
+      product.info = newInfo;
+      product.save().then((product) => res.json(product));
+    } else {
+      errors.product = "Product Info Already Exists";
+      return res.status(400).json(errors);
+    }
   });
 };
 
