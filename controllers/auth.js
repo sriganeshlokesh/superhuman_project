@@ -29,7 +29,24 @@ exports.register = (req, res) => {
         .then((user) => {
           user.salt = undefined;
           user.hashed_password = undefined;
-          res.json(user);
+          // res.json(user);
+          const payload = {
+            id: user._id,
+            name: user.name,
+            email: user.email,
+          };
+          // Sign token
+          const token = jwt.sign(payload, process.env.JWT_SECRET, {
+            expiresIn: 3600,
+          });
+          res.cookie("token", token);
+          // Return user and token to client
+          const { _id, name, email, role } = user;
+          return res.json({
+            success: true,
+            user: { _id, name, email, role },
+            token: `Bearer ${token}`,
+          });
         })
         .catch((err) => console.log(err));
     }
@@ -64,7 +81,7 @@ exports.login = (req, res) => {
       const payload = {
         id: user._id,
         name: user.name,
-        avatar: user.avatar,
+        email: user.email,
       };
       const token = jwt.sign(payload, process.env.JWT_SECRET, {
         expiresIn: 3600,
