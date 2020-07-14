@@ -1,8 +1,9 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 import "./register.css";
 import classnames from "classnames";
 import axios from "axios";
+import { authenticate, isAuthenticated } from "../../actions/auth";
 
 const Register = () => {
   const [input, setInput] = useState({
@@ -11,10 +12,11 @@ const Register = () => {
     password: "",
     password2: "",
     errors: "",
-    success: false,
+    redirect: false,
   });
 
-  const { name, email, password, password2, errors } = input;
+  const { name, email, password, password2, errors, redirect } = input;
+  const { user } = isAuthenticated();
 
   const handleChange = (name) => (event) => {
     setInput({ ...input, errors: false, [name]: event.target.value });
@@ -30,22 +32,27 @@ const Register = () => {
     await axios
       .post(`${process.env.REACT_APP_API}/auth/register`, user)
       .then((res) => {
-        setInput({
-          name: "",
-          email: "",
-          password: "",
-          password2: "",
-          errors: "",
-          success: true,
+        authenticate(res.data, () => {
+          setInput({
+            ...input,
+            redirect: true,
+          });
         });
-        console.log(res.data);
-        return res.data;
       })
       .catch((err) => {
         setInput({ ...input, errors: err.response.data });
       });
-    console.log(input);
   }
+
+  const redirectUser = () => {
+    if (redirect) {
+      if (user && user.role === 1) {
+        return <Redirect to="/admin/dashboard" />;
+      } else {
+        return <Redirect to="/user/dashboard" />;
+      }
+    }
+  };
 
   const registerForm = () => (
     <div class="container">
@@ -144,7 +151,12 @@ const Register = () => {
     </div>
   );
 
-  return <div>{registerForm()}</div>;
+  return (
+    <div>
+      {registerForm()}
+      {redirectUser()}
+    </div>
+  );
 };
 
 export default Register;

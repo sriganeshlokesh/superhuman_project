@@ -31,18 +31,7 @@ const Navbar = (props) => {
           <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul class="navbar-nav mr-auto">
-            <li class="nav-item active">
-              <Link class="nav-link" to="/" style={isActive(history, "/")}>
-                Home
-              </Link>
-            </li>
-            <li class="nav-item">
-              <Link class="nav-link" to="#" style={isActive(history, "/")}>
-                Features
-              </Link>
-            </li>
-          </ul>
+          <ul class="navbar-nav mr-auto"></ul>
           <ul class="navbar-nav nav-flex-icons">
             {!isAuthenticated() && (
               <React.Fragment>
@@ -68,6 +57,15 @@ const Navbar = (props) => {
             )}
             {isAuthenticated() && (
               <React.Fragment>
+                <li class="nav-item">
+                  <Link
+                    class="nav-link"
+                    to="/user/dashboard"
+                    style={isActive(history, "/user/dashboard")}
+                  >
+                    <i class="fa fa-user-circle fa-2x"></i>
+                  </Link>
+                </li>
                 <li class="nav-item">
                   <span
                     class="nav-link"

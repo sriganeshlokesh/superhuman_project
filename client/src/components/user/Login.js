@@ -3,7 +3,7 @@ import { Link, Redirect } from "react-router-dom";
 import "./login.css";
 import axios from "axios";
 import classnames from "classnames";
-import { authenticate } from "../../actions/auth";
+import { authenticate, isAuthenticated } from "../../actions/auth";
 
 const Login = () => {
   const [input, setInput] = useState({
@@ -14,6 +14,7 @@ const Login = () => {
   });
 
   const { email, password, errors, redirect } = input;
+  const { user } = isAuthenticated();
 
   const handleChange = (name) => (event) => {
     setInput({ ...input, errors: false, [name]: event.target.value });
@@ -44,6 +45,13 @@ const Login = () => {
 
   const redirectUser = () => {
     if (redirect) {
+      if (user && user.role === 1) {
+        return <Redirect to="/admin/dashboard" />;
+      } else {
+        return <Redirect to="/user/dashboard" />;
+      }
+    }
+    if (isAuthenticated()) {
       return <Redirect to="/" />;
     }
   };
