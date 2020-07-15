@@ -1,0 +1,27 @@
+$primary-color: #2d3142;
+$secondary-color: #ef8354;
+$background-color: #ffffff;
+$light-primary: #4f5d75;
+
+.card {
+  .card-body {
+    background-color: $background-color;
+    color: $primary-color;
+
+    .card-title {
+      font-weight: bold;
+    }
+  }
+
+  .buy {
+    a {
+      color: $secondary-color;
+
+      &:hover {
+        background-color: $background-color;
+        color: $secondary-color;
+        box-shadow: 0 0 0 2px $secondary-color;
+      }
+    }
+  }
+}

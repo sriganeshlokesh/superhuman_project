@@ -10,6 +10,8 @@ import UserDashBoard from "./components/user/UserDashboard";
 import AdminDashboard from "./components/user/AdminDashboard";
 import Category from "./components/admin/Category";
 import Product from "./components/admin/Product";
+import Shop from "./components/core/Shop";
+
 import "./App.css";
 
 function App() {
@@ -18,6 +20,7 @@ function App() {
       <Navbar />
       <Switch>
         <Route path="/" exact component={Home} />
+        <Route path="/shop" exact component={Shop} />
         <Route path="/register" exact component={Register} />
         <Route path="/login" exact component={Login} />
         <PrivateRoute path="/user/dashboard" exact component={UserDashBoard} />

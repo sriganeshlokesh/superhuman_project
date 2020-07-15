@@ -79,11 +79,13 @@ const Product = () => {
         setValues({ ...values, error: data.error });
       } else {
         setValues({
+          ...values,
           name: "",
           description: "",
           price: "",
           company: "",
           flavour: "",
+          photo: null,
           quantity: "",
           category: "",
           createdProduct: data.name,

@@ -19,6 +19,7 @@ const Navbar = (props) => {
         <Link class="navbar-brand" to="/">
           <strong>Super Human </strong>
         </Link>
+
         <button
           class="navbar-toggler"
           type="button"
@@ -31,7 +32,22 @@ const Navbar = (props) => {
           <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul class="navbar-nav mr-auto"></ul>
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+              <Link class="nav-link" to="/" style={isActive(history, "/")}>
+                Home
+              </Link>
+            </li>
+            <li class="nav-item">
+              <Link
+                class="nav-link"
+                to="/shop"
+                style={isActive(history, "/register")}
+              >
+                Products
+              </Link>
+            </li>
+          </ul>
           <ul class="navbar-nav nav-flex-icons">
             {!isAuthenticated() && (
               <React.Fragment>
