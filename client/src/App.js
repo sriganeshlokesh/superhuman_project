@@ -8,6 +8,8 @@ import PrivateRoute from "./actions/auth/PrivateRoute";
 import AdminRoute from "./actions/auth/AdminRoute";
 import UserDashBoard from "./components/user/UserDashboard";
 import AdminDashboard from "./components/user/AdminDashboard";
+import Category from "./components/admin/Category";
+import Product from "./components/admin/Product";
 import "./App.css";
 
 function App() {
@@ -20,6 +22,12 @@ function App() {
         <Route path="/login" exact component={Login} />
         <PrivateRoute path="/user/dashboard" exact component={UserDashBoard} />
         <AdminRoute path="/admin/dashboard" exact component={AdminDashboard} />
+        <AdminRoute path="/admin/dashboard/product" exact component={Product} />
+        <AdminRoute
+          path="/admin/dashboard/category"
+          exact
+          component={Category}
+        />
       </Switch>
     </BrowserRouter>
   );

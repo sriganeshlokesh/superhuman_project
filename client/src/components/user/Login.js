@@ -71,7 +71,7 @@ const Login = () => {
                     placeholder="Email address"
                     value={email}
                     onChange={handleChange("email")}
-                    className={classnames("form-control form-control-lg", {
+                    className={classnames("form-control-lg", {
                       "is-invalid": errors.email,
                     })}
                     required
@@ -86,7 +86,7 @@ const Login = () => {
                   <input
                     type="password"
                     id="inputPassword"
-                    className={classnames("form-control form-control-lg", {
+                    className={classnames("form-control-lg", {
                       "is-invalid": errors.password,
                     })}
                     value={password}

@@ -48,32 +48,6 @@ exports.createProduct = (req, res) => {
       flavour,
     } = fields;
 
-    if (validator.isEmpty(name)) {
-      errors.name = "Name field is required";
-      return res.status(400).json(errors);
-    }
-    if (validator.isEmpty(description)) {
-      errors.description = "Description field is required";
-      return res.status(400).json(errors);
-    }
-    if (validator.isEmpty(price)) {
-      errors.price = "Price field is required";
-      return res.status(400).json(errors);
-    }
-    if (validator.isEmpty(category)) {
-      errors.category = "Category field is required";
-      return res.status(400).json(errors);
-    }
-    if (validator.isEmpty(quantity)) {
-      errors.quantity = "Quantity field is required";
-      return res.status(400).json(errors);
-    }
-
-    if (validator.isEmpty(company)) {
-      errors.company = "Company field is required";
-      return res.status(400).json(errors);
-    }
-
     const productFields = {};
     productFields.name = name;
     productFields.description = description;

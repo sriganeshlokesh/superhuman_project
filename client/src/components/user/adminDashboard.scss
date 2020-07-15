@@ -56,6 +56,10 @@ figure {
   }
 }
 
+.nav-item {
+  padding: 10px;
+}
+
 .card-list {
   @include clear();
   width: 100%;

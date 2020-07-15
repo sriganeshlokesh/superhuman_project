@@ -1,47 +1,15 @@
 import React from "react";
+import { Link, withRouter } from "react-router-dom";
 import { isAuthenticated } from "../../actions/auth";
+import AdminNavbar from "./AdminNavbar";
 import "../../adminDashboard.css";
+import Layout from "../core/Layout";
 
-const AdminDashboard = () => {
+const AdminDashboard = (props) => {
   const adminLayout = () => (
     <div class="container-fluid">
       <div class="row">
-        <nav class="col-md-2 d-none d-md-block sidebar">
-          <div class="sidebar-sticky">
-            <ul class="nav flex-column">
-              <li class="nav-item">
-                <a class="nav-link active" href="#">
-                  <i class="zmdi zmdi-widgets"></i>
-                  Dashboard <span class="sr-only">(current)</span>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#">
-                  <i class="zmdi zmdi-file-text"></i>
-                  Orders
-                </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#">
-                  <i class="zmdi zmdi-shopping-cart"></i>
-                  Products
-                </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#">
-                  <i class="zmdi zmdi-accounts"></i>
-                  Categories
-                </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#">
-                  <i class="zmdi zmdi-chart"></i>
-                  Customers
-                </a>
-              </li>
-            </ul>
-          </div>
-        </nav>
+        <AdminNavbar />
         <main role="main" class="col-md-9 ml-sm-auto col-lg-10 my-3">
           <div class="card-list">
             <div class="row">
@@ -222,4 +190,4 @@ const AdminDashboard = () => {
   return <div>{adminLayout()}</div>;
 };
 
-export default AdminDashboard;
+export default withRouter(AdminDashboard);

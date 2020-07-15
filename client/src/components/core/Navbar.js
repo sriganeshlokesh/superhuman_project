@@ -55,17 +55,30 @@ const Navbar = (props) => {
                 </li>
               </React.Fragment>
             )}
+            {isAuthenticated() && isAuthenticated().user.role === 1 && (
+              <li class="nav-item">
+                <Link
+                  class="nav-link"
+                  to="/admin/dashboard"
+                  style={isActive(history, "/admin/dashboard")}
+                >
+                  <i class="fa fa-user-circle fa-2x"></i>
+                </Link>
+              </li>
+            )}
+            {isAuthenticated() && isAuthenticated().user.role === 0 && (
+              <li class="nav-item">
+                <Link
+                  class="nav-link"
+                  to="/user/dashboard"
+                  style={isActive(history, "/user/dashboard")}
+                >
+                  <i class="fa fa-user-circle fa-2x"></i>
+                </Link>
+              </li>
+            )}
             {isAuthenticated() && (
               <React.Fragment>
-                <li class="nav-item">
-                  <Link
-                    class="nav-link"
-                    to="/user/dashboard"
-                    style={isActive(history, "/user/dashboard")}
-                  >
-                    <i class="fa fa-user-circle fa-2x"></i>
-                  </Link>
-                </li>
                 <li class="nav-item">
                   <span
                     class="nav-link"

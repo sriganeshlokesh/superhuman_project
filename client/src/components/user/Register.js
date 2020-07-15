@@ -68,7 +68,7 @@ const Register = () => {
                     type="text"
                     id="inputUsername"
                     name="name"
-                    className={classnames("form-control form-control-lg", {
+                    className={classnames("form-control-lg", {
                       "is-invalid": errors.name,
                     })}
                     placeholder="Username"
@@ -89,7 +89,7 @@ const Register = () => {
                     placeholder="Email address"
                     onChange={handleChange("email")}
                     value={email}
-                    className={classnames("form-control form-control-lg", {
+                    className={classnames("form-control-lg", {
                       "is-invalid": errors.email,
                     })}
                   />
@@ -107,7 +107,7 @@ const Register = () => {
                     placeholder="Password"
                     value={password}
                     onChange={handleChange("password")}
-                    className={classnames("form-control form-control-lg", {
+                    className={classnames("form-control-lg", {
                       "is-invalid": errors.password,
                     })}
                   />
@@ -125,7 +125,7 @@ const Register = () => {
                     placeholder="Confirm Password"
                     onChange={handleChange("password2")}
                     value={password2}
-                    className={classnames("form-control form-control-lg", {
+                    className={classnames("form-control-lg", {
                       "is-invalid": errors.password2,
                     })}
                   />
