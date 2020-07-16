@@ -19,6 +19,7 @@ const {
   addComment,
   deleteComment,
   listSearch,
+  getInfo,
 } = require("../controllers/product");
 const { protect, isAdmin, isAuth } = require("../controllers/auth");
 const { userById } = require("../controllers/user");
@@ -47,6 +48,11 @@ router.get("/category", getAllCategories);
 // @desc Get product photo route
 // @access Public
 router.get("/photo/:productId", getPhoto);
+
+// @route GET /api/product/info/:productId
+// @desc Get product info route
+// @access Public
+router.get("/info/:productId", getInfo);
 
 // @route POST /api/product/by/search
 // @desc Get product by search route

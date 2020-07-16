@@ -1,5 +1,6 @@
 import React from "react";
 import ProductImage from "./ProductImage";
+import { Link } from "react-router-dom";
 import "../../card.css";
 
 const ProductCard = ({ product }) => {
@@ -30,12 +31,15 @@ const ProductCard = ({ product }) => {
             </select>
           </div>
           <div className="buy d-flex justify-content-between align-items-center">
-            <a href="#" className="btn btn-danger mt-3">
+            <Link
+              to={`/product/${product._id}`}
+              className="btn btn-danger mt-3"
+            >
               <i className="fa fa-th"></i> View Product
-            </a>
-            <a href="#" className="btn btn-danger mt-3">
+            </Link>
+            <Link href="#" className="btn btn-danger mt-3">
               <i className="fa fa-shopping-cart"></i> Add to Cart
-            </a>
+            </Link>
           </div>
         </div>
       </div>

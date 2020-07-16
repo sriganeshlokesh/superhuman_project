@@ -56,3 +56,33 @@ export const searchProduct = (params) => {
     })
     .catch((err) => console.log(err));
 };
+
+export const getProduct = (productId) => {
+  return fetch(`${process.env.REACT_APP_API}/product/read/${productId}`, {
+    method: "GET",
+  })
+    .then((response) => {
+      return response.json();
+    })
+    .catch((err) => console.log(err));
+};
+
+export const getInfo = (productId) => {
+  return fetch(`${process.env.REACT_APP_API}/product/info/${productId}`, {
+    method: "GET",
+  })
+    .then((response) => {
+      return response.json();
+    })
+    .catch((err) => console.log(err));
+};
+
+export const relatedProducts = (productId) => {
+  return fetch(`${process.env.REACT_APP_API}/product/related/${productId}`, {
+    method: "GET",
+  })
+    .then((response) => {
+      return response.json();
+    })
+    .catch((err) => console.log(err));
+};

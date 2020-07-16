@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { getProducts, getCategories, searchProduct } from "./apiCore";
 import ProductCard from "./ProductCard";
+import "./dropdown.css";
 
 const ProductSearch = () => {
   const [data, setData] = useState({
@@ -105,9 +106,49 @@ const ProductSearch = () => {
     </form>
   );
 
+  const searchform = () => (
+    <div class="input-group">
+      <div class="input-group-btn search-panel">
+        <button
+          type="button"
+          class="btn btn-default dropdown-toggle"
+          data-toggle="dropdown"
+        >
+          <span id="search_concept">All</span> <span class="caret"></span>
+        </button>
+        <ul class="dropdown-menu scrollable-dropdown" role="menu">
+          {categories &&
+            categories.map((item, index) => (
+              <li key={index} value={item._id}>
+                {item.name}
+              </li>
+            ))}
+        </ul>
+      </div>
+      <input type="hidden" name="search_param" value="all" id="search_param" />
+      <input
+        type="text"
+        className="form-control-lg"
+        name="search"
+        id="search"
+        onChange={handleChange("search")}
+        placeholder="Search"
+      />
+      <span class="input-group-btn color">
+        <button
+          class="btn btn-default button"
+          type="button"
+          onClick={searchSubmit}
+        >
+          <i class="fa fa-search fa-2x"></i>
+        </button>
+      </span>
+    </div>
+  );
+
   return (
     <div className="row">
-      <div className="container">{searchForm()}</div>
+      <div className="container-fluid ml-5">{searchform()}</div>
       <div className="container-fluid mb-3">{searchedProducts(result)}</div>
     </div>
   );

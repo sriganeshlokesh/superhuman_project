@@ -11,6 +11,7 @@ import AdminDashboard from "./components/user/AdminDashboard";
 import Category from "./components/admin/Category";
 import Product from "./components/admin/Product";
 import Shop from "./components/core/Shop";
+import ProductDetail from "./components/core/Product";
 
 import "./App.css";
 
@@ -31,6 +32,7 @@ function App() {
           exact
           component={Category}
         />
+        <Route path="/product/:productId" exact component={ProductDetail} />
       </Switch>
     </BrowserRouter>
   );

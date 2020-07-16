@@ -301,7 +301,7 @@ exports.getAllProducts = (req, res) => {
 // Get Related Products
 exports.getRelated = (req, res) => {
   let errors = {};
-  let limit = req.query.limit ? parseInt(req.query.limit) : 6;
+  let limit = req.query.limit ? parseInt(req.query.limit) : 4;
   Product.find({ _id: { $ne: req.product }, category: req.product.category })
     .limit(limit)
     .populate("category", "_id name")
@@ -397,5 +397,16 @@ exports.listSearch = (req, res) => {
       }
       res.json(products);
     }).select("-photo");
+  }
+};
+
+exports.getInfo = (req, res) => {
+  let product = req.product;
+  if (product.info) {
+    return res.json(product.info);
+  } else {
+    return res.status(400).json({
+      error: "Product Info Not Found",
+    });
   }
 };

@@ -26,8 +26,8 @@ const Login = () => {
     login({ email, password });
   };
 
-  async function login(user) {
-    await axios
+  function login(user) {
+    axios
       .post(`${process.env.REACT_APP_API}/auth/login`, user)
       .then((res) => {
         console.log(res.data);

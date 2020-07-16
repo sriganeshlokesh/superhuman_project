@@ -15,7 +15,10 @@ $light-primary: #4f5d75;
 
   .buy {
     a {
-      color: $secondary-color;
+      background-color: $secondary-color;
+      color: #fff;
+      width: 50%;
+      margin: 1%;
 
       &:hover {
         background-color: $background-color;
