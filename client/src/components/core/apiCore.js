@@ -1,3 +1,5 @@
+import queryString from "query-string";
+
 export const getProducts = (sortBy) => {
   return fetch(
     `${process.env.REACT_APP_API}/product/products?sortBy=${sortBy}&order=desc&limit=6`,
@@ -27,7 +29,7 @@ export const getFilterProduct = (skip, limit, filters = {}) => {
     skip,
     filters,
   };
-  return fetch(`${process.env.REACT_APP_API}/product/search`, {
+  return fetch(`${process.env.REACT_APP_API}/product/by/search`, {
     method: "POST",
     headers: {
       Accept: "application/json",
@@ -41,4 +43,16 @@ export const getFilterProduct = (skip, limit, filters = {}) => {
     .catch((err) => {
       console.log(err);
     });
+};
+
+export const searchProduct = (params) => {
+  const query = queryString.stringify(params);
+  console.log(query);
+  return fetch(`${process.env.REACT_APP_API}/product/search?${query}`, {
+    method: "GET",
+  })
+    .then((response) => {
+      return response.json();
+    })
+    .catch((err) => console.log(err));
 };

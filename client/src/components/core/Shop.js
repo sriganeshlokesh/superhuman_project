@@ -5,6 +5,7 @@ import ProductCard from "./ProductCard";
 import CategoryCheckBox from "./CategoryCheckBox";
 import PriceRadioBox from "./PriceRadioBox";
 import { prices } from "./FixedPrices";
+import ProductSearch from "./ProductSearch";
 import "../../home.css";
 import { filter } from "lodash";
 

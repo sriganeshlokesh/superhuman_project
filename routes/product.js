@@ -18,6 +18,7 @@ const {
   unlikeProduct,
   addComment,
   deleteComment,
+  listSearch,
 } = require("../controllers/product");
 const { protect, isAdmin, isAuth } = require("../controllers/auth");
 const { userById } = require("../controllers/user");
@@ -47,10 +48,15 @@ router.get("/category", getAllCategories);
 // @access Public
 router.get("/photo/:productId", getPhoto);
 
-// @route POST /api/product/search
+// @route POST /api/product/by/search
 // @desc Get product by search route
 // @access Public
-router.post("/search", getSearchProduct);
+router.post("/by/search", getSearchProduct);
+
+// @route GET /api/product/search
+// @desc Get product by word search route
+// @access Public
+router.get("/search", listSearch);
 
 // @route POST /api/product/create/:id
 // @desc Create product route

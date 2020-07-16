@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import Layout from "./Layout";
 import { getProducts } from "./apiCore";
 import ProductCard from "./ProductCard";
+import ProductSearch from "./ProductSearch";
 import "../../home.css";
 
 const Home = () => {
@@ -36,6 +37,8 @@ const Home = () => {
   return (
     <React.Fragment>
       <div className="container-fluid">
+        <ProductSearch />
+
         <h2 className="mb-4">Best Sellers</h2>
         <div className="row">
           {productBySell.map((product, i) => (
