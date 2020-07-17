@@ -3,6 +3,7 @@ import ProductImage from "./ProductImage";
 import ProductCard from "./ProductCard";
 import { Link } from "react-router-dom";
 import { getInfo, relatedProducts } from "./apiCore";
+import { addItem } from "./addToCartHelper";
 import moment from "moment";
 import "../../productPage.css";
 
@@ -10,6 +11,10 @@ const ProductPage = ({ product, id }) => {
   const [info, setInfo] = useState({});
   const [error, setError] = useState(false);
   const [related, setRelated] = useState([]);
+
+  const addToCart = () => {
+    addItem(product, () => {});
+  };
 
   const productInfo = (productId) => {
     getInfo(productId).then((data) => {
@@ -90,7 +95,11 @@ const ProductPage = ({ product, id }) => {
           <div className="row">
             <div className="col-6"></div>
             <div className="col-6">
-              <Link href="#" className="custom-addcart btn mt-3">
+              <Link
+                to="/cart"
+                onClick={addToCart}
+                className="custom-addcart btn mt-3"
+              >
                 <i className="fa fa-shopping-cart"></i> Add to Cart
               </Link>
             </div>

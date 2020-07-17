@@ -7,7 +7,6 @@ import PriceRadioBox from "./PriceRadioBox";
 import { prices } from "./FixedPrices";
 import ProductSearch from "./ProductSearch";
 import "../../home.css";
-import { filter } from "lodash";
 
 const Shop = () => {
   const [productFilters, setProductFilters] = useState({

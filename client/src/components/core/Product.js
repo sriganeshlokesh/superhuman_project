@@ -21,11 +21,11 @@ const Product = (props) => {
 
   useEffect(() => {
     singleProduct(productId);
-  }, []);
+  }, [props]);
 
   return (
     <div className="container">
-      <ProductPage id={productId} product={product} />
+      <ProductPage product={product} id={productId} />
     </div>
   );
 };

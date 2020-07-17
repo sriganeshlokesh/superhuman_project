@@ -2,6 +2,7 @@ import React from "react";
 import { Link, withRouter } from "react-router-dom";
 import "../../App.css";
 import { logout, isAuthenticated } from "../../actions/auth";
+import { itemTotal } from "../core/addToCartHelper";
 
 const isActive = (history, path) => {
   if (history.location.pathname === path) {
@@ -13,6 +14,7 @@ const isActive = (history, path) => {
 
 const Navbar = (props) => {
   const { history } = props;
+
   return (
     <React.Fragment>
       <nav class="navbar  navbar-expand-lg nav-tabs scrolling-navbar">
@@ -71,6 +73,21 @@ const Navbar = (props) => {
                 </li>
               </React.Fragment>
             )}
+            <li class="nav-item">
+              <Link
+                class="nav-link"
+                to="/cart"
+                style={isActive(history, "/cart")}
+              >
+                <i class="fa fa-shopping-cart fa-2x badge-wrapper">
+                  {itemTotal() > 0 && (
+                    <span className="badge badge-secondary" id="lblCartCount">
+                      {itemTotal()}
+                    </span>
+                  )}
+                </i>
+              </Link>
+            </li>
             {isAuthenticated() && isAuthenticated().user.role === 1 && (
               <li class="nav-item">
                 <Link

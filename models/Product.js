@@ -28,6 +28,9 @@ const productSchema = new mongoose.Schema(
     flavour: {
       type: [String],
     },
+    selectedFlavour: {
+      type: String,
+    },
     likes: [
       {
         user: {

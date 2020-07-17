@@ -1,12 +1,11 @@
 $primary-color: #2d3142;
 $secondary-color: #ef8354;
-$background-color: #bfc0c0;
+$background-color: #fbfefb;
 $color-green: #8ac926;
 $color-red: #bf0603;
 
 body {
   background-color: $background-color;
-  box-sizing: inherit;
 }
 .header {
   text-align: center;
@@ -20,6 +19,34 @@ body {
   background-color: #fff;
   box-shadow: 0 0 0 2px #000;
 }
+
+hr {
+  border: 1px solid #fff;
+}
+
+.custom-checkout-comp {
+  background-color: $primary-color;
+  color: #fff;
+  display: grid;
+  margin-top: 12%;
+  justify-self: center;
+}
+
+.custom-checkout-button {
+  text-align: center;
+  color: #fff;
+  margin-bottom: 5%;
+  background-color: $secondary-color;
+  width: 100%;
+  padding: 15px;
+
+  &:hover {
+    background-color: #fff;
+    color: $secondary-color;
+    box-shadow: 0 0 0 2px $secondary-color;
+  }
+}
+
 .custom-info {
   width: 100%;
   background-color: $primary-color;
@@ -107,7 +134,4 @@ body {
 
 .text-align-center {
   text-align: center;
-}
-
-.header-color {
 }
