@@ -1,6 +1,9 @@
 import React from "react";
 import { isAuthenticated } from "../../actions/auth";
+import { getBraintreeToken } from "./apiCore";
 import { Link } from "react-router-dom";
+import { useState } from "react";
+import { useEffect } from "react";
 
 const Checkout = ({ products }) => {
   const getTotal = () => {
@@ -13,9 +16,13 @@ const Checkout = ({ products }) => {
 
   const showCheckout = () => {
     return isAuthenticated() ? (
-      <div className="row custom-checkout-comp">
-        <button className="custom-checkout-button">CONTINUE TO CHECKOUT</button>
-      </div>
+      <Link to="/checkout">
+        <div className="row custom-checkout-comp">
+          <button className="custom-checkout-button">
+            CONTINUE TO CHECKOUT
+          </button>
+        </div>
+      </Link>
     ) : (
       <div className="row custom-checkout-comp">
         <Link to="/login">

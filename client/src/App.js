@@ -13,6 +13,7 @@ import Product from "./components/admin/Product";
 import Shop from "./components/core/Shop";
 import ProductDetail from "./components/core/Product";
 import ShoppingCart from "./components/core/ShoppingCart";
+import CheckoutPage from "./components/core/CheckoutPage";
 
 import "./App.css";
 
@@ -35,6 +36,7 @@ function App() {
         />
         <Route path="/product/:productId" exact component={ProductDetail} />
         <Route path="/cart" exact component={ShoppingCart} />
+        <Route path="/checkout" exact component={CheckoutPage} />
       </Switch>
     </BrowserRouter>
   );

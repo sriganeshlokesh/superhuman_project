@@ -35,16 +35,20 @@ const ShoppingCart = () => {
   const noItems = () => {
     return <h2>Your Cart is Currently Empty</h2>;
   };
-
+  const showCheckout = () => {
+    return (
+      <div className="col-md-4 px-3 custom-checkout-comp">
+        <Checkout products={items} />
+      </div>
+    );
+  };
   return (
     <div className="container">
       <div className="row ">
         <div className="col-8">
           {items.length > 0 ? showItems(items) : noItems()}
         </div>
-        <div className="col-md-4 px-3 custom-checkout-comp">
-          <Checkout products={items} />
-        </div>
+        {showCheckout()}
       </div>
     </div>
   );

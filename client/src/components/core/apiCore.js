@@ -86,3 +86,36 @@ export const relatedProducts = (productId) => {
     })
     .catch((err) => console.log(err));
 };
+
+// Braintree
+
+export const getBraintreeToken = (userId, token) => {
+  return fetch(`${process.env.REACT_APP_API}/braintree/getToken/${userId}`, {
+    method: "GET",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+      Authorization: token,
+    },
+  })
+    .then((response) => {
+      return response.json();
+    })
+    .catch((err) => console.log(err));
+};
+
+export const processPayment = (userId, token, payment) => {
+  return fetch(`${process.env.REACT_APP_API}/braintree/payment/${userId}`, {
+    method: "POST",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+      Authorization: token,
+    },
+    body: JSON.stringify(payment),
+  })
+    .then((response) => {
+      return response.json();
+    })
+    .catch((err) => console.log(err));
+};

@@ -8,6 +8,8 @@ const CartCard = ({
   cartUpdate = false,
   setRun = (f) => f,
   run = undefined,
+  showQuantity = true,
+  showRemove = true,
 }) => {
   const [count, setCount] = useState(product.count);
 
@@ -24,6 +26,34 @@ const CartCard = ({
   const refreshComponent = () => {
     window.location.reload(false);
   };
+
+  const removeButton = () => (
+    <div className="col-2">
+      <button
+        className="custom-button"
+        onClick={() => {
+          refreshComponent();
+          removeItem(product._id);
+          setRun(!run); // run useEffect in parent Cart
+        }}
+      >
+        <i className="fa fa-times fa-2x"></i>
+      </button>
+    </div>
+  );
+
+  const quantityField = () => (
+    <div className="col-2">
+      <h6>Quantity</h6>
+      <hr />
+      <input
+        type="number"
+        className="form-control"
+        onChange={handleChange(product._id)}
+        value={count}
+      />
+    </div>
+  );
 
   return (
     <div className="container">
@@ -42,33 +72,14 @@ const CartCard = ({
               <hr />
               <h6>${product.price}</h6>
             </div>
-            <div className="col-2">
-              <h6>Quantity</h6>
-              <hr />
-              <input
-                type="number"
-                className="form-control"
-                onChange={handleChange(product._id)}
-                value={count}
-              />
-            </div>
+
+            {showQuantity && quantityField()}
             <div className="col-2">
               <h6>Item Total</h6>
               <hr />
               <h6>${total}</h6>
             </div>
-            <div className="col-2">
-              <button
-                className="custom-button"
-                onClick={() => {
-                  refreshComponent();
-                  removeItem(product._id);
-                  setRun(!run); // run useEffect in parent Cart
-                }}
-              >
-                <i className="fa fa-times fa-2x"></i>
-              </button>
-            </div>
+            {showRemove && removeButton()}
           </div>
         </div>
       </div>
