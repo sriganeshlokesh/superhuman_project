@@ -10,6 +10,7 @@ import UserDashBoard from "./components/user/UserDashboard";
 import AdminDashboard from "./components/user/AdminDashboard";
 import Category from "./components/admin/Category";
 import Product from "./components/admin/Product";
+import Orders from "./components/admin/Orders";
 import Shop from "./components/core/Shop";
 import ProductDetail from "./components/core/Product";
 import ShoppingCart from "./components/core/ShoppingCart";
@@ -29,6 +30,7 @@ function App() {
         <PrivateRoute path="/user/dashboard" exact component={UserDashBoard} />
         <AdminRoute path="/admin/dashboard" exact component={AdminDashboard} />
         <AdminRoute path="/admin/dashboard/product" exact component={Product} />
+        <AdminRoute path="/admin/dashboard/order" exact component={Orders} />
         <AdminRoute
           path="/admin/dashboard/category"
           exact

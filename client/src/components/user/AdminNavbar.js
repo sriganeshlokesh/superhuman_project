@@ -25,10 +25,14 @@ const AdminNavbar = (props) => {
             </Link>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">
-              <i class="zmdi zmdi-file-text"></i>
+            <Link
+              class="nav-link"
+              to="/admin/dashboard/order"
+              style={isActive(history, "/admin/dashboard/order")}
+            >
+              <i class="fa fa-truck fa-fw"></i>
               Orders
-            </a>
+            </Link>
           </li>
           <li class="nav-item">
             <Link

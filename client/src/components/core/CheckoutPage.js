@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react";
 import "./checkoutPage.css";
 import { Redirect } from "react-router-dom";
-import { getBraintreeToken, processPayment } from "./apiCore";
+import { getBraintreeToken, processPayment, createOrder } from "./apiCore";
 import { getCart, emptyCart } from "./addToCartHelper";
 import CartCard from "./CartCard";
 import { isAuthenticated } from "../../actions/auth";
 import DropIn from "braintree-web-drop-in-react";
+import { set } from "lodash";
 
 const CheckoutPage = () => {
   const [run, setRun] = useState(false);
@@ -49,10 +50,17 @@ const CheckoutPage = () => {
 
   const total = Math.round((getTotal() + 5 + Number.EPSILON) * 100) / 100;
 
+  const handleAddress = (event) => {
+    setData({ ...data, address: event.target.value });
+    console.log(data.address);
+  };
+
   useEffect(() => {
     setItems(getCart());
     getToken(userId, token);
   }, []);
+
+  let address = data.address;
 
   const payProduct = () => {
     let nonce;
@@ -68,6 +76,15 @@ const CheckoutPage = () => {
 
         processPayment(userId, token, paymentData)
           .then((response) => {
+            const orderData = {
+              products: items,
+              transaction_id: response.transaction.id,
+              amount: response.transaction.amount,
+              address: address,
+            };
+            console.log(address);
+            createOrder(userId, token, orderData);
+
             setData({ ...data, success: response.success });
             emptyCart(() => {
               setRun(!run);
@@ -106,6 +123,15 @@ const CheckoutPage = () => {
     <div onBlur={() => setData({ ...data, error: "" })}>
       {data.clientToken !== null && items.length > 0 ? (
         <React.Fragment>
+          <div className="gorm-group mb-3">
+            <label className="text-muted">Shipping Address:</label>
+            <textarea
+              onChange={handleAddress}
+              className="form-control"
+              value={data.address}
+              placeholder="Enter Shipping Address"
+            />
+          </div>
           <DropIn
             options={{
               authorization: data.clientToken,

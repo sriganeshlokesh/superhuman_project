@@ -1,13 +1,32 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Link, withRouter } from "react-router-dom";
 import { isAuthenticated } from "../../actions/auth";
+import { getOrders } from "../../actions/admin/adminApi";
 import AdminNavbar from "./AdminNavbar";
 import "../../adminDashboard.css";
-import Layout from "../core/Layout";
 
 const AdminDashboard = (props) => {
+  const [orders, setOrders] = useState([]);
+
+  const { user, token } = isAuthenticated();
+  console.log(token);
+
+  const loadOrders = () => {
+    getOrders(user._id, token).then((data) => {
+      if (data.error) {
+        console.log(data.error);
+      } else {
+        setOrders(data);
+      }
+    });
+  };
+
+  useEffect(() => {
+    loadOrders();
+  }, []);
+
   const adminLayout = () => (
-    <div class="container-fluid">
+    <div class="container-fluid mt-0">
       <div class="row">
         <AdminNavbar />
         <main role="main" class="col-md-9 ml-sm-auto col-lg-10 my-3">
@@ -17,7 +36,7 @@ const AdminDashboard = (props) => {
                 <div class="card blue">
                   <div class="title">Orders</div>
                   <i class="zmdi zmdi-upload"></i>
-                  <div class="value">89</div>
+                  <div class="value">{orders.length}</div>
                 </div>
               </div>
               <div class="col-12 col-md-6 col-lg-4 col-xl-4 mb-4">
@@ -40,7 +59,7 @@ const AdminDashboard = (props) => {
             <div class="projects-inner">
               <header class="projects-header">
                 <div class="title">Order History</div>
-                <div class="count">| 32 Orders</div>
+                <div class="count">| {orders.length} Orders</div>
                 <i class="zmdi zmdi-download"></i>
               </header>
               <table class="projects-table">
@@ -51,43 +70,35 @@ const AdminDashboard = (props) => {
                     <th>Customer</th>
                     <th>Price</th>
                     <th>Shipping</th>
-                    <th class="text-right">Actions</th>
                   </tr>
                 </thead>
 
-                <tr>
-                  <td>
-                    <p>Order ID</p>
-                  </td>
-                  <td>
-                    <p>ON Serious Mass</p>
-                  </td>
-                  <td class="member">
-                    <figure>
-                      <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/584938/people_8.png" />
-                    </figure>
-                    <div class="member-info">
-                      <p>Test 1</p>
-                      <p></p>
-                    </div>
-                  </td>
-                  <td>
-                    <p>$4,670</p>
-                    <p>Paid</p>
-                  </td>
-                  <td class="status">
-                    <span class="status-text status-orange">True</span>
-                  </td>
-                  <td>
-                    <form class="form" action="#" method="POST">
-                      <select class="action-box">
-                        <option>Actions</option>
-                        <option>Update Order</option>
-                        <option>Delete Order</option>
-                      </select>
-                    </form>
-                  </td>
-                </tr>
+                {orders.slice(0, 5).map((order, index) => (
+                  <tr>
+                    <td>
+                      <p>{order._id}</p>
+                    </td>
+                    <td>
+                      <p>{order.transaction_id}</p>
+                    </td>
+                    <td class="member">
+                      <figure>
+                        <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/584938/people_8.png" />
+                      </figure>
+                      <div class="member-info">
+                        <p>{order.user.name}</p>
+                        <p></p>
+                      </div>
+                    </td>
+                    <td>
+                      <p>${order.amount}</p>
+                      <p>{order.status}</p>
+                    </td>
+                    <td class="status">
+                      <span class="status-text status-orange">True</span>
+                    </td>
+                  </tr>
+                ))}
               </table>
             </div>
           </div>
