@@ -7,6 +7,7 @@ import Navbar from "./components/core/Navbar";
 import PrivateRoute from "./actions/auth/PrivateRoute";
 import AdminRoute from "./actions/auth/AdminRoute";
 import UserDashBoard from "./components/user/UserDashboard";
+import EditProfile from "./components/user/EditProfile";
 import AdminDashboard from "./components/user/AdminDashboard";
 import Category from "./components/admin/Category";
 import Product from "./components/admin/Product";
@@ -28,6 +29,11 @@ function App() {
         <Route path="/register" exact component={Register} />
         <Route path="/login" exact component={Login} />
         <PrivateRoute path="/user/dashboard" exact component={UserDashBoard} />
+        <PrivateRoute
+          path="/user/dashboard/profile/:id"
+          exact
+          component={EditProfile}
+        />
         <AdminRoute path="/admin/dashboard" exact component={AdminDashboard} />
         <AdminRoute path="/admin/dashboard/product" exact component={Product} />
         <AdminRoute path="/admin/dashboard/order" exact component={Orders} />

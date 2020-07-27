@@ -11,11 +11,24 @@ const Register = () => {
     email: "",
     password: "",
     password2: "",
+    dob: "",
+    phone: "",
+    location: "",
     errors: "",
     redirect: false,
   });
 
-  const { name, email, password, password2, errors, redirect } = input;
+  const {
+    name,
+    email,
+    password,
+    password2,
+    dob,
+    phone,
+    location,
+    errors,
+    redirect,
+  } = input;
   const { user } = isAuthenticated();
 
   const handleChange = (name) => (event) => {
@@ -24,8 +37,8 @@ const Register = () => {
 
   const registerUser = (event) => {
     event.preventDefault();
-    console.log({ name, email, password, password2 });
-    register({ name, email, password, password2 });
+    console.log({ name, email, password, password2, phone, dob, location });
+    register({ name, email, password, password2, phone, dob, location });
   };
 
   async function register(user) {
@@ -133,6 +146,45 @@ const Register = () => {
                   {errors.password2 && (
                     <div className="invalid-feedback">{errors.password2}</div>
                   )}
+                </div>
+
+                <div class="form-label-group">
+                  <input
+                    type="date"
+                    id="inputDOB"
+                    name="dob"
+                    placeholder="Enter DOB"
+                    onChange={handleChange("dob")}
+                    value={dob}
+                    className="form-control"
+                  />
+                  <label for="inputDOB">Date of Birth</label>
+                </div>
+
+                <div class="form-label-group">
+                  <input
+                    type="tel"
+                    id="inputPhone"
+                    name="phone"
+                    placeholder="Enter Phone Number"
+                    onChange={handleChange("phone")}
+                    value={phone}
+                    className="form-control"
+                  />
+                  <label for="inputPhone">Phone Number</label>
+                </div>
+
+                <div class="form-label-group">
+                  <input
+                    type="text"
+                    id="inputLocation"
+                    name="location"
+                    placeholder="Enter Location"
+                    onChange={handleChange("location")}
+                    value={location}
+                    className="form-control"
+                  />
+                  <label for="inputLocation">Location</label>
                 </div>
 
                 <input

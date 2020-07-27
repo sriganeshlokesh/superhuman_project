@@ -1,11 +1,32 @@
-import React from "react";
+import React, { useState } from "react";
 import { isAuthenticated } from "../../actions/auth";
+import { getUserHistory } from "../core/apiCore";
+import { Link } from "react-router-dom";
 import "../../dashboard.css";
+import { useEffect } from "react";
+import moment from "moment";
 
 const UserDashboard = () => {
   const {
-    user: { _id, name, email },
+    user: { _id, name, email, photo, phone, dob, country },
   } = isAuthenticated();
+
+  const { user, token } = isAuthenticated();
+  const [purchase, setPurchase] = useState([]);
+
+  const getPurchaseHistory = () => {
+    getUserHistory(user._id, token).then((data) => {
+      if (data.error) {
+        console.log(data.error);
+      } else {
+        setPurchase(data);
+      }
+    });
+  };
+
+  useEffect(() => {
+    getPurchaseHistory();
+  }, []);
 
   const dashboardLayout = () => (
     <React.Fragment>
@@ -15,7 +36,10 @@ const UserDashboard = () => {
           <div class="col-md" id="left">
             <div class="card" id="user">
               <div class="card-header">Profile ID: {_id}</div>
-              <img id="userImage" />
+              <img
+                id="userImage"
+                src={`${process.env.REACT_APP_API}/user/photo/${user._id}`}
+              />
               <div class="card-block">
                 <h4 class="card-title">Welcome, {name}</h4>
                 <div class="row">
@@ -26,16 +50,16 @@ const UserDashboard = () => {
                     <i class="fa fa-map-marker"></i>
                   </div>
                   <div class="col">
-                    <strong>Primary Chapter:</strong>
+                    <strong>Country:</strong>
                     <br />
-                    Chicago, IL
+                    {country}
                   </div>
                 </div>
                 <div class="row mt-2">
                   <div class="col-1">
                     <i class="fa fa-phone"></i>
                   </div>
-                  <div class="col">+1 (555) 555-5555</div>
+                  <div class="col">+1 {phone}</div>
                 </div>
                 <div class="row mt-2">
                   <div class="col-1">
@@ -50,9 +74,11 @@ const UserDashboard = () => {
                   <div class="col">Expires: 07/12/2015</div>
                 </div>
                 <div class="mt-3">
-                  <button class="btn btn-primary mx-auto" id="renew">
-                    Edit Profile
-                  </button>
+                  <Link to={`/user/dashboard/profile/${_id}`}>
+                    <button class="btn btn-primary mx-auto" id="renew">
+                      Edit Profile
+                    </button>
+                  </Link>
                 </div>
               </div>
             </div>
@@ -68,102 +94,35 @@ const UserDashboard = () => {
                     </a>
                   </div>
                   <ul class="list-group">
-                    <li class="list-group-item">
-                      <div class="row no-gutters">
-                        <div class="col">
-                          <div class="row no-gutters align-content-center">
-                            <div class="col icon warning">
-                              <span class="fa-stack fa-lg">
-                                <i class="fa fa-circle fa-stack-2x"></i>
-                                <i class="fa fa-usd fa-stack-1x"></i>
-                              </span>
+                    {purchase.map((order, index) => (
+                      <li class="list-group-item">
+                        <div class="row no-gutters">
+                          <div class="col">
+                            <div class="row no-gutters align-content-center">
+                              <div>
+                                <span class="fa-stack fa-lg">
+                                  <i class="fa fa-truck fa-fw"></i>
+                                </span>
+                              </div>
+                              <div class="col">
+                                <p>Transaction ID: {order.transaction_id}</p>
+                                <p>Price: {order.amount}</p>
+                              </div>
                             </div>
-                            <div class="col">
-                              You have a recent payment that did not process
+                          </div>
+                          <div class="col right">
+                            <div class="row no-gutters justify-content-center align-items-center">
+                              <div class="view">
+                                <p>{order.status}</p>
+                              </div>
+                              <div class="text-center">
+                                {moment(order.createdAt).fromNow()}
+                              </div>
                             </div>
                           </div>
                         </div>
-                        <div class="col right">
-                          <div class="row no-gutters justify-content-center align-items-center">
-                            <div class="view">
-                              <button class="btn btn-primary">View</button>
-                            </div>
-                            <div class="text-center">4 Hours Ago</div>
-                          </div>
-                        </div>
-                      </div>
-                    </li>
-                    <li class="list-group-item">
-                      <div class="row no-gutters">
-                        <div class="col">
-                          <div class="row no-gutters align-content-center">
-                            <div class="col icon">
-                              <i class="fa fa-calendar-o fa-2x"></i>
-                            </div>
-                            <div class="col">
-                              You registered for an event, Greater Atlanta
-                              Champer of Commerce 2015
-                            </div>
-                          </div>
-                        </div>
-                        <div class="col right">
-                          <div class="row no-gutters justify-content-center align-items-center">
-                            <div class="view">
-                              <button class="btn btn-primary">View</button>
-                            </div>
-                            <div class="text-center">2 Days Ago</div>
-                          </div>
-                        </div>
-                      </div>
-                    </li>
-                    <li class="list-group-item">
-                      <div class="row no-gutters">
-                        <div class="col">
-                          <div class="row no-gutters align-content-center">
-                            <div class="col icon">
-                              <span class="fa-stack fa-lg">
-                                <i class="fa fa-circle fa-stack-2x"></i>
-                                <i class="fa fa-usd fa-stack-1x"></i>
-                              </span>
-                            </div>
-                            <div class="col">
-                              You made a payment in the amount of{" "}
-                              <em>$34.99</em> to your membership account
-                            </div>
-                          </div>
-                        </div>
-                        <div class="col right">
-                          <div class="row no-gutters justify-content-center align-items-center">
-                            <div class="view">
-                              <button class="btn btn-primary">View</button>
-                            </div>
-                            <div class="text-center">5 Days Ago</div>
-                          </div>
-                        </div>
-                      </div>
-                    </li>
-                    <li class="list-group-item">
-                      <div class="row no-gutters">
-                        <div class="col">
-                          <div class="row no-gutters align-content-center">
-                            <div class="col icon">
-                              <i class="fa fa-envelope fa-2x"></i>
-                            </div>
-                            <div class="col">
-                              You received a message from Bill Jones
-                            </div>
-                          </div>
-                        </div>
-                        <div class="col right">
-                          <div class="row no-gutters justify-content-center align-items-center">
-                            <div class="view">
-                              <button class="btn btn-primary">View</button>
-                            </div>
-                            <div class="text-center">7 Days Ago</div>
-                          </div>
-                        </div>
-                      </div>
-                    </li>
+                      </li>
+                    ))}
                   </ul>
                 </div>
               </div>

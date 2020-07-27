@@ -1,7 +1,13 @@
 const express = require("express");
 const router = express.Router();
 const { protect, isAuth, isAdmin } = require("../controllers/auth");
-const { userById } = require("../controllers/user");
+const {
+  userById,
+  updateProfile,
+  getProfile,
+  getPhoto,
+  getOrderHistory,
+} = require("../controllers/user");
 
 //Test
 router.get("/secret/:id", protect, isAuth, (req, res) => {
@@ -9,6 +15,26 @@ router.get("/secret/:id", protect, isAuth, (req, res) => {
     user: req.profile,
   });
 });
+
+// @route GET /api/user/:id
+// @desc GET User Profile route
+// @access Private
+router.get("/:id", protect, isAuth, getProfile);
+
+// @route GET /api/user/photo/:id
+// @desc Get product photo route
+// @access Public
+router.get("/photo/:id", getPhoto);
+
+// @route GET /api/user/order/:id
+// @desc Get User Order History route
+// @access Private
+router.get("/order/:id", protect, isAuth, getOrderHistory);
+
+// @route PUT /api/user/:id
+// @desc Update User Profile route
+// @access Private
+router.put("/:id", protect, isAuth, updateProfile);
 
 // @route PARAM id
 // @desc Get User By Id

@@ -35,6 +35,19 @@ const userSchema = new mongoose.Schema(
       type: Array,
       default: [],
     },
+    photo: {
+      data: Buffer,
+      contentType: String,
+    },
+    phone: {
+      type: String,
+    },
+    dob: {
+      type: Date,
+    },
+    country: {
+      type: String,
+    },
   },
   { timestamps: true }
 );

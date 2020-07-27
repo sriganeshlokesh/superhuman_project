@@ -1,4 +1,35 @@
 import queryString from "query-string";
+import axios from "axios";
+
+export const getProfile = (userId, token) => {
+  return axios({
+    method: "get",
+    url: `${process.env.REACT_APP_API}/user/${userId}`,
+    headers: { Authorization: token },
+  });
+};
+
+export const updateProfile = (userId, token, user) => {
+  return axios({
+    method: "put",
+    url: `${process.env.REACT_APP_API}/user/${userId}`,
+    headers: { Authorization: token, "Content-Type": "multipart/form-data" },
+    data: user,
+  });
+};
+
+export const getUserHistory = (userId, token) => {
+  return fetch(`${process.env.REACT_APP_API}/user/order/${userId}`, {
+    method: "GET",
+    headers: {
+      Authorization: token,
+    },
+  })
+    .then((response) => {
+      return response.json();
+    })
+    .catch((err) => console.log(err));
+};
 
 export const getProducts = (sortBy) => {
   return fetch(

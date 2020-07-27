@@ -1,4 +1,8 @@
 const User = require("../models/User");
+const { Order } = require("../models/Order");
+const formidable = require("formidable");
+const _ = require("lodash");
+const fs = require("fs");
 
 exports.userById = (req, res, next, id) => {
   User.findById(id).exec((err, user) => {
@@ -38,5 +42,69 @@ exports.orderToHistory = (req, res, next) => {
       return res.status(400).json({
         error: "Could not update User Purchase History",
       });
+    });
+};
+
+// Get User Profile
+exports.getProfile = (req, res) => {
+  return res.json(req.profile);
+};
+
+// Get User Image
+exports.getPhoto = (req, res, next) => {
+  if (req.profile.photo.data) {
+    res.set("Content-Type", req.profile.photo.contentType);
+    return res.send(req.profile.photo.data);
+  }
+  next();
+};
+
+// Update profile
+exports.updateProfile = (req, res) => {
+  const errors = {};
+  console.log(req.body);
+  let form = new formidable.IncomingForm();
+  form.keepExtensions = true;
+  form.parse(req, (err, fields, files) => {
+    if (err) {
+      errors.photo = "Image could not be uploaded";
+      return res.status(400).json(errors);
+    }
+
+    let profile = req.profile;
+    profile = _.extend(profile, fields);
+
+    if (files.photo) {
+      if (files.photo.size > 1000000) {
+        errors.photo = "Image should be less than 1mb in size";
+        return res.status(400).json(errors);
+      }
+      profile.photo.data = fs.readFileSync(files.photo.path);
+      profile.photo.contentType = files.photo.type;
+    }
+
+    profile.save((err, result) => {
+      if (err) {
+        errors.profile = "Profile not updated";
+        return res.status(400).json(errors);
+      }
+      res.json(result);
+    });
+  });
+};
+
+// Get Order History
+exports.getOrderHistory = (req, res) => {
+  Order.find({ user: req.profile._id })
+    .populate("user", "_id name")
+    .sort("-created")
+    .exec((err, orders) => {
+      if (err) {
+        return res.status(400).json({
+          error: "Orders not found",
+        });
+      } else {
+        res.json(orders);
+      }
     });
 };

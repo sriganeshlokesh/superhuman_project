@@ -1,6 +1,6 @@
 import React from "react";
 
-const ProductImage = ({ item, url, height }) => (
+const ProductImage = ({ item, url }) => (
   <div className="product_image">
     <img
       className="mb-1"

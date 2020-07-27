@@ -22,6 +22,9 @@ exports.register = (req, res) => {
         name: req.body.name,
         email: req.body.email,
         password: req.body.password,
+        dob: req.body.dob,
+        phone: req.body.phone,
+        location: req.body.location,
       });
 
       newUser
@@ -41,10 +44,10 @@ exports.register = (req, res) => {
           });
           res.cookie("token", token);
           // Return user and token to client
-          const { _id, name, email, role } = user;
+          const { _id, name, email, role, photo, dob, phone, location } = user;
           return res.json({
             success: true,
-            user: { _id, name, email, role },
+            user: { _id, name, email, role, photo, dob, phone, location },
             token: `Bearer ${token}`,
           });
         })
@@ -89,10 +92,10 @@ exports.login = (req, res) => {
       res.cookie("token", token);
 
       // Return user and token to client
-      const { _id, name, email, role } = user;
+      const { _id, name, email, role, photo, dob, phone, location } = user;
       return res.json({
         success: true,
-        user: { _id, name, email, role },
+        user: { _id, name, email, role, photo, dob, phone, location },
         token: `Bearer ${token}`,
       });
     }
