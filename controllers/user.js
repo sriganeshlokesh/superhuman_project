@@ -75,10 +75,6 @@ exports.updateProfile = (req, res) => {
     profile = _.extend(profile, fields);
 
     if (files.photo) {
-      if (files.photo.size > 1000000) {
-        errors.photo = "Image should be less than 1mb in size";
-        return res.status(400).json(errors);
-      }
       profile.photo.data = fs.readFileSync(files.photo.path);
       profile.photo.contentType = files.photo.type;
     }

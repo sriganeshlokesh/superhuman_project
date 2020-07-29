@@ -44,10 +44,10 @@ exports.register = (req, res) => {
           });
           res.cookie("token", token);
           // Return user and token to client
-          const { _id, name, email, role, photo, dob, phone, location } = user;
+          const { _id, name, email, role } = user;
           return res.json({
             success: true,
-            user: { _id, name, email, role, photo, dob, phone, location },
+            user: { _id, name, email, role },
             token: `Bearer ${token}`,
           });
         })
@@ -92,10 +92,10 @@ exports.login = (req, res) => {
       res.cookie("token", token);
 
       // Return user and token to client
-      const { _id, name, email, role, photo, dob, phone, location } = user;
+      const { _id, name, email, role } = user;
       return res.json({
         success: true,
-        user: { _id, name, email, role, photo, dob, phone, location },
+        user: { _id, name, email, role },
         token: `Bearer ${token}`,
       });
     }

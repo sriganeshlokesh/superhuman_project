@@ -59,13 +59,9 @@ exports.createProduct = (req, res) => {
     let product = new Product(productFields);
 
     // 1kb = 1000
-    // 1mb = 1000000
+    // 1mb = 1000000000
 
     if (files.photo) {
-      if (files.photo.size > 1000000) {
-        errors.photo = "Image should be less than 1mb in size";
-        return res.status(400).json(errors);
-      }
       product.photo.data = fs.readFileSync(files.photo.path);
       product.photo.contentType = files.photo.type;
     }
@@ -171,38 +167,34 @@ exports.deleteComment = (req, res) => {
 
 // Add Product Info
 exports.addInfo = (req, res) => {
-  const { errors, isValid } = validateProductInput(req.body);
-
-  // Check validation
-  if (!isValid) {
-    // Return any errors
-    return res.status(400).json(errors);
+  let product = req.product;
+  const newInfo = {
+    protein: req.body.protein,
+    fat: req.body.fat,
+    carbohydrate: req.body.carbohydrate,
+    cholestrol: req.body.cholestrol,
+    sodium: req.body.sodium,
+    sugar: req.body.sugar,
+    calories: req.body.calories,
+    calcium: req.body.calcium,
+    potassium: req.body.potassium,
+  };
+  if (JSON.stringify(product.info) === "{}") {
+    product.info = newInfo;
+    product.save().then((data) => {
+      res.json(data);
+    });
+  } else {
+    return res.status(400).json({
+      errors: "Product Info already exists",
+    });
   }
-  Product.findById(req.params.productId).then((product) => {
-    const newInfo = {
-      protein: req.body.protein,
-      fat: req.body.fat,
-      carbohydrate: req.body.carbohydrate,
-      cholestrol: req.body.cholestrol,
-      sodium: req.body.sodium,
-      sugar: req.body.sugar,
-      calories: req.body.calories,
-      calcium: req.body.calcium,
-      potassium: req.body.potassium,
-    };
-    if (_.isEmpty(product.info)) {
-      product.info = newInfo;
-      product.save().then((product) => res.json(product));
-    } else {
-      errors.product = "Product Info Already Exists";
-      return res.status(400).json(errors);
-    }
-  });
 };
 
 // Update Product Info
 exports.updateInfo = (req, res) => {
   let product = req.product;
+  console.log(req.body);
   const newInfo = {
     protein: req.body.protein,
     fat: req.body.fat,
@@ -241,10 +233,6 @@ exports.updateProduct = (req, res) => {
     // 1mb = 1000000
 
     if (files.photo) {
-      if (files.photo.size > 1000000) {
-        errors.photo = "Image should be less than 1mb in size";
-        return res.status(400).json(errors);
-      }
       product.photo.data = fs.readFileSync(files.photo.path);
       product.photo.contentType = files.photo.type;
     }

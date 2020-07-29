@@ -1,30 +1,24 @@
 import React, { useState, useEffect } from "react";
-import AdminNavbar from "../user/AdminNavbar";
-import { isAuthenticated } from "../../actions/auth";
-import Modal from "react-bootstrap/Modal";
-
 import {
-  createProduct,
+  getProduct,
   getCategories,
-  getProducts,
-  deleteProduct,
+  updateProduct,
 } from "../../actions/admin/adminApi";
 import { Link } from "react-router-dom";
-import "../user/login.css";
-import moment from "moment";
+import { isAuthenticated } from "../../actions/auth";
 
-const Product = () => {
-  const { user, token } = isAuthenticated();
-  const [values, setValues] = useState({
+const UpdateProduct = (props) => {
+  const productId = props.match.params.productId;
+  const [categories, setCategories] = useState([]);
+  const [product, setProduct] = useState({
+    id: "",
     name: "",
     description: "",
     company: "",
     price: "",
-    categories: [],
     category: "",
     shipping: "",
     flavour: "",
-    info: {},
     photo: "",
     quantity: "",
     errors: "",
@@ -32,112 +26,98 @@ const Product = () => {
     redirectToProfile: false,
     formData: "",
   });
-  const [products, setProducts] = useState([]);
 
   const {
+    id,
     name,
     description,
     company,
     price,
-    categories,
+    photo,
     category,
-    info,
     shipping,
     flavour,
     quantity,
-    errors,
-    createdProduct,
     redirectToProfile,
+    errors,
     formData,
-  } = values;
+  } = product;
+
+  const { user, token } = isAuthenticated();
 
   const init = () => {
     getCategories().then((data) => {
       if (data.error) {
-        setValues({
-          ...values,
-          error: data.error,
+        setProduct({
+          ...product,
+          errors: data.error,
         });
       } else {
-        setValues({
-          ...values,
-          categories: data,
+        productUpdate();
+        setCategories(data);
+      }
+    });
+  };
+
+  const productUpdate = () => {
+    getProduct(productId).then((data) => {
+      if (data.error) {
+        console.log(data.error);
+      } else {
+        setProduct({
+          ...product,
+          id: data._id,
+          name: data.name,
+          description: data.description,
+          company: data.company,
+          price: data.price,
+          photo: data.photo,
+          category: data.category,
+          shipping: data.shipping,
+          flavour: data.flavour.join(","),
+          quantity: data.quantity,
           formData: new FormData(),
         });
       }
     });
   };
-
-  const allProducts = () => {
-    getProducts(user._id, token).then((data) => {
-      if (data.error) {
-        console.log(data.error);
-      } else {
-        setProducts(data);
-      }
-    });
-  };
-
-  useEffect(() => {
-    init();
-    allProducts();
-  }, []);
-
   const handleChange = (name) => (event) => {
     const value = name === "photo" ? event.target.files[0] : event.target.value;
     formData.set(name, value);
-    setValues({
-      ...values,
+    setProduct({
+      ...product,
       errors: false,
       [name]: value,
     });
   };
 
-  const addProduct = (e) => {
-    e.preventDefault();
-    setValues({ ...values, errors: "" });
-    createProduct(user._id, token, formData).then((data) => {
-      if (data.error) {
-        setValues({ ...values, error: data.error });
-      } else {
-        setValues({
-          ...values,
-          name: "",
-          description: "",
-          price: "",
-          company: "",
-          flavour: "",
-          photo: null,
-          quantity: "",
-          category: "",
-          createdProduct: data.name,
-        });
-      }
+  useEffect(() => {
+    init();
+  }, []);
+
+  const editProduct = () => {
+    updateProduct(id, user._id, token, formData).then(() => {
+      setProduct({
+        ...product,
+        redirectToProfile: true,
+      });
     });
   };
 
-  const destroy = (productId) => {
-    deleteProduct(productId, user._id, token).then((data) => {
-      if (data.error) {
-        console.log(data.error);
-      } else {
-        allProducts();
-      }
-    });
-  };
-
-  const productForm = () => (
+  return (
     <React.Fragment>
       <div class="container-fluid mt-0">
         <div class="row">
-          <AdminNavbar />
           <main role="main" class="col-md-9 ml-sm-auto col-lg-10 my-3">
             <div class="chart-data">
+              <Link to="/admin/dashboard/product" className="btn btn-secondary">
+                Go to Products
+              </Link>
               <div class="row">
                 <div class="col-12">
                   <div class="card-body align-items-center ">
-                    <h5 class="card-title text-center">Add Product</h5>
-                    <form class="form-signin" onSubmit={addProduct}>
+                    <h5 class="card-title text-center">Update Product</h5>
+                    <form class="form-signin" onSubmit={editProduct}>
                       <div class="form-label-group">
                         <input
                           type="text"
@@ -223,7 +203,6 @@ const Product = () => {
                       </div>
                       <div class="form-label-group">
                         <select
-                          id="inputEmail"
                           name="category"
                           value={category}
                           className="custom-select form-control-lg"
@@ -268,80 +247,18 @@ const Product = () => {
                           placeholder="Category Name"
                           className="form-control-lg"
                           onChange={handleChange("photo")}
-                          required
                         />
 
-                        <label for="photo">Upload Image</label>
+                        <label for="photo">Update Image</label>
                       </div>
 
                       <input
                         class="btn btn-lg btn-block text-uppercase"
                         type="submit"
-                        value="Add Product"
+                        value="Update Product"
                       />
                     </form>
                   </div>
-                </div>
-              </div>
-            </div>
-            <div class="col-12">
-              <div class="projects mb-4">
-                <div class="projects-inner">
-                  <header class="projects-header">
-                    <div class="title">Product List</div>
-                    <div class="count">| {products.length} Products</div>
-                  </header>
-                  <table class="projects-table">
-                    <thead>
-                      <tr>
-                        <th>Product ID</th>
-                        <th>Product</th>
-                        <th>Actions</th>
-                      </tr>
-                    </thead>
-
-                    {products.map((product, index) => (
-                      <tr key={index}>
-                        <td>
-                          <p>{product.name}</p>
-                        </td>
-                        <td>
-                          <p>{moment(product.createdAt).fromNow()}</p>
-                        </td>
-
-                        <td>
-                          {JSON.stringify(product.info) === undefined ? (
-                            <Link
-                              className="btn btn-secondary"
-                              to={`/admin/dashboard/info/${product._id}`}
-                            >
-                              Add Info
-                            </Link>
-                          ) : (
-                            <Link
-                              className="btn btn-secondary"
-                              to={`/admin/dashboard/edit/info/${product._id}`}
-                            >
-                              Edit Info
-                            </Link>
-                          )}
-                          <Link
-                            to={`/admin/dashboard/edit/${product._id}`}
-                            className="btn btn-secondary"
-                          >
-                            Update
-                          </Link>
-
-                          <Link
-                            className="btn btn-danger"
-                            onClick={() => destroy(product._id)}
-                          >
-                            Delete
-                          </Link>
-                        </td>
-                      </tr>
-                    ))}
-                  </table>
                 </div>
               </div>
             </div>
@@ -350,8 +267,6 @@ const Product = () => {
       </div>
     </React.Fragment>
   );
-
-  return <div>{productForm()}</div>;
 };
 
-export default Product;
+export default UpdateProduct;

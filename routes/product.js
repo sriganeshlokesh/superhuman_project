@@ -89,7 +89,7 @@ router.post("/comment/:productId/:id", protect, isAuth, addComment);
 // @access Private
 router.post("/info/:id/:productId", protect, isAuth, isAdmin, addInfo);
 
-// @route PUT /api/product/:id/:productId
+// @route PUT /api/product/:productId/:id
 // @desc Update product route
 // @access Private
 router.put("/:productId/:id", protect, isAuth, isAdmin, updateProduct);

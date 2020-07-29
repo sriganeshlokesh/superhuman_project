@@ -11,6 +11,9 @@ import EditProfile from "./components/user/EditProfile";
 import AdminDashboard from "./components/user/AdminDashboard";
 import Category from "./components/admin/Category";
 import Product from "./components/admin/Product";
+import UpdateProduct from "./components/admin/UpdateProduct";
+import AddInfo from "./components/admin/AddInfo";
+import EditInfo from "./components/admin/EditInfo";
 import Orders from "./components/admin/Orders";
 import Shop from "./components/core/Shop";
 import ProductDetail from "./components/core/Product";
@@ -36,6 +39,21 @@ function App() {
         />
         <AdminRoute path="/admin/dashboard" exact component={AdminDashboard} />
         <AdminRoute path="/admin/dashboard/product" exact component={Product} />
+        <AdminRoute
+          path="/admin/dashboard/info/:productId"
+          exact
+          component={AddInfo}
+        />
+        <AdminRoute
+          path="/admin/dashboard/edit/info/:productId"
+          exact
+          component={EditInfo}
+        />
+        <AdminRoute
+          path="/admin/dashboard/edit/:productId"
+          exact
+          component={UpdateProduct}
+        />
         <AdminRoute path="/admin/dashboard/order" exact component={Orders} />
         <AdminRoute
           path="/admin/dashboard/category"

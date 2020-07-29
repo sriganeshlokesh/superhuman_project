@@ -79,7 +79,7 @@ const EditProfile = () => {
               <div class="col-12">
                 <div class="card-body align-items-center ">
                   <h5 class="card-title text-center">Update Profile</h5>
-                  <form class="form-signin" onSubmit={profileUpdate()}>
+                  <form class="form-signin" onSubmit={profileUpdate}>
                     <label for="photo">
                       <div class="profile-pic">
                         <span class="fa fa-camera fa-fw"></span>
@@ -99,7 +99,7 @@ const EditProfile = () => {
                         type="text"
                         id="inputName"
                         name="name"
-                        value={profile.name}
+                        value={name}
                         placeholder="User Name"
                         className="form-control-lg"
                         onChange={handleChange("name")}
@@ -113,7 +113,7 @@ const EditProfile = () => {
                         type="text"
                         id="inputAbout"
                         name="about"
-                        value={profile.about}
+                        value={about}
                         placeholder="Profile About"
                         className="form-control-lg"
                         onChange={handleChange("about")}
@@ -127,7 +127,7 @@ const EditProfile = () => {
                         type="email"
                         id="inputEmail"
                         name="email"
-                        value={profile.email}
+                        value={email}
                         placeholder="Profile Email"
                         className="form-control-lg"
                         onChange={handleChange("email")}
@@ -141,7 +141,7 @@ const EditProfile = () => {
                         type="tel"
                         id="inputPhone"
                         name="phone"
-                        value={profile.phone}
+                        value={phone}
                         placeholder="User Phone"
                         className="form-control-lg"
                         onChange={handleChange("phone")}
@@ -156,7 +156,7 @@ const EditProfile = () => {
                         type="text"
                         id="inputCountry"
                         name="country"
-                        value={profile.country}
+                        value={country}
                         placeholder="User Location"
                         className="form-control-lg"
                         onChange={handleChange("country")}
