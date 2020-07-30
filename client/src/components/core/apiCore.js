@@ -167,3 +167,39 @@ export const createOrder = (userId, token, orderData) => {
     })
     .catch((err) => console.log(err));
 };
+
+// Add Like to Product
+export const addLike = (userId, productId, token) => {
+  return axios({
+    method: "post",
+    url: `${process.env.REACT_APP_API}/product/like/${productId}/${userId}`,
+    headers: { Authorization: token },
+  });
+};
+
+// Unlike Product
+export const unLike = (userId, productId, token) => {
+  return axios({
+    method: "post",
+    url: `${process.env.REACT_APP_API}/product/unlike/${productId}/${userId}`,
+    headers: { Authorization: token },
+  });
+};
+
+// Dislike Product
+export const disLike = (userId, productId, token) => {
+  return axios({
+    method: "post",
+    url: `${process.env.REACT_APP_API}/product/dislike/${productId}/${userId}`,
+    headers: { Authorization: token },
+  });
+};
+
+// Unlike Dislike Product
+export const undislike = (userId, productId, token) => {
+  return axios({
+    method: "post",
+    url: `${process.env.REACT_APP_API}/product/dislike/unlike/${productId}/${userId}`,
+    headers: { Authorization: token },
+  });
+};

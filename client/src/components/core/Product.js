@@ -7,7 +7,6 @@ const Product = (props) => {
   const [error, setError] = useState(false);
 
   const productId = props.match.params.productId;
-  console.log(productId);
 
   const singleProduct = (productId) => {
     getProduct(productId).then((data) => {

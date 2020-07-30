@@ -95,6 +95,26 @@ exports.addProductLike = (req, res) => {
   });
 };
 
+// Add a Dislike to a product
+exports.addProductDislike = (req, res) => {
+  let product = req.product;
+  let user = req.profile;
+  if (
+    product.dislikes.filter(
+      (dislike) => dislike.user.toString() === user._id.toString()
+    ).length > 0
+  ) {
+    return res.status(400).json({
+      error: "User has already disliked this product.",
+    });
+  }
+  // Add User ID to likes array
+  product.dislikes.push({ user: user._id });
+  product.save().then((product) => {
+    res.json(product);
+  });
+};
+
 // Unlike Product Like
 exports.unlikeProduct = (req, res) => {
   let product = req.product;
@@ -113,6 +133,30 @@ exports.unlikeProduct = (req, res) => {
     .indexOf(user._id);
   // Splice out of array;
   product.likes.splice(removeIndex, 1);
+  product.save().then((product) => {
+    res.json(product);
+  });
+};
+
+// Unlike Product dislike
+exports.unlikeDislike = (req, res) => {
+  let product = req.product;
+  let user = req.profile;
+  if (
+    product.dislikes.filter(
+      (dislike) => dislike.user.toString() === user._id.toString()
+    ).length === 0
+  ) {
+    return res.status(400).json({
+      error: "User has not disliked this product.",
+    });
+  }
+  // Remove like
+  const removeIndex = product.dislikes
+    .map((item) => item.user.toString())
+    .indexOf(user._id);
+  // Splice out of array;
+  product.dislikes.splice(removeIndex, 1);
   product.save().then((product) => {
     res.json(product);
   });

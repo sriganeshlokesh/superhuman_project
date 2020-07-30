@@ -19,6 +19,8 @@ const {
   addComment,
   deleteComment,
   listSearch,
+  addProductDislike,
+  unlikeDislike,
   getInfo,
 } = require("../controllers/product");
 const { protect, isAdmin, isAuth } = require("../controllers/auth");
@@ -78,6 +80,16 @@ router.post("/like/:productId/:id", protect, isAuth, addProductLike);
 // @desc Unlike product like route
 // @access Private
 router.post("/unlike/:productId/:id", protect, isAuth, unlikeProduct);
+
+// @route POST /api/product/dislike/:productId/:id
+// @desc Add product dislike route
+// @access Private
+router.post("/dislike/:productId/:id", protect, isAuth, addProductDislike);
+
+// @route POST /api/product/dislike/unlike/:productId/:id
+// @desc Unlike product dislike route
+// @access Private
+router.post("/dislike/unlike/:productId/:id", protect, isAuth, unlikeDislike);
 
 // @route POST /api/product/comment/:productId/:id
 // @desc Add product comment route

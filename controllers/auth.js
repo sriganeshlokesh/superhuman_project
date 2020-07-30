@@ -40,7 +40,7 @@ exports.register = (req, res) => {
           };
           // Sign token
           const token = jwt.sign(payload, process.env.JWT_SECRET, {
-            expiresIn: 3600,
+            expiresIn: 14400,
           });
           res.cookie("token", token);
           // Return user and token to client
@@ -87,7 +87,7 @@ exports.login = (req, res) => {
         email: user.email,
       };
       const token = jwt.sign(payload, process.env.JWT_SECRET, {
-        expiresIn: 3600,
+        expiresIn: 14400,
       });
       res.cookie("token", token);
 

@@ -2,18 +2,99 @@ import React, { useState, useEffect } from "react";
 import ProductImage from "./ProductImage";
 import ProductCard from "./ProductCard";
 import { Link } from "react-router-dom";
-import { getInfo, relatedProducts } from "./apiCore";
+import {
+  getInfo,
+  relatedProducts,
+  getProduct,
+  addLike,
+  unLike,
+  disLike,
+  undislike,
+} from "./apiCore";
 import { addItem } from "./addToCartHelper";
+import { isAuthenticated } from "../../actions/auth";
 import moment from "moment";
 import "../../productPage.css";
 
-const ProductPage = ({ product, id }) => {
+const ProductPage = ({ id }) => {
   const [info, setInfo] = useState({});
   const [error, setError] = useState(false);
   const [related, setRelated] = useState([]);
+  const [product, setProduct] = useState({});
+  const [likes, setLikes] = useState([]);
+  const [dislikes, setDislikes] = useState([]);
+
+  const { user, token } = isAuthenticated();
 
   const addToCart = () => {
     addItem(product, () => {});
+  };
+
+  const singleProduct = () => {
+    getProduct(id).then((data) => {
+      if (data.error) {
+        setError(data.error);
+      } else {
+        setProduct(data);
+        setLikes(data.likes);
+        setDislikes(data.dislikes);
+      }
+    });
+  };
+
+  const productLike = () => {
+    if (likes.filter((like) => like.user === user._id).length > 0) {
+      unLike(user._id, product._id, token).then((data) => {
+        setLikes(data.data.likes);
+      });
+    } else if (
+      dislikes.filter((dislike) => dislike.user === user._id).length > 0
+    ) {
+      undislike(user._id, product._id, token).then((data) => {
+        setDislikes(data.data.dislikes);
+      });
+      addLike(user._id, product._id, token).then((data) => {
+        setLikes(data.data.likes);
+      });
+    } else {
+      addLike(user._id, product._id, token).then((data) => {
+        setLikes(data.data.likes);
+      });
+    }
+  };
+
+  const productDislike = () => {
+    if (dislikes.filter((dislike) => dislike.user === user._id).length > 0) {
+      undislike(user._id, product._id, token).then((data) => {
+        setDislikes(data.data.dislikes);
+      });
+    } else if (likes.filter((like) => like.user === user._id).length > 0) {
+      unLike(user._id, product._id, token).then((data) => {
+        setLikes(data.data.likes);
+      });
+      disLike(user._id, product._id, token).then((data) => {
+        setDislikes(data.data.dislikes);
+      });
+    } else {
+      disLike(user._id, product._id, token).then((data) => {
+        setDislikes(data.data.dislikes);
+      });
+    }
+  };
+
+  const isActiveLike = () => {
+    if (likes.filter((like) => like.user === user._id).length > 0) {
+      return { color: "#EF8354" };
+    } else {
+      return { color: "#000" };
+    }
+  };
+  const isActiveDislike = () => {
+    if (dislikes.filter((dislike) => dislike.user === user._id).length > 0) {
+      return { color: "#EF8354" };
+    } else {
+      return { color: "#000" };
+    }
   };
 
   const productInfo = (productId) => {
@@ -35,6 +116,7 @@ const ProductPage = ({ product, id }) => {
 
   useEffect(() => {
     productInfo(id);
+    singleProduct();
   }, []);
 
   return (
@@ -51,7 +133,6 @@ const ProductPage = ({ product, id }) => {
         <div className="custom-card col-8 mb-5">
           <h2 className="product-header">{product.name}</h2>
           <h6 className="product-description">{product.description}</h6>
-
           <h6 className="product-price">${product.price}</h6>
           <div className="row ml-0 mr-0 custom-info">
             <div className="col-4">
@@ -92,7 +173,35 @@ const ProductPage = ({ product, id }) => {
               <span>Added {moment(product.createdAt).fromNow()}</span>
             </div>
           </div>
-          <div className="row">
+          <div className="row mt-3">
+            <div className="col">
+              <button
+                type="button"
+                className="btn btn-light mr-2"
+                onClick={productLike}
+              >
+                <i
+                  class="fa fa-thumbs-up fa-2x"
+                  aria-hidden="true"
+                  style={isActiveLike()}
+                ></i>
+                <span className="badge badge-light">{likes.length}</span>
+              </button>
+              <button
+                type="button"
+                className="btn btn-light mr-2"
+                onClick={productDislike}
+              >
+                <i
+                  class="fa fa-thumbs-down fa-2x"
+                  aria-hidden="true"
+                  style={isActiveDislike()}
+                ></i>
+                <span className="badge badge-light">{dislikes.length}</span>
+              </button>
+            </div>
+          </div>
+          <div className="row mb-3">
             <div className="col-6"></div>
             <div className="col-6">
               <Link
