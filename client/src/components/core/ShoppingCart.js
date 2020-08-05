@@ -17,7 +17,11 @@ const ShoppingCart = () => {
     return (
       <div>
         <h2>Your Shopping Cart</h2>
-        <h6>You have {`${items.length}`} Products in your cart</h6>
+        {items.length > 1 ? (
+          <h6>You have {`${items.length}`} Products in your cart</h6>
+        ) : (
+          <h6>You have {`${items.length}`} Product in your cart</h6>
+        )}
         <hr />
         {items.map((product, i) => (
           <CartCard
@@ -48,7 +52,7 @@ const ShoppingCart = () => {
         <div className="col-8">
           {items.length > 0 ? showItems(items) : noItems()}
         </div>
-        {showCheckout()}
+        {items.length > 0 && showCheckout()}
       </div>
     </div>
   );

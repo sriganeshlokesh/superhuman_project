@@ -54,12 +54,6 @@ const AdminNavbar = (props) => {
               Category
             </Link>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">
-              <i class="zmdi zmdi-chart"></i>
-              Customers
-            </a>
-          </li>
         </ul>
       </div>
     </nav>

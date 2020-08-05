@@ -2,21 +2,32 @@ import React, { useState } from "react";
 import ProductImage from "./ProductImage";
 import { Link, Redirect } from "react-router-dom";
 import { addItem } from "./addToCartHelper";
+import classnames from "classnames";
 import "../../card.css";
 
 const ProductCard = ({ product }) => {
   const [redirect, setRedirect] = useState(false);
+  const [selectedFlavour, setSelectedFlavour] = useState("");
+  const [errors, setErrors] = useState("");
 
   const addToCart = () => {
-    addItem(product, () => {
-      setRedirect(true);
-    });
+    if (selectedFlavour.length > 0) {
+      addItem(product, selectedFlavour, () => {
+        setRedirect(true);
+      });
+    } else {
+      setErrors("Select Flavour");
+    }
   };
 
   const redirectToCart = (redirect) => {
     if (redirect) {
       return <Redirect to="/cart" />;
     }
+  };
+
+  const handleFlavour = () => (event) => {
+    setSelectedFlavour(event.target.value);
   };
 
   return (
@@ -34,7 +45,14 @@ const ProductCard = ({ product }) => {
             <div className="price ">
               <h5 className="mt-2">${product.price}</h5>
             </div>
-            <select className="custom-select ml-1">
+            <select
+              className=""
+              value={selectedFlavour}
+              onChange={handleFlavour()}
+              className={classnames("custom-select ml-1", {
+                "is-invalid": errors,
+              })}
+            >
               <option value="" disabled selected>
                 Flavour
               </option>

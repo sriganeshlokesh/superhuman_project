@@ -65,7 +65,7 @@ const CartCard = ({
           <div className="row">
             <div className="col-4">
               <h6>{product.name}</h6>
-              <h6></h6>
+              <p>{product.selectedFlavour}</p>
             </div>
             <div className="col-2">
               <h6>Unit Price</h6>

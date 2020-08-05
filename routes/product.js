@@ -22,6 +22,7 @@ const {
   addProductDislike,
   unlikeDislike,
   getInfo,
+  getComments,
 } = require("../controllers/product");
 const { protect, isAdmin, isAuth } = require("../controllers/auth");
 const { userById } = require("../controllers/user");
@@ -65,6 +66,11 @@ router.post("/by/search", getSearchProduct);
 // @desc Get product by word search route
 // @access Public
 router.get("/search", listSearch);
+
+// @route GET /api/product/comment/:productId
+// @desc Get product comments
+// @access Public
+router.get("/comment/:productId", getComments);
 
 // @route POST /api/product/create/:id
 // @desc Create product route

@@ -60,7 +60,7 @@ const Category = () => {
 
   const categoryLayout = () => (
     <React.Fragment>
-      <div class="container-fluid">
+      <div class="container-fluid mt-0">
         <div class="row">
           <AdminNavbar />
           <main role="main" class="col-md-9 ml-sm-auto col-lg-10 my-3">

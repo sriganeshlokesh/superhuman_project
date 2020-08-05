@@ -9,7 +9,6 @@ const AdminDashboard = (props) => {
   const [orders, setOrders] = useState([]);
 
   const { user, token } = isAuthenticated();
-  console.log(token);
 
   const loadOrders = () => {
     getOrders(user._id, token).then((data) => {
@@ -82,9 +81,6 @@ const AdminDashboard = (props) => {
                       <p>{order.transaction_id}</p>
                     </td>
                     <td class="member">
-                      <figure>
-                        <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/584938/people_8.png" />
-                      </figure>
                       <div class="member-info">
                         <p>{order.user.name}</p>
                         <p></p>
@@ -100,97 +96,6 @@ const AdminDashboard = (props) => {
                   </tr>
                 ))}
               </table>
-            </div>
-          </div>
-          <div class="chart-data">
-            <div class="row">
-              <div class="col-12 col-md-4">
-                <div class="chart radar-chart dark">
-                  <div class="actions">
-                    <button
-                      type="button"
-                      class="btn btn-link"
-                      data-toggle="dropdown"
-                      aria-haspopup="true"
-                      aria-expanded="false"
-                    >
-                      <i class="zmdi zmdi-more-vert"></i>
-                    </button>
-                    <div class="dropdown-menu dropdown-menu-right">
-                      <button class="dropdown-item" type="button">
-                        Action
-                      </button>
-                      <button class="dropdown-item" type="button">
-                        Another action
-                      </button>
-                      <button class="dropdown-item" type="button">
-                        Something else here
-                      </button>
-                    </div>
-                  </div>
-                  <h3 class="title">Household Expenditure</h3>
-                  <p class="tagline">Yearly</p>
-                  <canvas height="400" id="radarChartDark"></canvas>
-                </div>
-              </div>
-              <div class="col-12 col-md-4">
-                <div class="chart bar-chart light">
-                  <div class="actions">
-                    <button
-                      type="button"
-                      class="btn btn-link"
-                      data-toggle="dropdown"
-                      aria-haspopup="true"
-                      aria-expanded="false"
-                    >
-                      <i class="zmdi zmdi-more-vert"></i>
-                    </button>
-                    <div class="dropdown-menu dropdown-menu-right">
-                      <button class="dropdown-item" type="button">
-                        Action
-                      </button>
-                      <button class="dropdown-item" type="button">
-                        Another action
-                      </button>
-                      <button class="dropdown-item" type="button">
-                        Something else here
-                      </button>
-                    </div>
-                  </div>
-                  <h3 class="title">Monthly revenue</h3>
-                  <p class="tagline">2015 (in thousands US$)</p>
-                  <canvas height="400" id="barChartHDark"></canvas>
-                </div>
-              </div>
-              <div class="col-12 col-md-4">
-                <div class="chart doughnut-chart dark">
-                  <div class="actions">
-                    <button
-                      type="button"
-                      class="btn btn-link"
-                      data-toggle="dropdown"
-                      aria-haspopup="true"
-                      aria-expanded="false"
-                    >
-                      <i class="zmdi zmdi-more-vert"></i>
-                    </button>
-                    <div class="dropdown-menu dropdown-menu-right">
-                      <button class="dropdown-item" type="button">
-                        Action
-                      </button>
-                      <button class="dropdown-item" type="button">
-                        Another action
-                      </button>
-                      <button class="dropdown-item" type="button">
-                        Something else here
-                      </button>
-                    </div>
-                  </div>
-                  <h3 class="title">Exports of Goods</h3>
-                  <p class="tagline">2015 (in billion US$)</p>
-                  <canvas height="400" id="doughnutChartDark"></canvas>
-                </div>
-              </div>
             </div>
           </div>
         </main>

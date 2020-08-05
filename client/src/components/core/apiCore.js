@@ -9,6 +9,13 @@ export const getProfile = (userId, token) => {
   });
 };
 
+export const getPhoto = (userId) => {
+  return axios({
+    method: "get",
+    url: `${process.env.REACT_APP_API}/user/photo/${userId}`,
+  });
+};
+
 export const updateProfile = (userId, token, user) => {
   return axios({
     method: "put",
@@ -200,6 +207,34 @@ export const undislike = (userId, productId, token) => {
   return axios({
     method: "post",
     url: `${process.env.REACT_APP_API}/product/dislike/unlike/${productId}/${userId}`,
+    headers: { Authorization: token },
+  });
+};
+
+// Get comments
+export const getComments = (productId) => {
+  return axios({
+    method: "get",
+    url: `${process.env.REACT_APP_API}/product/comment/${productId}`,
+  });
+};
+
+// Add Comment
+export const addComment = (userId, productId, token, comment) => {
+  console.log(comment);
+  return axios({
+    method: "post",
+    url: `${process.env.REACT_APP_API}/product/comment/${productId}/${userId}`,
+    headers: { Authorization: token },
+    data: comment,
+  });
+};
+
+// Delete Comment
+export const deleteComment = (userId, productId, commentId, token) => {
+  return axios({
+    method: "delete",
+    url: `${process.env.REACT_APP_API}/product/comment/${productId}/${commentId}/${userId}`,
     headers: { Authorization: token },
   });
 };

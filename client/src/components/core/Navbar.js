@@ -44,7 +44,7 @@ const Navbar = (props) => {
               <Link
                 class="nav-link"
                 to="/shop"
-                style={isActive(history, "/shop ")}
+                style={isActive(history, "/shop")}
               >
                 Products
               </Link>

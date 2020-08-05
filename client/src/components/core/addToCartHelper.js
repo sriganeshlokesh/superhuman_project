@@ -1,4 +1,4 @@
-export const addItem = (item, next = (f) => f) => {
+export const addItem = (item, flavour, next = (f) => f) => {
   let cart = [];
   if (typeof window !== "undefined") {
     if (localStorage.getItem("cart")) {
@@ -6,6 +6,7 @@ export const addItem = (item, next = (f) => f) => {
     }
     cart.push({
       ...item,
+      selectedFlavour: flavour,
       count: 1,
     });
     cart = Array.from(new Set(cart.map((p) => p._id))).map((id) => {

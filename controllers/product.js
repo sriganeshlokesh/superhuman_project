@@ -463,3 +463,9 @@ exports.decreaseQuantity = (req, res, next) => {
     next();
   });
 };
+
+// Get Product Comments
+exports.getComments = (req, res) => {
+  let product = req.product;
+  return res.json(product.comments);
+};
