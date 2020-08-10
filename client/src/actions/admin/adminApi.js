@@ -123,6 +123,7 @@ export const getProduct = (productId) => {
 };
 
 export const updateProduct = (productId, userId, token, product) => {
+  console.log(product);
   return axios({
     method: "put",
     url: `${process.env.REACT_APP_API}/product/${productId}/${userId}`,

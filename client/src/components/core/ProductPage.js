@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import ProductImage from "./ProductImage";
+import axios from "axios";
 import ProductCard from "./ProductCard";
 import { Link, Redirect } from "react-router-dom";
 import classnames from "classnames";
@@ -15,11 +16,12 @@ import {
   addComment,
   deleteComment,
   getProfile,
+  getCategory,
 } from "./apiCore";
 import { addItem } from "./addToCartHelper";
 import { isAuthenticated } from "../../actions/auth";
 import moment from "moment";
-import "../../productPage.css";
+import "../../App.css";
 
 const ProductPage = ({ id }) => {
   const [info, setInfo] = useState({});
@@ -30,9 +32,9 @@ const ProductPage = ({ id }) => {
   const [dislikes, setDislikes] = useState([]);
   const [comments, setComments] = useState([]);
   const [text, setText] = useState("");
-  const [profile, setProfile] = useState({});
   const [redirect, setRedirect] = useState(false);
   const [selectedFlavour, setSelectedFlavour] = useState("");
+  const [cat, setCat] = useState("");
 
   const { user, token } = isAuthenticated();
 
@@ -64,12 +66,6 @@ const ProductPage = ({ id }) => {
     });
   };
 
-  const getUser = () => {
-    getProfile(user._id, token).then((data) => {
-      setProfile(data);
-    });
-  };
-
   const productComments = () => {
     getComments(id).then((data) => {
       console.log(data.data);
@@ -88,9 +84,9 @@ const ProductPage = ({ id }) => {
       ) {
         undislike(user._id, product._id, token).then((data) => {
           setDislikes(data.data.dislikes);
-        });
-        addLike(user._id, product._id, token).then((data) => {
-          setLikes(data.data.likes);
+          addLike(user._id, product._id, token).then((data) => {
+            setLikes(data.data.likes);
+          });
         });
       } else {
         addLike(user._id, product._id, token).then((data) => {
@@ -109,9 +105,9 @@ const ProductPage = ({ id }) => {
       } else if (likes.filter((like) => like.user === user._id).length > 0) {
         unLike(user._id, product._id, token).then((data) => {
           setLikes(data.data.likes);
-        });
-        disLike(user._id, product._id, token).then((data) => {
-          setDislikes(data.data.dislikes);
+          disLike(user._id, product._id, token).then((data) => {
+            setDislikes(data.data.dislikes);
+          });
         });
       } else {
         disLike(user._id, product._id, token).then((data) => {
@@ -162,7 +158,7 @@ const ProductPage = ({ id }) => {
       if (data.error) {
         console.log(data.error);
       } else {
-        setText({ text: "" });
+        setText("");
         productComments();
       }
     });
@@ -170,7 +166,8 @@ const ProductPage = ({ id }) => {
 
   const commentDelete = (userId, productId, commentId, token) => {
     deleteComment(userId, productId, commentId, token).then((data) => {
-      setComments(data.comments);
+      setComments(data.data.comments);
+      console.log(data.data.comments);
     });
   };
 
@@ -178,16 +175,22 @@ const ProductPage = ({ id }) => {
     productInfo(id);
     singleProduct();
     productComments();
-    getUser();
   }, []);
-
-  const handleChange = (name) => (event) => {
-    setText({ ...text, [name]: event.target.value });
-  };
 
   const handleFlavour = () => (event) => {
     console.log(event.target.value);
     setSelectedFlavour(event.target.value);
+  };
+
+  const productCategory = (category) => {
+    getCategory(category).then((data) => {
+      if (data.error) {
+        setError(data.error);
+      } else {
+        console.log(data.data.name);
+        setCat(data.data.name);
+      }
+    });
   };
 
   return (
@@ -198,14 +201,17 @@ const ProductPage = ({ id }) => {
         </Link>
       </div>
       <div className="row">
+        {productCategory(product.category)}
+
         {redirectToCart(redirect)}
         <div className="col mb-4">
-          <ProductImage item={product} url="product" height="100" />
+          <ProductImage item={id} url="product" height="100" />
         </div>
         <div className="custom-card col-8 mb-5">
           <h2 className="product-header">{product.name}</h2>
           <h6 className="product-description">{product.description}</h6>
           <h6 className="product-price">${product.price}</h6>
+          <h6>{cat}</h6>
           <div className="row ml-0 mr-0 custom-info">
             <div className="col-4">
               <h6 className="text-white custom-product-info">PROTEIN</h6>
@@ -222,24 +228,30 @@ const ProductPage = ({ id }) => {
               <p className="text-white custom-product-content">{info.sugar}g</p>
             </div>
           </div>
-          <div className="row">
-            <select
-              value={selectedFlavour}
-              onChange={handleFlavour()}
-              className={classnames("custom-select ml-1", {
-                "is-invalid": error,
-              })}
-            >
-              <option value="" disabled selected>
-                Flavour
-              </option>
-              {product.flavour &&
-                product.flavour.map((item, index) => (
-                  <option key={index} value={item} style={{ color: "#273142" }}>
-                    {item}
-                  </option>
-                ))}
-            </select>
+          <div className="row mt-2 mb-4">
+            <div className="col-12 text-center">
+              <select
+                value={selectedFlavour}
+                onChange={handleFlavour()}
+                className={classnames("custom-select ml-1", {
+                  "is-invalid": error,
+                })}
+              >
+                <option value="" disabled selected>
+                  Choose Flavour
+                </option>
+                {product.flavour &&
+                  product.flavour.map((item, index) => (
+                    <option
+                      key={index}
+                      value={item}
+                      style={{ color: "#273142" }}
+                    >
+                      {item}
+                    </option>
+                  ))}
+              </select>
+            </div>
           </div>
           <div className="row mt-3">
             <div className="col-6">
@@ -253,7 +265,7 @@ const ProductPage = ({ id }) => {
               <span>Added {moment(product.createdAt).fromNow()}</span>
             </div>
           </div>
-          <div className="row mt-3">
+          <div className="row mt-3 custom-like">
             <div className="col">
               <button
                 type="button"
@@ -261,7 +273,7 @@ const ProductPage = ({ id }) => {
                 onClick={productLike}
               >
                 <i
-                  class="fa fa-thumbs-up fa-2x"
+                  className="fa fa-thumbs-up fa-2x"
                   aria-hidden="true"
                   style={isActiveLike()}
                 ></i>
@@ -273,7 +285,7 @@ const ProductPage = ({ id }) => {
                 onClick={productDislike}
               >
                 <i
-                  class="fa fa-thumbs-down fa-2x"
+                  className="fa fa-thumbs-down fa-2x"
                   aria-hidden="true"
                   style={isActiveDislike()}
                 ></i>
@@ -298,13 +310,15 @@ const ProductPage = ({ id }) => {
       </div>
       <div className="container">
         <div className="row">
-          <div class="col-12">
-            <div class="projects mb-4">
-              <div class="projects-inner">
-                <header class="projects-header">
-                  <div class="title">Daily Consumption</div>
+          <div className="col-12">
+            <div className="projects mb-4">
+              <div className="projects-inner">
+                <header className="projects-header">
+                  <div className="text-white text-center">
+                    Daily Consumption
+                  </div>
                 </header>
-                <table class="projects-table">
+                <table className="projects-table">
                   <thead>
                     <tr>
                       <th>Content</th>
@@ -365,12 +379,13 @@ const ProductPage = ({ id }) => {
                         className="form-control"
                         placeholder="Add a Public Comment"
                         rows="3"
-                        onChange={handleChange("text")}
+                        value={text}
+                        onChange={(e) => setText(e.target.value)}
                       ></textarea>
                       <br />
                       <button
                         type="button"
-                        className="btn btn-info pull-right"
+                        className="btn pull-right post-button"
                         onClick={comment}
                       >
                         Post
@@ -383,28 +398,15 @@ const ProductPage = ({ id }) => {
                     {comments &&
                       comments.map((comment, index) => (
                         <li className="media" key={index}>
-                          {profile.photo === "undefined" || undefined ? (
-                            <img
-                              src={
-                                "http://sunfieldfarm.org/wp-content/uploads/2014/02/profile-placeholder.png"
-                              }
-                              style={{ width: "100px" }}
-                            />
-                          ) : (
-                            <img
-                              src={`${process.env.REACT_APP_API}/user/photo/${comment.user}`}
-                              style={{ width: "100px" }}
-                            />
-                          )}
                           <div className="media-body">
                             <span className="text-muted pull-right">
-                              <small className="text-muted">
+                              <small className="text-muted mr-1">
                                 {moment(comment.createdAt).fromNow()}
                               </small>
                               {isAuthenticated() && comment.user === user._id && (
                                 <button
                                   type="button"
-                                  className="btn btn-danger mr-1"
+                                  className="btn btn-danger"
                                   onClick={() =>
                                     commentDelete(
                                       user._id,
@@ -418,9 +420,7 @@ const ProductPage = ({ id }) => {
                                 </button>
                               )}
                             </span>
-                            <strong className="text-success">
-                              @{comment.name}
-                            </strong>
+                            <strong>@{comment.name}</strong>
                             <p>{comment.text}</p>
                           </div>
                         </li>
@@ -432,17 +432,21 @@ const ProductPage = ({ id }) => {
           </div>
         </div>
       </div>
-      <div className="row">
-        <div className="col-12">
-          <h2 className="header">Related Products</h2>
+      {related.length > 0 && (
+        <div className="row">
+          <div className="col-12">
+            <h2 className="header">Related Products</h2>
+          </div>
         </div>
-      </div>
+      )}
 
-      <div className="row ml-0 mr-0">
-        {related &&
-          related.map((product, index) => (
-            <ProductCard key={index} product={product} />
-          ))}
+      <div className="container-fluid">
+        <div className="row ">
+          {related &&
+            related.map((product, index) => (
+              <ProductCard key={index} product={product} />
+            ))}
+        </div>
       </div>
     </React.Fragment>
   );

@@ -10,7 +10,6 @@ import {
   deleteProduct,
 } from "../../actions/admin/adminApi";
 import { Link } from "react-router-dom";
-import "../user/login.css";
 import moment from "moment";
 
 const Product = () => {

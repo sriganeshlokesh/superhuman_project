@@ -74,7 +74,7 @@ const UpdateProduct = (props) => {
           photo: data.photo,
           category: data.category,
           shipping: data.shipping,
-          flavour: data.flavour.join(","),
+          flavour: data.flavour,
           quantity: data.quantity,
           formData: new FormData(),
         });
@@ -83,6 +83,7 @@ const UpdateProduct = (props) => {
   };
   const handleChange = (name) => (event) => {
     const value = name === "photo" ? event.target.files[0] : event.target.value;
+    setProduct({ ...product, errors: "" });
     formData.set(name, value);
     setProduct({
       ...product,
@@ -95,8 +96,9 @@ const UpdateProduct = (props) => {
     init();
   }, []);
 
-  const editProduct = () => {
-    updateProduct(id, user._id, token, formData).then(() => {
+  const editProduct = (event) => {
+    event.preventDefault();
+    updateProduct(productId, user._id, token, formData).then(() => {
       setProduct({
         ...product,
         redirectToProfile: true,

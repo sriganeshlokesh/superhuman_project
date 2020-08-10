@@ -24,7 +24,7 @@ const Product = (props) => {
 
   return (
     <div className="container">
-      <ProductPage product={product} id={productId} />
+      <ProductPage item={product} id={productId} />
     </div>
   );
 };

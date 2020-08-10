@@ -221,12 +221,11 @@ export const getComments = (productId) => {
 
 // Add Comment
 export const addComment = (userId, productId, token, comment) => {
-  console.log(comment);
   return axios({
     method: "post",
     url: `${process.env.REACT_APP_API}/product/comment/${productId}/${userId}`,
     headers: { Authorization: token },
-    data: comment,
+    data: { text: comment },
   });
 };
 
@@ -236,5 +235,13 @@ export const deleteComment = (userId, productId, commentId, token) => {
     method: "delete",
     url: `${process.env.REACT_APP_API}/product/comment/${productId}/${commentId}/${userId}`,
     headers: { Authorization: token },
+  });
+};
+
+// Get Category
+export const getCategory = (categoryId) => {
+  return axios({
+    method: "get",
+    url: `${process.env.REACT_APP_API}/category/${categoryId}`,
   });
 };

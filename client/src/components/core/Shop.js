@@ -6,7 +6,6 @@ import CategoryCheckBox from "./CategoryCheckBox";
 import PriceRadioBox from "./PriceRadioBox";
 import { prices } from "./FixedPrices";
 import ProductSearch from "./ProductSearch";
-import "../../home.css";
 
 const Shop = () => {
   const [productFilters, setProductFilters] = useState({
@@ -86,9 +85,13 @@ const Shop = () => {
     return (
       size > 0 &&
       size >= limit && (
-        <button onClick={loadMore} className="btn btn-warning mb-5">
-          Load More Products
-        </button>
+        <div className="row text-center">
+          <div className="col-12">
+            <button onClick={loadMore} className="btn load-more-custom  mb-5">
+              Load More Products
+            </button>
+          </div>
+        </div>
       )
     );
   };
@@ -113,8 +116,8 @@ const Shop = () => {
               />
             </div>
           </div>
-          <div className="col-10">
-            <h2 className="mb-4"> Products</h2>
+          <div className="col-10 my-0">
+            <h2 className="mb-4 header"> Products</h2>
             <div className="row">
               {filteredResults.map((product, index) => (
                 <ProductCard key={index} product={product} />

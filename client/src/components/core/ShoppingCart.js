@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { getCart } from "./addToCartHelper";
 import CartCard from "./CartCard";
 import Checkout from "./Checkout";
-import "../../shoppingCart.css";
+import "../../App.css";
 
 const ShoppingCart = () => {
   const [items, setItems] = useState([]);
@@ -37,7 +37,34 @@ const ShoppingCart = () => {
   };
 
   const noItems = () => {
-    return <h2>Your Cart is Currently Empty</h2>;
+    return (
+      <div class="container-fluid mt-100">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="card">
+              <div class="card-body cart">
+                <div class="col-sm-12 empty-cart-cls text-center">
+                  {" "}
+                  <img
+                    src={process.env.PUBLIC_URL + "/img/cart_empty.png"}
+                    width="130"
+                    height="130"
+                    class="img-fluid mb-4 mr-3"
+                  />
+                  <h1>
+                    <strong>Your Shopping Cart</strong>
+                  </h1>
+                  <h3>Your Bag is Currently Empty</h3>{" "}
+                  <Link to="/" className="btn m-3">
+                    Continue Shopping
+                  </Link>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
   };
   const showCheckout = () => {
     return (
@@ -47,9 +74,9 @@ const ShoppingCart = () => {
     );
   };
   return (
-    <div className="container">
+    <div className="container-fluid my-0">
       <div className="row ">
-        <div className="col-8">
+        <div className="col-12">
           {items.length > 0 ? showItems(items) : noItems()}
         </div>
         {items.length > 0 && showCheckout()}

@@ -3,7 +3,6 @@ import AdminNavbar from "../user/AdminNavbar";
 import { isAuthenticated } from "../../actions/auth";
 import { createCategory, getCategories } from "../../actions/admin/adminApi";
 import { Link } from "react-router-dom";
-import "../user/login.css";
 import { useEffect } from "react";
 
 const Category = () => {

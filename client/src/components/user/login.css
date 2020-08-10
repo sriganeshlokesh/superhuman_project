@@ -28,12 +28,16 @@
   padding: 1rem;
 }
 
+.card-signin a {
+  color: #ef8354;
+}
+
 .form-signin {
   width: 100%;
 }
 
 .form-signin .btn {
-  font-size: 80%;
+  font-size: 95%;
   letter-spacing: 0.1rem;
   font-weight: bold;
   padding: 1rem;

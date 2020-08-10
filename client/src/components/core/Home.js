@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from "react";
-import Layout from "./Layout";
+import { Link } from "react-router-dom";
 import { getProducts } from "./apiCore";
 import ProductCard from "./ProductCard";
 import ProductSearch from "./ProductSearch";
-import "../../home.css";
-
+import "../../App.css";
 const Home = () => {
   const [productBySell, setProductBySell] = useState([]);
   const [productByArrival, setProductByArrival] = useState([]);
@@ -36,8 +35,27 @@ const Home = () => {
 
   return (
     <React.Fragment>
-      <div className="container-fluid">
+      <div className="container-fluid mt-5">
         <ProductSearch />
+
+        <div className="container-fluid landing-page">
+          <img
+            src={process.env.PUBLIC_URL + "/img/home.jpg"}
+            alt="Snow"
+            style={{
+              width: "100%",
+              height: "600px",
+              opacity: "90%",
+            }}
+          />
+          <div className="centered">
+            <h1>Welcome To Superhuman Project</h1>
+            <h4 className="mt-3">One Stop Shop for Gym Supplements</h4>
+            <Link to="/shop" className="btn">
+              Shop Now
+            </Link>
+          </div>
+        </div>
 
         <h2 className="mb-4 header">Best Sellers</h2>
         <div className="row">

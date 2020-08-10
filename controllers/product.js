@@ -179,7 +179,7 @@ exports.addComment = (req, res) => {
     .then((product) => res.json(product))
     .catch((err) => {
       return res.status(400).json({
-        errors: "Comment not added",
+        errors: err,
       });
     });
 };
@@ -269,9 +269,27 @@ exports.updateProduct = (req, res) => {
       errors.photo = "Image could not be uploaded";
       return res.status(400).json(errors);
     }
+    console.log(fields);
+    let {
+      name,
+      description,
+      company,
+      price,
+      category,
+      quantity,
+      flavour,
+    } = fields;
+    const productFields = {};
+    productFields.name = name;
+    productFields.description = description;
+    productFields.price = price;
+    productFields.category = category;
+    productFields.quantity = quantity;
+    productFields.company = company;
+    productFields.flavour = flavour.split(",");
 
     let product = req.product;
-    product = _.extend(product, fields);
+    product = _.extend(product, productFields);
 
     // 1kb = 1000
     // 1mb = 1000000

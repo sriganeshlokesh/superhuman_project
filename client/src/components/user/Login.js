@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { Link, Redirect } from "react-router-dom";
-import "./login.css";
 import axios from "axios";
 import classnames from "classnames";
 import { authenticate, isAuthenticated } from "../../actions/auth";
+import "./login.css";
 
 const Login = () => {
   const [input, setInput] = useState({
@@ -71,7 +71,7 @@ const Login = () => {
                     placeholder="Email address"
                     value={email}
                     onChange={handleChange("email")}
-                    className={classnames("form-control-lg", {
+                    className={classnames("form-control", {
                       "is-invalid": errors.email,
                     })}
                     required
@@ -86,7 +86,7 @@ const Login = () => {
                   <input
                     type="password"
                     id="inputPassword"
-                    className={classnames("form-control-lg", {
+                    className={classnames("form-control", {
                       "is-invalid": errors.password,
                     })}
                     value={password}
@@ -100,8 +100,9 @@ const Login = () => {
                   <label for="inputPassword">Password</label>
                 </div>
                 <input
-                  class="btn btn-lg btn-block text-uppercase"
+                  class="btn btn-lg btn-block text-uppercase btn-login"
                   type="submit"
+                  value="Login"
                 />
                 <Link class="d-block text-center mt-2 " to="/register">
                   Register

@@ -1,10 +1,9 @@
 import React, { useState } from "react";
 import { Link, Redirect } from "react-router-dom";
-import "./register.css";
 import classnames from "classnames";
 import axios from "axios";
 import { authenticate, isAuthenticated } from "../../actions/auth";
-
+import "./register.css";
 const Register = () => {
   const [input, setInput] = useState({
     name: "",
@@ -71,17 +70,17 @@ const Register = () => {
     <div class="container">
       <div class="row">
         <div class="col-lg-10 col-xl-9 mx-auto my-auto">
-          <div class="card card-signin flex-row my-5">
+          <div class="card card-register flex-row my-5">
             <div class="card-img-left d-none d-md-flex"></div>
-            <div class="card-body">
+            <div class="card-content">
               <h5 class="card-title text-center">Register</h5>
-              <form noValidate class="form-signin" onSubmit={registerUser}>
+              <form noValidate class="form-register" onSubmit={registerUser}>
                 <div class="form-label-group">
                   <input
                     type="text"
                     id="inputUsername"
                     name="name"
-                    className={classnames("form-control-lg", {
+                    className={classnames("form-control", {
                       "is-invalid": errors.name,
                     })}
                     placeholder="Username"
@@ -102,7 +101,7 @@ const Register = () => {
                     placeholder="Email address"
                     onChange={handleChange("email")}
                     value={email}
-                    className={classnames("form-control-lg", {
+                    className={classnames("form-control", {
                       "is-invalid": errors.email,
                     })}
                   />
@@ -120,7 +119,7 @@ const Register = () => {
                     placeholder="Password"
                     value={password}
                     onChange={handleChange("password")}
-                    className={classnames("form-control-lg", {
+                    className={classnames("form-control", {
                       "is-invalid": errors.password,
                     })}
                   />
@@ -138,7 +137,7 @@ const Register = () => {
                     placeholder="Confirm Password"
                     onChange={handleChange("password2")}
                     value={password2}
-                    className={classnames("form-control-lg", {
+                    className={classnames("form-control", {
                       "is-invalid": errors.password2,
                     })}
                   />
@@ -163,7 +162,7 @@ const Register = () => {
 
                 <div class="form-label-group">
                   <input
-                    type="tel"
+                    type="number"
                     id="inputPhone"
                     name="phone"
                     placeholder="Enter Phone Number"

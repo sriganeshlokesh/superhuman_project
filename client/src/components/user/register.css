@@ -3,19 +3,23 @@
   --input-padding-y: 0.75rem;
 }
 
-.card-signin {
+.card-register {
   border: 0;
   box-shadow: 0 0.5rem 1rem 0 rgba(0, 0, 0, 0.1);
   overflow: hidden;
 }
 
-.card-signin .card-title {
+.card-register .card-title {
   margin-bottom: 2rem;
   font-weight: 300;
   font-size: 1.5rem;
 }
 
-.card-signin .card-img-left {
+.card-content {
+  margin-left: 15%;
+}
+
+.card-register .card-img-left {
   width: 45%;
   /* Link to your background image using in the property below! */
   background: scroll center
@@ -23,15 +27,15 @@
   background-size: cover;
 }
 
-.card-signin .card-body {
+.card-register .card-body {
   padding: 2rem;
 }
 
-.form-signin {
+.form-register {
   width: 100%;
 }
 
-.form-signin .btn {
+.form-register .btn {
   font-size: 80%;
   letter-spacing: 0.1rem;
   font-weight: bold;
@@ -41,13 +45,13 @@
   color: #fff;
 }
 
-.form-signin .btn:hover {
+.form-register .btn:hover {
   background-color: #ffffff;
   box-shadow: 0 0 0 2px #ef8354;
   color: #ef8354;
 }
 
-.form-signin a {
+.form-register a {
   color: #ef8354;
 }
 
