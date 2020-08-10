@@ -104,3 +104,18 @@ exports.getOrderHistory = (req, res) => {
       }
     });
 };
+
+// Get All Customers
+exports.getAllUsers = (req, res) => {
+  let errors = {};
+
+  User.find({ role: "0" })
+    .select("-photo")
+    .exec((err, users) => {
+      if (err) {
+        errors.user = "Users not found";
+        return res.status(400).json(errors);
+      }
+      res.json(users);
+    });
+};

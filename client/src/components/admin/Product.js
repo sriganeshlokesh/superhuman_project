@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from "react";
 import AdminNavbar from "../user/AdminNavbar";
 import { isAuthenticated } from "../../actions/auth";
-import Modal from "react-bootstrap/Modal";
-
 import {
   createProduct,
   getCategories,
@@ -11,6 +9,7 @@ import {
 } from "../../actions/admin/adminApi";
 import { Link } from "react-router-dom";
 import moment from "moment";
+import "../../App.css";
 
 const Product = () => {
   const { user, token } = isAuthenticated();
@@ -132,11 +131,11 @@ const Product = () => {
           <AdminNavbar />
           <main role="main" class="col-md-9 ml-sm-auto col-lg-10 my-3">
             <div class="chart-data">
-              <div class="row">
-                <div class="col-12">
+              <div class="row add-product">
+                <div class="col-8">
                   <div class="card-body align-items-center ">
-                    <h5 class="card-title text-center">Add Product</h5>
-                    <form class="form-signin" onSubmit={addProduct}>
+                    <h5 class="card-title text-center header">Add Product</h5>
+                    <form class="form-product" onSubmit={addProduct}>
                       <div class="form-label-group">
                         <input
                           type="text"
@@ -144,7 +143,7 @@ const Product = () => {
                           name="name"
                           value={name}
                           placeholder="Product Name"
-                          className="form-control-lg"
+                          className="form-control"
                           onChange={handleChange("name")}
                           required
                         />
@@ -158,7 +157,7 @@ const Product = () => {
                           name="description"
                           value={description}
                           placeholder="Product Desc"
-                          className="form-control-lg"
+                          className="form-control"
                           onChange={handleChange("description")}
                           required
                         />
@@ -172,7 +171,7 @@ const Product = () => {
                           name="price"
                           value={price}
                           placeholder="Product Price"
-                          className="form-control-lg"
+                          className="form-control"
                           onChange={handleChange("price")}
                           required
                         />
@@ -186,7 +185,7 @@ const Product = () => {
                           name="company"
                           value={company}
                           placeholder="Product Company"
-                          className="form-control-lg"
+                          className="form-control"
                           onChange={handleChange("company")}
                           required
                         />
@@ -200,7 +199,7 @@ const Product = () => {
                           name="quantity"
                           value={quantity}
                           placeholder="Product Quantity"
-                          className="form-control-lg"
+                          className="form-control"
                           onChange={handleChange("quantity")}
                           required
                         />
@@ -214,7 +213,7 @@ const Product = () => {
                           name="flavour"
                           value={flavour}
                           placeholder="Product Flavour"
-                          className="form-control-lg"
+                          className="form-control"
                           onChange={handleChange("flavour")}
                           required
                         />
@@ -225,7 +224,7 @@ const Product = () => {
                           id="inputEmail"
                           name="category"
                           value={category}
-                          className="custom-select form-control-lg"
+                          className="custom-select form-control"
                           placeholder="Category Name"
                           onChange={handleChange("category")}
                         >
@@ -246,7 +245,7 @@ const Product = () => {
                           name="shipping"
                           value={shipping}
                           placeholder="Category Name"
-                          className="custom-select form-control-lg"
+                          className="custom-select form-control"
                           onChange={handleChange("shipping")}
                           required
                         >
@@ -265,7 +264,7 @@ const Product = () => {
                           name="photo"
                           accept="image/*"
                           placeholder="Category Name"
-                          className="form-control-lg"
+                          className="form-control"
                           onChange={handleChange("photo")}
                           required
                         />
@@ -273,34 +272,35 @@ const Product = () => {
                         <label for="photo">Upload Image</label>
                       </div>
 
-                      <input
-                        class="btn btn-lg btn-block text-uppercase"
-                        type="submit"
-                        value="Add Product"
-                      />
+                      <button className="btn text-uppercase" type="submit">
+                        Add Product
+                      </button>
                     </form>
                   </div>
                 </div>
               </div>
             </div>
-            <div class="col-12">
+            <div class="col-12 text-center">
               <div class="projects mb-4">
                 <div class="projects-inner">
                   <header class="projects-header">
-                    <div class="title">Product List</div>
-                    <div class="count">| {products.length} Products</div>
+                    <div>Products | {products.length} Products</div>
                   </header>
                   <table class="projects-table">
                     <thead>
                       <tr>
                         <th>Product ID</th>
-                        <th>Product</th>
+                        <th>Product Name</th>
+                        <th>Product Created At</th>
                         <th>Actions</th>
                       </tr>
                     </thead>
 
                     {products.map((product, index) => (
                       <tr key={index}>
+                        <td>
+                          <p>{product._id}</p>
+                        </td>
                         <td>
                           <p>{product.name}</p>
                         </td>

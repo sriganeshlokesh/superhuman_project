@@ -7,6 +7,7 @@ const {
   getProfile,
   getPhoto,
   getOrderHistory,
+  getAllUsers,
 } = require("../controllers/user");
 
 //Test
@@ -30,6 +31,11 @@ router.get("/photo/:id", getPhoto);
 // @desc Get User Order History route
 // @access Private
 router.get("/order/:id", protect, isAuth, getOrderHistory);
+
+// @route GET /api/user/order/:id
+// @desc Get User Order History route
+// @access Private
+router.get("/all/:id", protect, isAuth, isAdmin, getAllUsers);
 
 // @route PUT /api/user/:id
 // @desc Update User Profile route

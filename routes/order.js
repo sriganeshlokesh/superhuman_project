@@ -9,6 +9,7 @@ const {
   getOrderStatus,
   orderById,
   updateOrderStatus,
+  deleteOrder,
 } = require("../controllers/order");
 const { decreaseQuantity } = require("../controllers/product");
 
@@ -38,6 +39,11 @@ router.get("/status/:id", protect, isAuth, isAdmin, getOrderStatus);
 // @desc Update order status Route
 // @access Private
 router.put("/:orderId/status/:id", protect, isAuth, isAdmin, updateOrderStatus);
+
+// @route DELETE /api/order/:orderId/:userId
+// @desc Delete Order route
+// @access Private
+router.delete("/:orderId/:id", protect, isAuth, isAdmin, deleteOrder);
 
 // @route PARAM id
 // @desc Get User By Id

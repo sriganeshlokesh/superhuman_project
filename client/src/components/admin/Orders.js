@@ -4,6 +4,7 @@ import {
   getOrders,
   getStatusValues,
   updateOrderStatus,
+  deleteOrder,
 } from "../../actions/admin/adminApi";
 import AdminNavbar from "../user/AdminNavbar";
 import moment from "moment";
@@ -35,6 +36,8 @@ const Orders = () => {
       }
     });
   };
+
+  const orderDelete = () => {};
 
   useEffect(() => {
     loadOrders();
@@ -69,12 +72,9 @@ const Orders = () => {
   );
 
   const showProduct = (key, value) => (
-    <div className="input-group mb-2 mr-sm-2">
-      <div className="input-group-prepend">
-        <div className="input-group-text">{key}</div>
-      </div>
-      <input type="text" value={value} className="form-control" readOnly />
-    </div>
+    <li class="list-group-item">
+      {key} : {value}
+    </li>
   );
 
   const OrdersCard = () => (
@@ -85,7 +85,8 @@ const Orders = () => {
             <div class="container-fluid mt-0">
               <div class="row">
                 <AdminNavbar />
-                <div class="col">
+                <div class="col-8">
+                  <h6 class="card-title text-center header">Orders</h6>
                   {orders.map((order, index) => (
                     <div class="card" key={index}>
                       <div class="card-content">
@@ -123,20 +124,31 @@ const Orders = () => {
                               border: "1px solid indigo",
                             }}
                           >
-                            {showProduct("name", product.name)}
-                            {showProduct("price", product.price)}
-                            {showProduct("count", product.count)}
-                            {showProduct("id", product._id)}
+                            {showProduct("Product Name", product.name)}
+                            {showProduct("Product Price", product.price)}
+                            {showProduct("Product Count", product.count)}
+                            {showProduct("Product id", product._id)}
                           </div>
                         ))}
                       </div>
-                      <div class="card-read-more">
-                        <a
-                          href="http://www.fostrap.com/2016/03/5-button-hover-animation-effects-css3.html"
-                          class="btn btn-link btn-block"
-                        >
-                          Read More
-                        </a>
+                      <div className="row">
+                        <div className="col-12 text-center">
+                          <div class="card-read-more">
+                            <button
+                              className="btn btn-danger"
+                              onClick={() => {
+                                console.log(order._id);
+                                deleteOrder(order._id, user._id, token).then(
+                                  () => {
+                                    loadOrders();
+                                  }
+                                );
+                              }}
+                            >
+                              Delete Order
+                            </button>
+                          </div>
+                        </div>
                       </div>
                     </div>
                   ))}

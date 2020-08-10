@@ -1,12 +1,18 @@
 import React, { useState, useEffect } from "react";
 import { Link, withRouter } from "react-router-dom";
 import { isAuthenticated } from "../../actions/auth";
-import { getOrders } from "../../actions/admin/adminApi";
+import {
+  getOrders,
+  getProducts,
+  getAllUsers,
+} from "../../actions/admin/adminApi";
 import AdminNavbar from "./AdminNavbar";
-import "../../adminDashboard.css";
+import "../../App.css";
 
 const AdminDashboard = (props) => {
   const [orders, setOrders] = useState([]);
+  const [products, setProducts] = useState([]);
+  const [users, setUsers] = useState([]);
 
   const { user, token } = isAuthenticated();
 
@@ -20,8 +26,31 @@ const AdminDashboard = (props) => {
     });
   };
 
+  const loadProducts = () => {
+    getProducts().then((data) => {
+      if (data.error) {
+        console.log(data.error);
+      } else {
+        setProducts(data);
+      }
+    });
+  };
+
+  const loadUsers = () => {
+    getAllUsers(user._id, token).then((data) => {
+      console.log(data);
+      if (data.error) {
+        console.log(data.error);
+      } else {
+        setUsers(data);
+      }
+    });
+  };
+
   useEffect(() => {
     loadOrders();
+    loadProducts();
+    loadUsers();
   }, []);
 
   const adminLayout = () => (
@@ -42,14 +71,14 @@ const AdminDashboard = (props) => {
                 <div class="card green">
                   <div class="title">Customers</div>
                   <i class="zmdi zmdi-upload"></i>
-                  <div class="value">5,990</div>
+                  <div class="value">{users.length}</div>
                 </div>
               </div>
               <div class="col-12 col-md-6 col-lg-4 col-xl-4 mb-4">
                 <div class="card orange">
                   <div class="title">Products</div>
                   <i class="zmdi zmdi-download"></i>
-                  <div class="value">80,990</div>
+                  <div class="value">{products.length}</div>
                 </div>
               </div>
             </div>

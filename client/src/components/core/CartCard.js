@@ -56,10 +56,10 @@ const CartCard = ({
   );
 
   return (
-    <div className="container">
+    <div className="container ">
       <div className="row ">
         <div className="col-2 ">
-          <ProductImage item={product} url="product" />
+          <ProductImage item={product._id} url="product" />
         </div>
         <div className="col-9 custom-card mb-4">
           <div className="row">

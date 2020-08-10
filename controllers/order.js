@@ -3,8 +3,8 @@ const nodemailer = require("nodemailer");
 let transport = nodemailer.createTransport({
   service: "gmail",
   auth: {
-    user: "superhumanproject2020@gmail.com",
-    pass: "Target*2020",
+    user: process.env.USER_NAME,
+    pass: process.env.PASSWORD,
   },
 });
 
@@ -139,4 +139,19 @@ exports.updateOrderStatus = (req, res) => {
       res.json(order);
     }
   );
+};
+
+// Delete Order
+exports.deleteOrder = (req, res) => {
+  let order = req.order;
+  order.deleteOne((err, order) => {
+    if (err) {
+      return res.status(400).json({
+        error: "Order not deleted",
+      });
+    }
+    return res.json({
+      message: "Order Deleted Successfully",
+    });
+  });
 };

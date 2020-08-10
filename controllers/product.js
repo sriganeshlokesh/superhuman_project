@@ -2,10 +2,6 @@ const fs = require("fs");
 const Product = require("../models/Product");
 const formidable = require("formidable");
 const _ = require("lodash");
-const validateProductInput = require("../validation/product");
-const { default: validator } = require("validator");
-const product = require("../validation/product");
-const { post } = require("../routes/product");
 
 // Get Product by Id
 exports.productById = (req, res, next, id) => {

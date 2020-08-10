@@ -15,7 +15,7 @@ const ShoppingCart = () => {
 
   const showItems = (items) => {
     return (
-      <div>
+      <div className="text-center">
         <h2>Your Shopping Cart</h2>
         {items.length > 1 ? (
           <h6>You have {`${items.length}`} Products in your cart</h6>
@@ -68,15 +68,15 @@ const ShoppingCart = () => {
   };
   const showCheckout = () => {
     return (
-      <div className="col-md-4 px-3 custom-checkout-comp">
+      <div className="col-md-4 px-2 custom-checkout-comp">
         <Checkout products={items} />
       </div>
     );
   };
   return (
-    <div className="container-fluid my-0">
+    <div className="container ">
       <div className="row ">
-        <div className="col-12">
+        <div className="col-8">
           {items.length > 0 ? showItems(items) : noItems()}
         </div>
         {items.length > 0 && showCheckout()}

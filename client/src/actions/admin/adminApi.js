@@ -149,3 +149,32 @@ export const editInfo = (userId, productId, token, info) => {
     data: info,
   });
 };
+
+export const deleteOrder = (orderId, userId, token) => {
+  return fetch(`${process.env.REACT_APP_API}/order/${orderId}/${userId}`, {
+    method: "DELETE",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+      Authorization: token,
+    },
+  })
+    .then((response) => {
+      return response.json();
+    })
+    .catch((err) => console.log(err));
+};
+
+// get All Users
+export const getAllUsers = (userId, token) => {
+  return fetch(`${process.env.REACT_APP_API}/user/all/${userId}`, {
+    method: "GET",
+    headers: {
+      Authorization: token,
+    },
+  })
+    .then((response) => {
+      return response.json();
+    })
+    .catch((err) => console.log(err));
+};
