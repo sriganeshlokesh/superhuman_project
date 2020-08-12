@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import ProductImage from "./ProductImage";
-import axios from "axios";
 import ProductCard from "./ProductCard";
 import { Link, Redirect } from "react-router-dom";
 import classnames from "classnames";
@@ -15,7 +14,6 @@ import {
   getComments,
   addComment,
   deleteComment,
-  getProfile,
   getCategory,
 } from "./apiCore";
 import { addItem } from "./addToCartHelper";

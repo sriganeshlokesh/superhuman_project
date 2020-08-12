@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from "react";
-import { check } from "express-validator";
+import React, { useState } from "react";
 
 const CategoryCheckBox = ({ categories, filters }) => {
   const [checked, setChecked] = useState([]);

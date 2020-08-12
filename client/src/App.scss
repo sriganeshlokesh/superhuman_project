@@ -10,6 +10,10 @@ $secondary-background-color: #e5e5e5;
 body {
   font-family: $font-family;
   background-color: $background-color;
+  width: 100%;
+  margin: 0px;
+  padding: 0px;
+  overflow-x: hidden;
 }
 nav {
   background-color: $primary-color;
@@ -796,4 +800,596 @@ figure {
 .zmdi {
   line-height: 1;
   vertical-align: middle;
+}
+
+// Checkout Page
+
+@import url("https://fonts.googleapis.com/css?family=Open+Sans:400,600");
+
+.container1 {
+  background-color: white;
+  display: table-cell;
+  vertical-align: middle;
+  width: 40%;
+}
+
+.container2 {
+  background-color: #e5e5e5;
+  display: table-cell;
+  vertical-align: middle;
+  width: 10%;
+}
+
+.order {
+  width: 80%;
+  height: auto;
+  margin: 0 auto;
+}
+
+.order h2 {
+  font-size: 1.8em;
+  text-align: center;
+  margin-bottom: 5%;
+}
+
+.item {
+  width: 100%;
+  height: auto;
+  background-color: white;
+  box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.2);
+  margin-bottom: 10%;
+  overflow: hidden;
+  position: relative;
+}
+
+.item:last-of-type {
+  margin-bottom: 0;
+}
+
+.item img {
+  float: left;
+  margin-right: 3%;
+}
+
+.item .info {
+  padding: 3%;
+}
+
+.item .quantity {
+  font-size: 0.8em;
+}
+
+.item .price {
+  background-color: #3fb158;
+  position: absolute;
+  padding: 1% 2%;
+  color: white;
+  bottom: 5%;
+  right: 2%;
+}
+
+hr {
+  border-top: 1px solid #a8a8a8;
+}
+
+.ship,
+.total {
+  margin: 2% 0;
+  text-align: right;
+}
+
+.total {
+  font-size: 1.5em;
+}
+
+.checkout {
+  width: 90%;
+  margin: 0 auto;
+}
+
+.checkout p {
+  display: inline-flex;
+  flex-direction: row;
+  margin-right: 4%;
+}
+
+.checkout p,
+.checkout i {
+  color: white;
+  font-size: 1.6em;
+}
+
+.checkout i {
+  margin-right: 4%;
+}
+
+.checkout p:last-of-type,
+.checkout i:nth-of-type(3) {
+  opacity: 0.5;
+}
+
+.payment {
+  background-color: white;
+  width: 100%;
+  height: auto;
+  background-image: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/1978060/chien.png);
+  background-repeat: no-repeat;
+  background-position: right;
+  background-size: 50%;
+  margin-top: 3.8%;
+}
+
+.card-body {
+  padding: 0;
+}
+
+.infos {
+  width: 50%;
+  padding: 3% 5% 0 5%;
+}
+
+.infos h2 {
+  color: #ea6153;
+  font-size: 1.8em;
+  margin-bottom: 10%;
+}
+
+.visa,
+.mastercard,
+.paypal {
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
+  width: 25%;
+  height: auto;
+  background-color: white;
+  cursor: pointer;
+  margin-right: 5%;
+  margin-bottom: 10%;
+}
+
+.mastercard,
+.paypal {
+  opacity: 0.5;
+  transition: 0.3s ease-in-out;
+}
+
+.mastercard:hover,
+.paypal:hover {
+  opacity: 1;
+}
+
+.paypal {
+  margin-right: 0;
+}
+
+.title {
+  color: #242424 !important;
+  opacity: 1 !important;
+  font-size: 1em !important;
+}
+
+input,
+select {
+  border: none;
+  padding: 2%;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
+  margin-top: 2%;
+}
+
+input:focus,
+select:focus {
+  outline: none;
+}
+
+.number {
+  width: 20%;
+  margin-right: 5.3%;
+  margin-bottom: 10%;
+}
+
+.number:last-of-type {
+  margin-right: 0;
+}
+
+.cardHolderName {
+  margin-bottom: 10%;
+}
+
+.cardHolderName input {
+  width: 100%;
+}
+
+select {
+  margin-right: 2%;
+}
+
+select:last-of-type {
+  margin-right: 0;
+}
+
+.expiration,
+.security {
+  margin-bottom: 10%;
+}
+
+.security input {
+  width: 25%;
+}
+
+button {
+  background-color: #ea6153;
+  width: 100%;
+  padding: 5%;
+  border: none;
+  color: white;
+  cursor: pointer;
+  transition: 0.3s ease-in-out;
+  margin-bottom: 4%;
+}
+
+button:hover {
+  background-color: #c64f46;
+}
+
+// Edit Profile
+
+.form-update {
+  button {
+    background-color: $secondary-color;
+    width: 22%;
+    padding: 2%;
+    border: none;
+    color: white;
+    cursor: pointer;
+    transition: 0.3s ease-in-out;
+    margin-bottom: 4%;
+  }
+}
+
+.back-button {
+  background-color: $secondary-color;
+  width: 22%;
+  padding: 2%;
+  border: none;
+  color: white;
+  cursor: pointer;
+  border-radius: 0.25rem;
+  transition: 0.3s ease-in-out;
+  margin-bottom: 4%;
+  margin-top: 10%;
+  &:hover {
+    background-color: $background-color;
+    color: $secondary-color;
+    box-shadow: 0 0 0 2px $secondary-color;
+  }
+}
+
+// User Dashboard
+@import url("https://fonts.googleapis.com/css2?family=Oswald:wght@200;300;400;500;600;700&display=swap");
+
+$clr-white: #fff;
+$clr-light-blue: #4f5d75;
+$clr-light-blue-700: darken($clr-light-blue, 10%);
+$clr-orange: #ef8354;
+
+$clr-grey-300: #ffffff;
+$clr-bg: $clr-grey-300;
+$clr-bg-fade: darken($clr-grey-300, 5%);
+
+$clr-primary: #2d3142;
+$clr-primary-drk: darken($clr-primary, 10%);
+$clr-primary-drkr: darken($clr-primary, 20%);
+$clr-primary-drkst: darken($clr-primary, 30%);
+$clr-primary-lgt: lighten($clr-primary, 10%);
+
+$clr-grey-700: #edf2f4;
+$clr-txt: $clr-primary;
+$clr-txt-fade: rgba($clr-grey-700, 0.8);
+
+$font-family: "Oswald", sans-serif;
+
+html,
+body {
+  font-family: $font-family;
+  font-size: 18px;
+  background: $clr-bg;
+  color: $clr-txt;
+}
+
+.cover {
+  height: 200px;
+  background: $clr-primary-drkr;
+}
+
+.btn {
+  cursor: pointer;
+
+  &.btn-primary {
+    background: $clr-primary;
+    border-color: $clr-primary;
+    color: $clr-orange;
+
+    &:hover {
+      background: $clr-grey-300;
+      box-shadow: 0 0 0 2px $clr-orange;
+      color: $clr-orange;
+    }
+
+    &:focus {
+      box-shadow: 0 0 0 2px rgba($clr-primary, 0.5);
+    }
+  }
+
+  &.btn-secondary {
+    background: $clr-primary-drk;
+    color: $clr-white;
+    border-color: $clr-primary-drk;
+
+    &:hover {
+      background: $clr-primary-drkr;
+      border-color: $clr-primary-drkst;
+    }
+
+    &:focus {
+      box-shadow: 0 0 0 2px rgba($clr-primary-drk, 0.5);
+    }
+  }
+}
+
+.bg-primary {
+  background: $clr-primary !important;
+}
+
+.small {
+  color: $clr-txt-fade;
+}
+
+.card {
+  border: none;
+  border: 5px solid $clr-orange;
+  border-radius: 0.25rem;
+  margin-bottom: 30px;
+  width: 100%;
+  background-color: $clr-grey-700;
+
+  .card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: 700;
+  }
+
+  .row {
+    width: 100%;
+  }
+}
+
+.alert {
+  margin-bottom: 30px;
+}
+
+a.action {
+  text-transform: uppercase;
+  font-size: 11px;
+  font-weight: 500;
+  color: $clr-light-blue;
+
+  &:hover {
+    color: $clr-light-blue-700;
+  }
+}
+
+#left {
+  margin-top: -100px;
+  flex: 0 0 300px;
+}
+
+#user {
+  .fa {
+    font-size: 20px;
+  }
+
+  #userImage {
+    background: $clr-primary;
+    height: 300px;
+  }
+
+  button {
+    color: #fff;
+    background-color: $clr-orange;
+    width: 50%;
+    padding: 15px;
+    font-size: 18px;
+
+    &:hover {
+      background-color: #fff;
+      color: $clr-orange;
+      box-shadow: 0 0 0 2px $clr-orange;
+    }
+  }
+
+  #renew {
+    display: block;
+    width: 100%;
+  }
+
+  .row {
+    width: auto;
+  }
+}
+
+#connections {
+  .list {
+    margin: 15px 30px;
+
+    .list-item {
+      width: 30px;
+      height: 30px;
+      margin: 5px;
+      background: $clr-primary;
+      color: $clr-white;
+      cursor: pointer;
+
+      &:hover {
+        background: $clr-primary-drk;
+      }
+    }
+  }
+}
+
+#upcomingEvents {
+  .view {
+    flex: 0 0 60px;
+  }
+}
+
+#goals .row .details {
+  flex: 0 0 60px;
+}
+
+.signup {
+  flex: 0 0 125px;
+}
+
+#recentActivity {
+  em {
+    font-style: normal;
+    color: $clr-primary;
+  }
+
+  .right {
+    flex: 0 0 100px;
+    height: 100%;
+
+    .view {
+      display: flex;
+      justify-content: center;
+    }
+  }
+}
+
+.icon {
+  position: relative;
+  flex: 0 0 40px;
+  text-align: center;
+  flex-shrink: 0;
+  margin-right: 10px;
+  font: normal normal normal 14px/1 FontAwesome;
+
+  &.warning:after {
+    content: "\f071";
+    color: $clr-orange;
+    position: absolute;
+    font-size: 18px;
+    top: 3px;
+    left: 28px;
+  }
+
+  .fa-stack-1x {
+    color: $clr-white;
+  }
+}
+
+.list-group-item :first-child {
+  margin-right: 0.1rem;
+}
+
+@media (max-width: 768px) {
+  .navbar-nav.actions {
+    position: absolute;
+    right: 70px;
+  }
+}
+
+// Footer
+
+.footer {
+  overflow: hidden;
+  margin-top: 5%;
+  padding: 15px;
+  margin-bottom: -50px;
+  background-color: rgba(0, 0, 0, 0.85);
+  color: $text-color;
+}
+.footer p {
+  float: left;
+  width: 50%;
+  font-size: 18px;
+}
+.footer p i {
+  color: red;
+}
+.footer ul {
+  float: right;
+  width: 50%;
+  padding: 0;
+  margin: 0;
+  text-align: right;
+}
+.footer ul li {
+  display: inline-block;
+}
+.footer ul li a {
+  text-decoration: none;
+  color: #bababa;
+}
+.footer ul li a i {
+  width: 50px;
+  height: 50px;
+  background-color: #4d4d4d;
+  line-height: 50px;
+  font-size: 35px;
+  margin-left: 5px;
+  -webkit-transition: 0.3s;
+  -moz-transition: 0.3s;
+  -o-transition: 0.3s;
+  transition: 0.3s;
+}
+.footer ul li a i.fa-facebook:hover {
+  background-color: #3b5998;
+}
+.footer ul li a i.fa-twitter:hover {
+  background-color: #1da1f2;
+}
+.footer ul li a i.fa-linkedin:hover {
+  background-color: #0077b5;
+}
+.footer ul li a i.fa-github:hover {
+  background-color: #c68143;
+}
+.footer ul li a i:hover {
+  color: #fff;
+}
+@media (max-width: 576px) {
+  .footer ul li {
+    margin-top: 15px;
+  }
+}
+@media (max-width: 767.9px) {
+  .footer {
+    max-width: 540px;
+  }
+  .footer ul,
+  .footer p {
+    float: none;
+    width: 100%;
+    text-align: center;
+  }
+  .footer p {
+    margin-top: 15px;
+  }
+}
+@media (min-width: 768px) {
+  .footer {
+    max-width: 720px;
+  }
+}
+@media (min-width: 992px) {
+  .footer {
+    max-width: 960px;
+  }
+}
+@media (min-width: 1200px) {
+  .footer {
+    max-width: 3140px;
+  }
 }

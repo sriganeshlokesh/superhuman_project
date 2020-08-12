@@ -66,6 +66,8 @@ exports.updateProfile = (req, res) => {
   let form = new formidable.IncomingForm();
   form.keepExtensions = true;
   form.parse(req, (err, fields, files) => {
+    console.log(files);
+
     if (err) {
       errors.photo = "Image could not be uploaded";
       return res.status(400).json(errors);

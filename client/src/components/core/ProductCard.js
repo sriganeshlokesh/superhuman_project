@@ -64,7 +64,6 @@ const ProductCard = ({ product }) => {
               <h5 className="mt-2">${product.price}</h5>
             </div>
             <select
-              className=""
               value={selectedFlavour}
               onChange={handleFlavour()}
               className={classnames("custom-select ml-1", {

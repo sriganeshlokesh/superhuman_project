@@ -1,9 +1,6 @@
 import React from "react";
 import { isAuthenticated } from "../../actions/auth";
-import { getBraintreeToken } from "./apiCore";
 import { Link } from "react-router-dom";
-import { useState } from "react";
-import { useEffect } from "react";
 
 const Checkout = ({ products }) => {
   const getTotal = () => {

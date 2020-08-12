@@ -7,7 +7,6 @@ import "../../App.css";
 const Home = () => {
   const [productBySell, setProductBySell] = useState([]);
   const [productByArrival, setProductByArrival] = useState([]);
-  const [error, setError] = useState(false);
 
   useEffect(() => {
     productSell();
@@ -17,7 +16,7 @@ const Home = () => {
   const productSell = () => {
     getProducts("sold").then((data) => {
       if (data.error) {
-        setError(data.error);
+        console.log(data.error);
       } else {
         setProductBySell(data);
       }
@@ -26,7 +25,7 @@ const Home = () => {
   const productArrival = () => {
     getProducts("createdAt").then((data) => {
       if (data.error) {
-        setError("");
+        console.log(data.error);
       } else {
         setProductByArrival(data);
       }

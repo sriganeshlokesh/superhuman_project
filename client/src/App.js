@@ -19,6 +19,7 @@ import Shop from "./components/core/Shop";
 import ProductDetail from "./components/core/Product";
 import ShoppingCart from "./components/core/ShoppingCart";
 import CheckoutPage from "./components/core/CheckoutPage";
+import Footer from "./components/core/Footer";
 import "./App.css";
 
 function App() {
@@ -63,6 +64,7 @@ function App() {
         <Route path="/cart" exact component={ShoppingCart} />
         <Route path="/checkout" exact component={CheckoutPage} />
       </Switch>
+      <Footer />
     </BrowserRouter>
   );
 }

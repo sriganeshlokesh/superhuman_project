@@ -1,18 +1,15 @@
 import React, { useState, useEffect } from "react";
-import Layout from "./Layout";
 import { getCategories, getFilterProduct } from "./apiCore";
 import ProductCard from "./ProductCard";
 import CategoryCheckBox from "./CategoryCheckBox";
 import PriceRadioBox from "./PriceRadioBox";
 import { prices } from "./FixedPrices";
-import ProductSearch from "./ProductSearch";
 
 const Shop = () => {
   const [productFilters, setProductFilters] = useState({
     filters: { category: [], price: [] },
   });
   const [categories, setCategories] = useState([]);
-  const [error, setError] = useState(false);
   const [limit, setLimit] = useState(6);
   const [skip, setSkip] = useState(0);
   const [size, setSize] = useState(0);
@@ -21,7 +18,7 @@ const Shop = () => {
   const init = () => {
     getCategories().then((data) => {
       if (data.error) {
-        setError(data.error);
+        console.log(data.error);
       } else {
         setCategories(data);
       }
@@ -59,7 +56,7 @@ const Shop = () => {
   const loadFilters = (newFilters) => {
     getFilterProduct(skip, limit, newFilters).then((data) => {
       if (data.error) {
-        setError(data.error);
+        console.log(data.error);
       } else {
         setFilteredResults(data.data);
         setSize(data.size);
@@ -72,7 +69,7 @@ const Shop = () => {
     let toSkip = skip + limit;
     getFilterProduct(toSkip, limit, productFilters.filters).then((data) => {
       if (data.error) {
-        setError(data.error);
+        console.log(data.error);
       } else {
         setFilteredResults([...filteredResults, ...data.data]);
         setSize(data.size);

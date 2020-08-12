@@ -19,7 +19,7 @@ const Navbar = (props) => {
     <React.Fragment>
       <nav class="navbar  navbar-expand-lg nav-tabs scrolling-navbar">
         <Link class="navbar-brand" to="/">
-          <img src={process.env.PUBLIC_URL + "/img/logo.png"} />
+          <img src={process.env.PUBLIC_URL + "/img/logo.png"} alt="logo" />
         </Link>
 
         <button

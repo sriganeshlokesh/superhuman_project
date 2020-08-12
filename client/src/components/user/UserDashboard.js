@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { isAuthenticated } from "../../actions/auth";
 import { getUserHistory, getProfile } from "../core/apiCore";
 import { Link } from "react-router-dom";
-import "../../dashboard.css";
+import "../../App.css";
 import { useEffect } from "react";
 import moment from "moment";
 
@@ -42,13 +42,22 @@ const UserDashboard = () => {
       <div className="cover"></div>
       <div class="container">
         <div class="row justify-content-center">
-          <div class="col-md" id="left">
+          <div class="col-5" id="left">
             <div class="card" id="user">
               <div class="card-header">Profile ID: {profile._id}</div>
-              <img
-                id="userImage"
-                src={`${process.env.REACT_APP_API}/user/photo/${user._id}`}
-              />
+              {!profile.photo ? (
+                <img
+                  id="userImage"
+                  src={process.env.PUBLIC_URL + "/img/profile.png"}
+                  alt="profile_img"
+                />
+              ) : (
+                <img
+                  id="userImage"
+                  src={`${process.env.REACT_APP_API}/user/photo/${user._id}`}
+                  alt="img_profile"
+                />
+              )}
               <div class="card-block">
                 <h4 class="card-title">Welcome, {profile.name}</h4>
                 <div class="row">
@@ -77,14 +86,16 @@ const UserDashboard = () => {
                   <div class="col">{profile.email}</div>
                 </div>
                 <div class="row mt-2">
-                  <div class="col">Joined: 05/10/2010</div>
-                </div>
-                <div class="row">
-                  <div class="col">Expires: 07/12/2015</div>
+                  <div class="col">
+                    Joined:{" "}
+                    {moment(profile.createdAt).format(
+                      "MMMM Do YYYY, h:mm:ss a"
+                    )}
+                  </div>
                 </div>
                 <div class="mt-3">
                   <Link to={`/user/dashboard/profile/${profile._id}`}>
-                    <button class="btn btn-primary mx-auto" id="renew">
+                    <button class="btn mx-auto" id="renew">
                       Edit Profile
                     </button>
                   </Link>
@@ -96,12 +107,7 @@ const UserDashboard = () => {
             <div class="row">
               <div class="col">
                 <div class="card" id="recentActivity">
-                  <div class="card-header">
-                    Purchase History
-                    <a class="action" href="#">
-                      All Activity
-                    </a>
-                  </div>
+                  <div class="card-header">Purchase History</div>
                   <ul class="list-group">
                     {purchase.map((order, index) => (
                       <li class="list-group-item">

@@ -4,14 +4,13 @@ import ProductPage from "./ProductPage";
 
 const Product = (props) => {
   const [product, setProduct] = useState({});
-  const [error, setError] = useState(false);
 
   const productId = props.match.params.productId;
 
   const singleProduct = (productId) => {
     getProduct(productId).then((data) => {
       if (data.error) {
-        setError(data.error);
+        console.log(data.error);
       } else {
         setProduct(data);
       }

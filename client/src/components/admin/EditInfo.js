@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { addInfo, getProduct, editInfo } from "../../actions/admin/adminApi";
+import { getProduct, editInfo } from "../../actions/admin/adminApi";
 import { getInfo } from "../core/apiCore";
-import { Link, Redirect, withRouter } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 import { isAuthenticated } from "../../actions/auth";
 
 const AddInfo = (props) => {
@@ -17,7 +17,6 @@ const AddInfo = (props) => {
     calories: "",
     calcium: "",
     potassium: "",
-    redirect: false,
   });
   const [product, setProduct] = useState({});
 
@@ -33,7 +32,6 @@ const AddInfo = (props) => {
     calcium,
     calories,
     potassium,
-    redirect,
   } = info;
   const handleChange = (name) => (event) => {
     setInfo({ ...info, [name]: event.target.value });

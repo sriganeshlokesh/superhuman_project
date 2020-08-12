@@ -265,27 +265,24 @@ exports.updateProduct = (req, res) => {
       errors.photo = "Image could not be uploaded";
       return res.status(400).json(errors);
     }
-    console.log(fields);
+
+    let product = req.product;
     let {
       name,
       description,
-      company,
       price,
       category,
       quantity,
+      company,
       flavour,
     } = fields;
-    const productFields = {};
-    productFields.name = name;
-    productFields.description = description;
-    productFields.price = price;
-    productFields.category = category;
-    productFields.quantity = quantity;
-    productFields.company = company;
-    productFields.flavour = flavour.split(",");
-
-    let product = req.product;
-    product = _.extend(product, productFields);
+    if (flavour) {
+      fields.flavour = flavour.split(",");
+      product = _.extend(product, fields);
+    } else {
+      product = _.extend(product, fields);
+    }
+    console.log(fields);
 
     // 1kb = 1000
     // 1mb = 1000000
@@ -297,8 +294,7 @@ exports.updateProduct = (req, res) => {
 
     product.save((err, result) => {
       if (err) {
-        errors.product = "Product not created";
-        return res.status(400).json(errors);
+        return res.status(400).json(err);
       }
       res.json(result);
     });

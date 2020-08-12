@@ -39,8 +39,8 @@ const ShoppingCart = () => {
   const noItems = () => {
     return (
       <div class="container-fluid mt-100">
-        <div class="row">
-          <div class="col-md-12">
+        <div class="row text-center">
+          <div class="col-12 ">
             <div class="card">
               <div class="card-body cart">
                 <div class="col-sm-12 empty-cart-cls text-center">
@@ -50,6 +50,7 @@ const ShoppingCart = () => {
                     width="130"
                     height="130"
                     class="img-fluid mb-4 mr-3"
+                    alt="empty_cart"
                   />
                   <h1>
                     <strong>Your Shopping Cart</strong>
@@ -76,9 +77,12 @@ const ShoppingCart = () => {
   return (
     <div className="container ">
       <div className="row ">
-        <div className="col-8">
-          {items.length > 0 ? showItems(items) : noItems()}
-        </div>
+        {items.length > 0 ? (
+          <div className="col-8">{showItems(items)}</div>
+        ) : (
+          <div className="col-12">{noItems()}</div>
+        )}
+
         {items.length > 0 && showCheckout()}
       </div>
     </div>

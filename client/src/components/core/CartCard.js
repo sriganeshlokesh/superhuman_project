@@ -1,11 +1,9 @@
 import React, { useState } from "react";
 import ProductImage from "./ProductImage";
-import { addItem, updateItem, removeItem } from "./addToCartHelper";
-import "../../shoppingCart.css";
+import { updateItem, removeItem } from "./addToCartHelper";
 
 const CartCard = ({
   product,
-  cartUpdate = false,
   setRun = (f) => f,
   run = undefined,
   showQuantity = true,
@@ -61,7 +59,7 @@ const CartCard = ({
         <div className="col-2 ">
           <ProductImage item={product._id} url="product" />
         </div>
-        <div className="col-9 custom-card mb-4">
+        <div className="col-9 custom-card mb-4 text-center">
           <div className="row">
             <div className="col-4">
               <h6>{product.name}</h6>
@@ -73,7 +71,17 @@ const CartCard = ({
               <h6>${product.price}</h6>
             </div>
 
-            {showQuantity && quantityField()}
+            {showQuantity ? (
+              quantityField()
+            ) : (
+              <React.Fragment>
+                <div className="col-2">
+                  <h6>Quantity</h6>
+                  <hr />
+                  <h6>{count}</h6>
+                </div>
+              </React.Fragment>
+            )}
             <div className="col-2">
               <h6>Item Total</h6>
               <hr />

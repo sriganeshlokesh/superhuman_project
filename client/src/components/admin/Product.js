@@ -22,12 +22,8 @@ const Product = () => {
     category: "",
     shipping: "",
     flavour: "",
-    info: {},
     photo: "",
     quantity: "",
-    errors: "",
-    createdProduct: "",
-    redirectToProfile: false,
     formData: "",
   });
   const [products, setProducts] = useState([]);
@@ -39,23 +35,16 @@ const Product = () => {
     price,
     categories,
     category,
-    info,
     shipping,
     flavour,
     quantity,
-    errors,
-    createdProduct,
-    redirectToProfile,
     formData,
   } = values;
 
   const init = () => {
     getCategories().then((data) => {
       if (data.error) {
-        setValues({
-          ...values,
-          error: data.error,
-        });
+        console.log(data.error);
       } else {
         setValues({
           ...values,

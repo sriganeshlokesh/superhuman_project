@@ -37,8 +37,6 @@ const Orders = () => {
     });
   };
 
-  const orderDelete = () => {};
-
   useEffect(() => {
     loadOrders();
     loadStatusValues();

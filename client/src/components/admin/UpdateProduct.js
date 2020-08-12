@@ -7,19 +7,17 @@ import {
 import { Link } from "react-router-dom";
 import { isAuthenticated } from "../../actions/auth";
 
-const UpdateProduct = (props) => {
-  const productId = props.match.params.productId;
-  const [categories, setCategories] = useState([]);
-  const [product, setProduct] = useState({
-    id: "",
+const UpdateProduct = ({ match }) => {
+  const [values, setValues] = useState({
     name: "",
     description: "",
     company: "",
     price: "",
     category: "",
     shipping: "",
-    flavour: "",
+    flavour: [],
     photo: "",
+    categories: [],
     quantity: "",
     errors: "",
     createdProduct: "",
@@ -27,83 +25,78 @@ const UpdateProduct = (props) => {
     formData: "",
   });
 
+  const [categories, setCategories] = useState([]);
+
   const {
-    id,
     name,
     description,
     company,
     price,
-    photo,
     category,
     shipping,
     flavour,
     quantity,
-    redirectToProfile,
-    errors,
     formData,
-  } = product;
+  } = values;
 
   const { user, token } = isAuthenticated();
 
-  const init = () => {
+  const init = (productId) => {
+    getProduct(productId).then((data) => {
+      if (data.error) {
+        setValues({ ...values, error: data.error });
+      } else {
+        // populate the state
+        setValues({
+          ...values,
+          name: data.name,
+          description: data.description,
+          price: data.price,
+          category: data.category,
+          shipping: data.shipping,
+          company: data.company,
+          flavour: data.flavour,
+          quantity: data.quantity,
+          formData: new FormData(),
+        });
+        // load categories
+        initCategories();
+      }
+    });
+  };
+
+  const initCategories = () => {
     getCategories().then((data) => {
       if (data.error) {
-        setProduct({
-          ...product,
-          errors: data.error,
-        });
+        setValues({ ...values, error: data.error });
       } else {
-        productUpdate();
         setCategories(data);
       }
     });
   };
 
-  const productUpdate = () => {
-    getProduct(productId).then((data) => {
-      if (data.error) {
-        console.log(data.error);
-      } else {
-        setProduct({
-          ...product,
-          id: data._id,
-          name: data.name,
-          description: data.description,
-          company: data.company,
-          price: data.price,
-          photo: data.photo,
-          category: data.category,
-          shipping: data.shipping,
-          flavour: data.flavour,
-          quantity: data.quantity,
-          formData: new FormData(),
-        });
-      }
-    });
-  };
   const handleChange = (name) => (event) => {
     const value = name === "photo" ? event.target.files[0] : event.target.value;
-    setProduct({ ...product, errors: "" });
     formData.set(name, value);
-    setProduct({
-      ...product,
-      errors: false,
-      [name]: value,
-    });
+    setValues({ ...values, [name]: value });
   };
 
   useEffect(() => {
-    init();
+    init(match.params.productId);
   }, []);
 
   const editProduct = (event) => {
     event.preventDefault();
-    updateProduct(productId, user._id, token, formData).then(() => {
-      setProduct({
-        ...product,
-        redirectToProfile: true,
-      });
-    });
+    console.log(formData);
+    setValues({ ...values, error: "" });
+    updateProduct(match.params.productId, user._id, token, formData).then(
+      () => {
+        setValues({
+          ...values,
+          redirectToProfile: true,
+        });
+      }
+    );
   };
 
   return (
@@ -129,7 +122,6 @@ const UpdateProduct = (props) => {
                           placeholder="Product Name"
                           className="form-control-lg"
                           onChange={handleChange("name")}
-                          required
                         />
 
                         <label for="inputName">Name</label>
@@ -143,7 +135,6 @@ const UpdateProduct = (props) => {
                           placeholder="Product Desc"
                           className="form-control-lg"
                           onChange={handleChange("description")}
-                          required
                         />
 
                         <label for="inputDesc">Description</label>
@@ -157,7 +148,6 @@ const UpdateProduct = (props) => {
                           placeholder="Product Price"
                           className="form-control-lg"
                           onChange={handleChange("price")}
-                          required
                         />
 
                         <label for="inputPrice">Price</label>
@@ -171,7 +161,6 @@ const UpdateProduct = (props) => {
                           placeholder="Product Company"
                           className="form-control-lg"
                           onChange={handleChange("company")}
-                          required
                         />
 
                         <label for="inputCompany">Company</label>
@@ -185,7 +174,6 @@ const UpdateProduct = (props) => {
                           placeholder="Product Quantity"
                           className="form-control-lg"
                           onChange={handleChange("quantity")}
-                          required
                         />
 
                         <label for="inputQuantity">Quantity</label>
@@ -198,8 +186,16 @@ const UpdateProduct = (props) => {
                           value={flavour}
                           placeholder="Product Flavour"
                           className="form-control-lg"
-                          onChange={handleChange("flavour")}
-                          required
+                          onChange={(event) => {
+                            formData.set(
+                              "flavour",
+                              event.target.value.split(",")
+                            );
+                            setValues({
+                              ...values,
+                              flavour: event.target.value.split(","),
+                            });
+                          }}
                         />
                         <label for="inputFlavour">Flavour</label>
                       </div>
@@ -230,7 +226,6 @@ const UpdateProduct = (props) => {
                           placeholder="Category Name"
                           className="custom-select form-control-lg"
                           onChange={handleChange("shipping")}
-                          required
                         >
                           <option value="" disabled selected>
                             Shipping
