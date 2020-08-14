@@ -10,6 +10,7 @@ const {
   orderById,
   updateOrderStatus,
   deleteOrder,
+  getOrder,
 } = require("../controllers/order");
 const { decreaseQuantity } = require("../controllers/product");
 

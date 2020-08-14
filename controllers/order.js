@@ -25,8 +25,8 @@ exports.orderById = (req, res, next, id) => {
 // Create an Order
 exports.createOrder = (req, res) => {
   req.body.order.user = req.profile;
-  console.log(process.env.SENDGRID_EMAIL);
   const order = new Order(req.body.order);
+  console.log(order);
   order.save((err, data) => {
     if (err) {
       return res.status(400).json({
@@ -119,6 +119,21 @@ exports.getOrders = (req, res) => {
         res.json(orders);
       }
     });
+};
+
+// Get order by transaction id
+exports.getOrder = (req, res) => {
+  Order.findOne({ transaction_id: req.params.transactionId }).exec(
+    (err, data) => {
+      if (err) {
+        return res.status(400).json({
+          errors: "Order not found",
+        });
+      } else {
+        res.json(data);
+      }
+    }
+  );
 };
 
 // Get Order Status

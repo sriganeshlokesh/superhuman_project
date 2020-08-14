@@ -24,7 +24,7 @@ exports.register = (req, res) => {
         password: req.body.password,
         dob: req.body.dob,
         phone: req.body.phone,
-        location: req.body.location,
+        country: req.body.country,
       });
 
       newUser

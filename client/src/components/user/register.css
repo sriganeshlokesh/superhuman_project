@@ -22,8 +22,7 @@
 .card-register .card-img-left {
   width: 45%;
   /* Link to your background image using in the property below! */
-  background: scroll center
-    url("https://images.pexels.com/photos/260352/pexels-photo-260352.jpeg?cs=srgb&dl=bodybuilding-close-up-dumbbells-equipment-260352.jpg&fm=jpg");
+  background: scroll center url("../../assets/img/register.jpg");
   background-size: cover;
 }
 

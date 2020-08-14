@@ -4,6 +4,7 @@ import { getUserHistory, getProfile } from "../core/apiCore";
 import { Link } from "react-router-dom";
 import "../../App.css";
 import { useEffect } from "react";
+import profile_img from "../../assets/img/profile.png";
 import moment from "moment";
 
 const UserDashboard = () => {
@@ -46,11 +47,7 @@ const UserDashboard = () => {
             <div class="card" id="user">
               <div class="card-header">Profile ID: {profile._id}</div>
               {!profile.photo ? (
-                <img
-                  id="userImage"
-                  src={process.env.PUBLIC_URL + "/img/profile.png"}
-                  alt="profile_img"
-                />
+                <img id="userImage" src={profile_img} alt="profile_img" />
               ) : (
                 <img
                   id="userImage"
@@ -134,6 +131,14 @@ const UserDashboard = () => {
                                 {moment(order.createdAt).fromNow()}
                               </div>
                             </div>
+                          </div>
+                          <div className="col-2 mx-5 pull-right text-center mt-2">
+                            <Link
+                              to={`/order/${order.transaction_id}`}
+                              className="btn view-order"
+                            >
+                              View
+                            </Link>
                           </div>
                         </div>
                       </li>

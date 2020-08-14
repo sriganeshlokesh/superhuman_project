@@ -10,6 +10,8 @@ const {
   getAllUsers,
 } = require("../controllers/user");
 
+const { getOrder } = require("../controllers/order");
+
 //Test
 router.get("/secret/:id", protect, isAuth, (req, res) => {
   res.json({

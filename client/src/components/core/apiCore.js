@@ -160,6 +160,7 @@ export const processPayment = (userId, token, payment) => {
 
 // Orders
 export const createOrder = (userId, token, orderData) => {
+  console.log(orderData);
   return fetch(`${process.env.REACT_APP_API}/order/create/${userId}`, {
     method: "POST",
     headers: {
@@ -243,5 +244,16 @@ export const getCategory = (categoryId) => {
   return axios({
     method: "get",
     url: `${process.env.REACT_APP_API}/category/${categoryId}`,
+  });
+};
+
+// Get order by transaction Id
+export const getOrder = (transactionId, userId, token) => {
+  return axios({
+    method: "get",
+    url: `${process.env.REACT_APP_API}/transaction/order/${transactionId}/${userId}`,
+    headers: {
+      Authorization: token,
+    },
   });
 };

@@ -12,6 +12,7 @@ const category = require("./routes/category");
 const product = require("./routes/product");
 const braintree = require("./routes/braintree");
 const order = require("./routes/order");
+const transaction = require("./routes/transaction");
 
 // Body Parsor Middleware
 app.use(express.json());
@@ -45,6 +46,7 @@ app.use("/api/category", category);
 app.use("/api/product", product);
 app.use("/api/braintree", braintree);
 app.use("/api/order", order);
+app.use("/api/transaction", transaction);
 
 app.get("/", (req, res) => {
   res.send("Welcome to Superhuman Project");

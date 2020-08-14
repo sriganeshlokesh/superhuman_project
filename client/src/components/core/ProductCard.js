@@ -23,6 +23,9 @@ const ProductCard = ({ product }) => {
     }
   };
 
+  function refreshPage() {
+    window.location.reload(false);
+  }
   const productCategory = () => {
     getCategory(product.category._id).then((data) => {
       if (data.error) {
@@ -45,20 +48,24 @@ const ProductCard = ({ product }) => {
 
   useEffect(() => {
     productCategory();
+    window.scrollTo(0, 0);
   }, []);
 
   return (
-    <div className="col-4 mb-3">
+    <div className="col-sm-6 col-md-4 col-lg-4 mb-3">
       <div className="card">
-        <Link to={`/product/${product._id}`}>
-          <ProductImage item={product._id} url="product" />
-        </Link>
+        <div onClick={refreshPage}>
+          <Link to={`/product/${product._id}`}>
+            <div className="mx-auto">
+              <ProductImage item={product._id} url="product" />
+            </div>
+          </Link>
+        </div>
 
         <div className="card-body">
           {redirectToCart(redirect)}
           <h5 className="card-title">{product.name}</h5>
           <h6 className="card-subtitle mb-2 text-muted">{category}</h6>
-          <p className="card-text">{product.description}</p>
           <div className="options d-flex flex-fill">
             <div className="price ">
               <h5 className="mt-2">${product.price}</h5>
@@ -81,9 +88,9 @@ const ProductCard = ({ product }) => {
                 ))}
             </select>
           </div>
-          <div className="row ">
-            <div className="col text-center">
-              <div className="buy justify-content-between align-items-center ">
+          <div className="row text-center">
+            <div className="col-sm-12 col-md-10 col-lg-12">
+              <div className="buy">
                 <button onClick={addToCart} className="btn mt-3">
                   <i className="fa fa-shopping-cart"></i> Add to Cart
                 </button>

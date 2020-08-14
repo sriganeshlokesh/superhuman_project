@@ -19,8 +19,7 @@
 .card-signin .card-img-right {
   width: 45%;
   /* Link to your background image using in the property below! */
-  background: scroll bottom
-    url("https://images.pexels.com/photos/841134/pexels-photo-841134.jpeg?cs=srgb&dl=black-steel-gym-plate-and-pair-of-blue-running-shoes-841134.jpg&fm=jpg");
+  background: scroll bottom url("../../assets/img/login.jpg");
   background-size: cover;
 }
 

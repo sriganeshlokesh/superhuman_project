@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { getProducts } from "./apiCore";
 import ProductCard from "./ProductCard";
 import ProductSearch from "./ProductSearch";
+import home from "../../assets/img/home.jpg";
 import "../../App.css";
 const Home = () => {
   const [productBySell, setProductBySell] = useState([]);
@@ -39,7 +40,7 @@ const Home = () => {
 
         <div className="container-fluid landing-page">
           <img
-            src={process.env.PUBLIC_URL + "/img/home.jpg"}
+            src={home}
             alt="Snow"
             style={{
               width: "100%",
@@ -57,13 +58,13 @@ const Home = () => {
         </div>
 
         <h2 className="mb-4 header">Best Sellers</h2>
-        <div className="row">
+        <div className="row mx-auto">
           {productBySell.map((product, i) => (
             <ProductCard key={i} product={product} />
           ))}
         </div>
         <h2 className="mb-4 header">New Arrivals</h2>
-        <div className="row">
+        <div className="row mx-auto text-center">
           {productByArrival.map((product, i) => (
             <ProductCard key={i} product={product} />
           ))}

@@ -37,6 +37,12 @@ nav {
   li {
     color: $text-color;
   }
+
+  @media screen and (max-width: 576px) {
+  }
+
+  @media screen and (min-width: 620px) {
+  }
 }
 
 .badge {
@@ -65,6 +71,7 @@ nav {
   position: relative;
   font-family: "Oswald", sans-serif;
   font-size: 1rem;
+
   border-radius: 0.25rem;
 }
 
@@ -151,14 +158,69 @@ nav {
     width: 70%;
     margin-top: 10%;
   }
+
+  @media screen and (max-width: 576px) {
+    .form-control-lg {
+      width: 30%;
+      margin-top: 10%;
+    }
+  }
 }
 
 // Product Card
 
+@media screen and (max-width: 576px) {
+  .card {
+    width: 90%;
+  }
+}
+@media screen and (min-width: 763px) {
+  .card {
+    width: 80% !important;
+
+    .buy {
+      a {
+        background-color: $secondary-color;
+        color: #fff;
+        width: 60%;
+        margin: 1%;
+
+        &:hover {
+          background-color: $background-color;
+          color: $secondary-color;
+          box-shadow: 0 0 0 2px $secondary-color;
+        }
+      }
+
+      button {
+        background-color: $secondary-color;
+        color: #fff;
+        width: 60% !important;
+        margin: 1%;
+        &:hover {
+          background-color: $background-color;
+          color: $secondary-color;
+          box-shadow: 0 0 0 2px $secondary-color;
+        }
+      }
+    }
+  }
+}
+
 .card {
+  width: 90% !important;
+  margin: 0 auto; /* Added */
+  float: none; /* Added */
+  margin-bottom: 10px; /* Added */
+
   .card-body {
     background-color: $background-color;
     color: $primary-color;
+
+    .row {
+      margin-left: 0;
+      margin-right: 0;
+    }
 
     .card-title {
       font-weight: bold;
@@ -169,7 +231,7 @@ nav {
     a {
       background-color: $secondary-color;
       color: #fff;
-      width: 50%;
+      width: 60%;
       margin: 1%;
 
       &:hover {
@@ -293,7 +355,7 @@ hr {
 }
 
 .custom-checkout-comp {
-  margin-top: 10%;
+  margin-top: 5%;
   background-color: $secondary-background-color;
   max-height: 450px;
 }
@@ -410,6 +472,18 @@ hr {
 }
 
 .panel-body {
+  a {
+    width: 15%;
+    color: #fff;
+    background-color: $secondary-color;
+
+    &:hover {
+      background-color: #fff;
+      color: $secondary-color;
+      box-shadow: 0 0 0 2px $secondary-color;
+    }
+  }
+
   .post-button {
     width: 10%;
     color: #fff;
@@ -806,20 +880,6 @@ figure {
 
 @import url("https://fonts.googleapis.com/css?family=Open+Sans:400,600");
 
-.container1 {
-  background-color: white;
-  display: table-cell;
-  vertical-align: middle;
-  width: 40%;
-}
-
-.container2 {
-  background-color: #e5e5e5;
-  display: table-cell;
-  vertical-align: middle;
-  width: 10%;
-}
-
 .order {
   width: 80%;
   height: auto;
@@ -1064,7 +1124,6 @@ button:hover {
 }
 
 // User Dashboard
-@import url("https://fonts.googleapis.com/css2?family=Oswald:wght@200;300;400;500;600;700&display=swap");
 
 $clr-white: #fff;
 $clr-light-blue: #4f5d75;
@@ -1141,6 +1200,19 @@ body {
 
 .small {
   color: $clr-txt-fade;
+}
+
+.view-order {
+  width: 100%;
+  font-size: 15px;
+  background-color: $secondary-color;
+  color: $text-color;
+
+  &:hover {
+    background-color: #fff;
+    color: $secondary-color;
+    box-shadow: 0 0 0 2px $secondary-color;
+  }
 }
 
 .card {
@@ -1366,7 +1438,7 @@ a.action {
 }
 @media (max-width: 767.9px) {
   .footer {
-    max-width: 540px;
+    max-width: 100%;
   }
   .footer ul,
   .footer p {
@@ -1380,16 +1452,33 @@ a.action {
 }
 @media (min-width: 768px) {
   .footer {
-    max-width: 720px;
+    max-width: 100%;
   }
 }
 @media (min-width: 992px) {
   .footer {
-    max-width: 960px;
+    max-width: 100%;
   }
 }
 @media (min-width: 1200px) {
   .footer {
     max-width: 3140px;
+  }
+}
+
+// Purchase Card
+
+.continue-shopping {
+  a {
+    background-color: $secondary-color;
+    color: #fff;
+    width: 20%;
+    margin: 1%;
+
+    &:hover {
+      background-color: $background-color;
+      color: $secondary-color;
+      box-shadow: 0 0 0 2px $secondary-color;
+    }
   }
 }

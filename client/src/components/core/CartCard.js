@@ -60,7 +60,7 @@ const CartCard = ({
           <ProductImage item={product._id} url="product" />
         </div>
         <div className="col-9 custom-card mb-4 text-center">
-          <div className="row">
+          <div className="row mt-4">
             <div className="col-4">
               <h6>{product.name}</h6>
               <p>{product.selectedFlavour}</p>

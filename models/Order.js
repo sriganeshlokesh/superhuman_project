@@ -6,6 +6,7 @@ const CartItemSchema = new Schema(
   {
     product: { type: ObjectId, ref: "Product" },
     name: String,
+    selectedFlavour: String,
     price: Number,
     count: Number,
   },
@@ -29,7 +30,7 @@ const OrderSchema = new Schema(
         "Shipped",
         "Delivered",
         "Cancelled",
-      ], // enum means string objects
+      ],
     },
     updated: Date,
     user: { type: ObjectId, ref: "User" },

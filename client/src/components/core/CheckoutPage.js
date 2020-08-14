@@ -7,7 +7,7 @@ import { isAuthenticated } from "../../actions/auth";
 import DropIn from "braintree-web-drop-in-react";
 import "../../App.css";
 
-const CheckoutPage = () => {
+const CheckoutPage = (props) => {
   const [run, setRun] = useState(false);
   const [items, setItems] = useState([]);
   const [data, setData] = useState({
@@ -58,9 +58,17 @@ const CheckoutPage = () => {
     window.location.reload(false);
   };
 
-  const redirectToHome = () => {
-    if (data.success) {
-      return <Redirect to="/cart" />;
+  const redirectToHome = (success, transactionId) => {
+    console.log(transactionId);
+    if (success) {
+      props.history.push({
+        pathname: "/success/order",
+        state: {
+          id: transactionId,
+        },
+      });
+      console.log(transactionId);
+      return <Redirect to="/success/order" />;
     }
   };
   const subtotal = getTotal();
@@ -101,21 +109,20 @@ const CheckoutPage = () => {
 
         processPayment(userId, token, paymentData)
           .then((response) => {
+            console.log(items);
             const orderData = {
               products: items,
               transaction_id: response.transaction.id,
               amount: response.transaction.amount,
               address: address,
             };
-            console.log(address);
-            createOrder(userId, token, orderData);
-
-            setData({ ...data, success: response.success });
-            emptyCart(() => {
-              setRun(!run);
-              refreshComponent();
-              redirectToHome();
-              console.log("Payment Success and Empty Cart");
+            createOrder(userId, token, orderData).then((data) => {
+              console.log(data);
+              emptyCart(() => {
+                setRun(!run);
+                console.log("Payment Success and Empty Cart");
+              });
+              redirectToHome(response.success, response.transaction.id);
             });
           })
           .catch((error) => {

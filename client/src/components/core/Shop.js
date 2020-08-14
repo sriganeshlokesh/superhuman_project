@@ -116,9 +116,13 @@ const Shop = () => {
           <div className="col-10 my-0">
             <h2 className="mb-4 header"> Products</h2>
             <div className="row">
-              {filteredResults.map((product, index) => (
-                <ProductCard key={index} product={product} />
-              ))}
+              {filteredResults.length > 0 ? (
+                filteredResults.map((product, index) => (
+                  <ProductCard key={index} product={product} />
+                ))
+              ) : (
+                <h2 className="mx-auto">Products not found</h2>
+              )}
             </div>
             <hr />
             {loadMoreButton()}

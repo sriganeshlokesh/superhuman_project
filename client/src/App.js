@@ -21,6 +21,8 @@ import ShoppingCart from "./components/core/ShoppingCart";
 import CheckoutPage from "./components/core/CheckoutPage";
 import Footer from "./components/core/Footer";
 import "./App.css";
+import Purchase from "./components/core/Purchase";
+import OrderPage from "./components/core/OrderPage";
 
 function App() {
   return (
@@ -32,6 +34,12 @@ function App() {
         <Route path="/register" exact component={Register} />
         <Route path="/login" exact component={Login} />
         <PrivateRoute path="/user/dashboard" exact component={UserDashBoard} />
+        <PrivateRoute path="/success/order" exact component={Purchase} />
+        <PrivateRoute
+          path="/order/:transactionId"
+          exact
+          component={OrderPage}
+        />
         <PrivateRoute
           path="/user/dashboard/profile/:id"
           exact

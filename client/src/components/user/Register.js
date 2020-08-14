@@ -12,7 +12,7 @@ const Register = () => {
     password2: "",
     dob: "",
     phone: "",
-    location: "",
+    country: "",
     errors: "",
     redirect: false,
   });
@@ -24,7 +24,7 @@ const Register = () => {
     password2,
     dob,
     phone,
-    location,
+    country,
     errors,
     redirect,
   } = input;
@@ -36,8 +36,8 @@ const Register = () => {
 
   const registerUser = (event) => {
     event.preventDefault();
-    console.log({ name, email, password, password2, phone, dob, location });
-    register({ name, email, password, password2, phone, dob, location });
+    console.log({ name, email, password, password2, phone, dob, country });
+    register({ name, email, password, password2, phone, dob, country });
   };
 
   async function register(user) {
@@ -179,11 +179,11 @@ const Register = () => {
                     id="inputLocation"
                     name="location"
                     placeholder="Enter Location"
-                    onChange={handleChange("location")}
-                    value={location}
+                    onChange={handleChange("country")}
+                    value={country}
                     className="form-control"
                   />
-                  <label for="inputLocation">Location</label>
+                  <label for="inputLocation">Country</label>
                 </div>
 
                 <input

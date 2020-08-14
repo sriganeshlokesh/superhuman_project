@@ -63,6 +63,9 @@ const ProductPage = ({ id }) => {
       }
     });
   };
+  function refreshPage() {
+    window.location.reload(false);
+  }
 
   const productComments = () => {
     getComments(id).then((data) => {
@@ -371,16 +374,16 @@ const ProductPage = ({ id }) => {
             <div className="comment-wrapper">
               <div className="panel panel-info">
                 <div className="panel-body">
-                  {isAuthenticated() && (
-                    <React.Fragment>
-                      <textarea
-                        className="form-control"
-                        placeholder="Add a Public Comment"
-                        rows="3"
-                        value={text}
-                        onChange={(e) => setText(e.target.value)}
-                      ></textarea>
-                      <br />
+                  <React.Fragment>
+                    <textarea
+                      className="form-control"
+                      placeholder="Add a Public Comment"
+                      rows="3"
+                      value={text}
+                      onChange={(e) => setText(e.target.value)}
+                    ></textarea>
+                    <br />
+                    {isAuthenticated() ? (
                       <button
                         type="button"
                         className="btn pull-right post-button"
@@ -388,8 +391,16 @@ const ProductPage = ({ id }) => {
                       >
                         Post
                       </button>
-                    </React.Fragment>
-                  )}
+                    ) : (
+                      <Link
+                        to="/login"
+                        type="button"
+                        className="btn pull-right"
+                      >
+                        Login to Comment
+                      </Link>
+                    )}
+                  </React.Fragment>
                   <div className="clearfix"></div>
                   <hr />
                   <ul className="media-list">

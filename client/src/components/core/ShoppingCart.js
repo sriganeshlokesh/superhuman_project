@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { getCart } from "./addToCartHelper";
 import CartCard from "./CartCard";
 import Checkout from "./Checkout";
+import cart_empty from "../../assets/img/cart_empty.png";
 import "../../App.css";
 
 const ShoppingCart = () => {
@@ -46,7 +47,7 @@ const ShoppingCart = () => {
                 <div class="col-sm-12 empty-cart-cls text-center">
                   {" "}
                   <img
-                    src={process.env.PUBLIC_URL + "/img/cart_empty.png"}
+                    src={cart_empty}
                     width="130"
                     height="130"
                     class="img-fluid mb-4 mr-3"
@@ -69,11 +70,21 @@ const ShoppingCart = () => {
   };
   const showCheckout = () => {
     return (
-      <div className="col-md-4 px-2 custom-checkout-comp">
-        <Checkout products={items} />
-      </div>
+      <React.Fragment>
+        <div className="col-md-4 px-2 custom-checkout-comp">
+          <Checkout products={items} />
+        </div>
+      </React.Fragment>
     );
   };
+
+  const showShopping = () => (
+    <div className="col-12 continue-shopping">
+      <Link to="/shop" className="btn pull-right mr-5">
+        Continue Shopping
+      </Link>
+    </div>
+  );
   return (
     <div className="container ">
       <div className="row ">
@@ -84,6 +95,7 @@ const ShoppingCart = () => {
         )}
 
         {items.length > 0 && showCheckout()}
+        {items.length > 0 && showShopping()}
       </div>
     </div>
   );
