@@ -42,7 +42,7 @@ const Register = () => {
 
   async function register(user) {
     await axios
-      .post(`/auth/register`, user)
+      .post(`/api/auth/register`, user)
       .then((res) => {
         authenticate(res.data, () => {
           setInput({
