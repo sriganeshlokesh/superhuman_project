@@ -51,7 +51,7 @@ const UserDashboard = () => {
               ) : (
                 <img
                   id="userImage"
-                  src={`${process.env.REACT_APP_API}/user/photo/${user._id}`}
+                  src={`/api/user/photo/${user._id}`}
                   alt="img_profile"
                 />
               )}
