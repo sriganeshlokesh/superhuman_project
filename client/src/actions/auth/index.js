@@ -12,7 +12,7 @@ export const logout = (next) => {
     localStorage.removeItem("token");
     next();
     return axios
-      .get(`${process.env.REACT_APP_API}/auth/logout`)
+      .get(`/auth/logout`)
       .then((res) => {
         console.log("signout", res.data);
       })

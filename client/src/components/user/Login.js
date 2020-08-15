@@ -28,7 +28,7 @@ const Login = () => {
 
   function login(user) {
     axios
-      .post(`${process.env.REACT_APP_API}/auth/login`, user)
+      .post(`/auth/login`, user)
       .then((res) => {
         console.log(res.data);
         authenticate(res.data, () => {

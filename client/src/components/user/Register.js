@@ -42,7 +42,7 @@ const Register = () => {
 
   async function register(user) {
     await axios
-      .post(`${process.env.REACT_APP_API}/auth/register`, user)
+      .post(`/auth/register`, user)
       .then((res) => {
         authenticate(res.data, () => {
           setInput({

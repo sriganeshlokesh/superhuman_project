@@ -4,7 +4,7 @@ import axios from "axios";
 export const getProfile = (userId, token) => {
   return axios({
     method: "get",
-    url: `${process.env.REACT_APP_API}/user/${userId}`,
+    url: `/user/${userId}`,
     headers: { Authorization: token },
   });
 };
@@ -12,21 +12,21 @@ export const getProfile = (userId, token) => {
 export const getPhoto = (userId) => {
   return axios({
     method: "get",
-    url: `${process.env.REACT_APP_API}/user/photo/${userId}`,
+    url: `/user/photo/${userId}`,
   });
 };
 
 export const updateProfile = (userId, token, user) => {
   return axios({
     method: "put",
-    url: `${process.env.REACT_APP_API}/user/${userId}`,
+    url: `/user/${userId}`,
     headers: { Authorization: token, "Content-Type": "multipart/form-data" },
     data: user,
   });
 };
 
 export const getUserHistory = (userId, token) => {
-  return fetch(`${process.env.REACT_APP_API}/user/order/${userId}`, {
+  return fetch(`/user/order/${userId}`, {
     method: "GET",
     headers: {
       Authorization: token,
@@ -39,12 +39,9 @@ export const getUserHistory = (userId, token) => {
 };
 
 export const getProducts = (sortBy) => {
-  return fetch(
-    `${process.env.REACT_APP_API}/product/products?sortBy=${sortBy}&order=desc&limit=6`,
-    {
-      method: "GET",
-    }
-  )
+  return fetch(`/product/products?sortBy=${sortBy}&order=desc&limit=6`, {
+    method: "GET",
+  })
     .then((response) => {
       return response.json();
     })
@@ -52,7 +49,7 @@ export const getProducts = (sortBy) => {
 };
 
 export const getCategories = () => {
-  return fetch(`${process.env.REACT_APP_API}/category/all/category`, {
+  return fetch(`/category/all/category`, {
     method: "GET",
   })
     .then((response) => {
@@ -67,7 +64,7 @@ export const getFilterProduct = (skip, limit, filters = {}) => {
     skip,
     filters,
   };
-  return fetch(`${process.env.REACT_APP_API}/product/by/search`, {
+  return fetch(`/product/by/search`, {
     method: "POST",
     headers: {
       Accept: "application/json",
@@ -86,7 +83,7 @@ export const getFilterProduct = (skip, limit, filters = {}) => {
 export const searchProduct = (params) => {
   const query = queryString.stringify(params);
   console.log(query);
-  return fetch(`${process.env.REACT_APP_API}/product/search?${query}`, {
+  return fetch(`/product/search?${query}`, {
     method: "GET",
   })
     .then((response) => {
@@ -96,7 +93,7 @@ export const searchProduct = (params) => {
 };
 
 export const getProduct = (productId) => {
-  return fetch(`${process.env.REACT_APP_API}/product/read/${productId}`, {
+  return fetch(`/product/read/${productId}`, {
     method: "GET",
   })
     .then((response) => {
@@ -106,7 +103,7 @@ export const getProduct = (productId) => {
 };
 
 export const getInfo = (productId) => {
-  return fetch(`${process.env.REACT_APP_API}/product/info/${productId}`, {
+  return fetch(`/product/info/${productId}`, {
     method: "GET",
   })
     .then((response) => {
@@ -116,7 +113,7 @@ export const getInfo = (productId) => {
 };
 
 export const relatedProducts = (productId) => {
-  return fetch(`${process.env.REACT_APP_API}/product/related/${productId}`, {
+  return fetch(`/product/related/${productId}`, {
     method: "GET",
   })
     .then((response) => {
@@ -128,7 +125,7 @@ export const relatedProducts = (productId) => {
 // Braintree
 
 export const getBraintreeToken = (userId, token) => {
-  return fetch(`${process.env.REACT_APP_API}/braintree/getToken/${userId}`, {
+  return fetch(`/braintree/getToken/${userId}`, {
     method: "GET",
     headers: {
       Accept: "application/json",
@@ -143,7 +140,7 @@ export const getBraintreeToken = (userId, token) => {
 };
 
 export const processPayment = (userId, token, payment) => {
-  return fetch(`${process.env.REACT_APP_API}/braintree/payment/${userId}`, {
+  return fetch(`/braintree/payment/${userId}`, {
     method: "POST",
     headers: {
       Accept: "application/json",
@@ -161,7 +158,7 @@ export const processPayment = (userId, token, payment) => {
 // Orders
 export const createOrder = (userId, token, orderData) => {
   console.log(orderData);
-  return fetch(`${process.env.REACT_APP_API}/order/create/${userId}`, {
+  return fetch(`/order/create/${userId}`, {
     method: "POST",
     headers: {
       Accept: "application/json",
@@ -180,7 +177,7 @@ export const createOrder = (userId, token, orderData) => {
 export const addLike = (userId, productId, token) => {
   return axios({
     method: "post",
-    url: `${process.env.REACT_APP_API}/product/like/${productId}/${userId}`,
+    url: `/product/like/${productId}/${userId}`,
     headers: { Authorization: token },
   });
 };
@@ -189,7 +186,7 @@ export const addLike = (userId, productId, token) => {
 export const unLike = (userId, productId, token) => {
   return axios({
     method: "post",
-    url: `${process.env.REACT_APP_API}/product/unlike/${productId}/${userId}`,
+    url: `/product/unlike/${productId}/${userId}`,
     headers: { Authorization: token },
   });
 };
@@ -198,7 +195,7 @@ export const unLike = (userId, productId, token) => {
 export const disLike = (userId, productId, token) => {
   return axios({
     method: "post",
-    url: `${process.env.REACT_APP_API}/product/dislike/${productId}/${userId}`,
+    url: `/product/dislike/${productId}/${userId}`,
     headers: { Authorization: token },
   });
 };
@@ -207,7 +204,7 @@ export const disLike = (userId, productId, token) => {
 export const undislike = (userId, productId, token) => {
   return axios({
     method: "post",
-    url: `${process.env.REACT_APP_API}/product/dislike/unlike/${productId}/${userId}`,
+    url: `/product/dislike/unlike/${productId}/${userId}`,
     headers: { Authorization: token },
   });
 };
@@ -216,7 +213,7 @@ export const undislike = (userId, productId, token) => {
 export const getComments = (productId) => {
   return axios({
     method: "get",
-    url: `${process.env.REACT_APP_API}/product/comment/${productId}`,
+    url: `/product/comment/${productId}`,
   });
 };
 
@@ -224,7 +221,7 @@ export const getComments = (productId) => {
 export const addComment = (userId, productId, token, comment) => {
   return axios({
     method: "post",
-    url: `${process.env.REACT_APP_API}/product/comment/${productId}/${userId}`,
+    url: `/product/comment/${productId}/${userId}`,
     headers: { Authorization: token },
     data: { text: comment },
   });
@@ -234,7 +231,7 @@ export const addComment = (userId, productId, token, comment) => {
 export const deleteComment = (userId, productId, commentId, token) => {
   return axios({
     method: "delete",
-    url: `${process.env.REACT_APP_API}/product/comment/${productId}/${commentId}/${userId}`,
+    url: `/product/comment/${productId}/${commentId}/${userId}`,
     headers: { Authorization: token },
   });
 };
@@ -243,7 +240,7 @@ export const deleteComment = (userId, productId, commentId, token) => {
 export const getCategory = (categoryId) => {
   return axios({
     method: "get",
-    url: `${process.env.REACT_APP_API}/category/${categoryId}`,
+    url: `/category/${categoryId}`,
   });
 };
 
@@ -251,7 +248,7 @@ export const getCategory = (categoryId) => {
 export const getOrder = (transactionId, userId, token) => {
   return axios({
     method: "get",
-    url: `${process.env.REACT_APP_API}/transaction/order/${transactionId}/${userId}`,
+    url: `/transaction/order/${transactionId}/${userId}`,
     headers: {
       Authorization: token,
     },

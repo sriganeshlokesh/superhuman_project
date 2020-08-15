@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export const createCategory = (userId, token, category) => {
-  return fetch(`${process.env.REACT_APP_API}/category/create/${userId}`, {
+  return fetch(`/category/create/${userId}`, {
     method: "POST",
     headers: {
       Accept: "application/json",
@@ -19,7 +19,7 @@ export const createCategory = (userId, token, category) => {
 };
 
 export const createProduct = (userId, token, product) => {
-  return fetch(`${process.env.REACT_APP_API}/product/create/${userId}`, {
+  return fetch(`/product/create/${userId}`, {
     method: "POST",
     headers: {
       Authorization: token,
@@ -35,7 +35,7 @@ export const createProduct = (userId, token, product) => {
 };
 
 export const getCategories = () => {
-  return fetch(`${process.env.REACT_APP_API}/category/all/category`, {
+  return fetch(`/category/all/category`, {
     method: "GET",
   })
     .then((response) => {
@@ -45,7 +45,7 @@ export const getCategories = () => {
 };
 
 export const getOrders = (userId, token) => {
-  return fetch(`${process.env.REACT_APP_API}/order/list/${userId}`, {
+  return fetch(`/order/list/${userId}`, {
     method: "GET",
     headers: {
       Authorization: token,
@@ -58,7 +58,7 @@ export const getOrders = (userId, token) => {
 };
 
 export const getStatusValues = (userId, token) => {
-  return fetch(`${process.env.REACT_APP_API}/order/status/${userId}`, {
+  return fetch(`/order/status/${userId}`, {
     method: "GET",
     headers: {
       Authorization: token,
@@ -73,7 +73,7 @@ export const getStatusValues = (userId, token) => {
 export const updateOrderStatus = (userId, token, orderId, status) => {
   return axios({
     method: "put",
-    url: `${process.env.REACT_APP_API}/order/${orderId}/status/${userId}`,
+    url: `/order/${orderId}/status/${userId}`,
     headers: { Authorization: token },
     data: {
       status: status,
@@ -85,12 +85,9 @@ export const updateOrderStatus = (userId, token, orderId, status) => {
 // Product CRUD operations
 
 export const getProducts = () => {
-  return fetch(
-    `${process.env.REACT_APP_API}/product/products?limit=undefined`,
-    {
-      method: "GET",
-    }
-  )
+  return fetch(`/product/products?limit=undefined`, {
+    method: "GET",
+  })
     .then((response) => {
       return response.json();
     })
@@ -98,7 +95,7 @@ export const getProducts = () => {
 };
 
 export const deleteProduct = (productId, userId, token) => {
-  return fetch(`${process.env.REACT_APP_API}/product/${productId}/${userId}`, {
+  return fetch(`/product/${productId}/${userId}`, {
     method: "DELETE",
     headers: {
       Accept: "application/json",
@@ -113,7 +110,7 @@ export const deleteProduct = (productId, userId, token) => {
 };
 
 export const getProduct = (productId) => {
-  return fetch(`${process.env.REACT_APP_API}/product/read/${productId}`, {
+  return fetch(`/product/read/${productId}`, {
     method: "GET",
   })
     .then((response) => {
@@ -126,7 +123,7 @@ export const updateProduct = (productId, userId, token, product) => {
   console.log(product);
   return axios({
     method: "put",
-    url: `${process.env.REACT_APP_API}/product/${productId}/${userId}`,
+    url: `/product/${productId}/${userId}`,
     headers: { Authorization: token },
     data: product,
   });
@@ -135,7 +132,7 @@ export const updateProduct = (productId, userId, token, product) => {
 export const addInfo = (userId, productId, token, info) => {
   return axios({
     method: "post",
-    url: `${process.env.REACT_APP_API}/product/info/${userId}/${productId}`,
+    url: `/product/info/${userId}/${productId}`,
     headers: { Authorization: token },
     data: info,
   });
@@ -144,14 +141,14 @@ export const addInfo = (userId, productId, token, info) => {
 export const editInfo = (userId, productId, token, info) => {
   return axios({
     method: "put",
-    url: `${process.env.REACT_APP_API}/product/info/${productId}/${userId}`,
+    url: `/product/info/${productId}/${userId}`,
     headers: { Authorization: token },
     data: info,
   });
 };
 
 export const deleteOrder = (orderId, userId, token) => {
-  return fetch(`${process.env.REACT_APP_API}/order/${orderId}/${userId}`, {
+  return fetch(`/order/${orderId}/${userId}`, {
     method: "DELETE",
     headers: {
       Accept: "application/json",
@@ -167,7 +164,7 @@ export const deleteOrder = (orderId, userId, token) => {
 
 // get All Users
 export const getAllUsers = (userId, token) => {
-  return fetch(`${process.env.REACT_APP_API}/user/all/${userId}`, {
+  return fetch(`/user/all/${userId}`, {
     method: "GET",
     headers: {
       Authorization: token,
