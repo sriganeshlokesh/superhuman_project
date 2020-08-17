@@ -27,7 +27,7 @@ const Shop = () => {
 
   useEffect(() => {
     init();
-    loadFilters(skip, limit, productFilters.filters);
+    loadFilters(productFilters.filters);
   }, []);
 
   const handleFilters = (filters, filterBy) => {
@@ -53,7 +53,7 @@ const Shop = () => {
     return array;
   };
 
-  const loadFilters = (newFilters) => {
+  const loadFilters = (skip, limit, newFilters) => {
     getFilterProduct(skip, limit, newFilters).then((data) => {
       if (data.error) {
         console.log(data.error);

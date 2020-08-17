@@ -54,9 +54,6 @@ const CheckoutPage = (props) => {
       return currentValue + nextValue.count * nextValue.price;
     }, 0);
   };
-  const refreshComponent = () => {
-    window.location.reload(false);
-  };
 
   const redirectToHome = (success, transactionId) => {
     console.log(transactionId);
@@ -109,7 +106,6 @@ const CheckoutPage = (props) => {
 
         processPayment(userId, token, paymentData)
           .then((response) => {
-            console.log(items);
             const orderData = {
               products: items,
               transaction_id: response.transaction.id,
@@ -117,10 +113,8 @@ const CheckoutPage = (props) => {
               address: address,
             };
             createOrder(userId, token, orderData).then((data) => {
-              console.log(data);
               emptyCart(() => {
                 setRun(!run);
-                console.log("Payment Success and Empty Cart");
               });
               redirectToHome(response.success, response.transaction.id);
             });

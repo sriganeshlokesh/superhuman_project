@@ -19,7 +19,6 @@ const CartCard = ({
     }
   };
   const total = count * product.price;
-  console.log(total);
 
   const refreshComponent = () => {
     window.location.reload(false);

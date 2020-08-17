@@ -63,13 +63,9 @@ const ProductPage = ({ id }) => {
       }
     });
   };
-  function refreshPage() {
-    window.location.reload(false);
-  }
 
   const productComments = () => {
     getComments(id).then((data) => {
-      console.log(data.data);
       setComments(data.data);
     });
   };
@@ -168,7 +164,6 @@ const ProductPage = ({ id }) => {
   const commentDelete = (userId, productId, commentId, token) => {
     deleteComment(userId, productId, commentId, token).then((data) => {
       setComments(data.data.comments);
-      console.log(data.data.comments);
     });
   };
 
@@ -179,7 +174,6 @@ const ProductPage = ({ id }) => {
   }, []);
 
   const handleFlavour = () => (event) => {
-    console.log(event.target.value);
     setSelectedFlavour(event.target.value);
   };
 
@@ -188,7 +182,6 @@ const ProductPage = ({ id }) => {
       if (data.error) {
         setError(data.error);
       } else {
-        console.log(data.data.name);
         setCat(data.data.name);
       }
     });

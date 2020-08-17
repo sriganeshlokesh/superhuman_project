@@ -15,7 +15,6 @@ const Purchase = (props) => {
 
   const loadOrder = (transactionId, userId, token) => {
     getOrder(transactionId, userId, token).then((data) => {
-      console.log(data.data);
       if (data.error) {
         console.log(data.error);
       } else {

@@ -22,7 +22,6 @@ const Login = () => {
 
   const loginUser = (event) => {
     event.preventDefault();
-    console.log({ email, password });
     login({ email, password });
   };
 
@@ -30,7 +29,6 @@ const Login = () => {
     axios
       .post(`/api/auth/login`, user)
       .then((res) => {
-        console.log(res.data);
         authenticate(res.data, () => {
           setInput({
             ...input,

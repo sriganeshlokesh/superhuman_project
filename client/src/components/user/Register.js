@@ -36,7 +36,6 @@ const Register = () => {
 
   const registerUser = (event) => {
     event.preventDefault();
-    console.log({ name, email, password, password2, phone, dob, country });
     register({ name, email, password, password2, phone, dob, country });
   };
 

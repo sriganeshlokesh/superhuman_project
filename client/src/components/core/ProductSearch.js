@@ -32,7 +32,6 @@ const ProductSearch = () => {
   };
 
   const searchData = () => {
-    console.log(search, category);
     if (search) {
       searchProduct({ search: search || undefined, category: category }).then(
         (response) => {

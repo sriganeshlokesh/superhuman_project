@@ -38,7 +38,6 @@ const AdminDashboard = (props) => {
 
   const loadUsers = () => {
     getAllUsers(user._id, token).then((data) => {
-      console.log(data);
       if (data.error) {
         console.log(data.error);
       } else {

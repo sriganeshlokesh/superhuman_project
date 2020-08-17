@@ -23,7 +23,6 @@ const EditProfile = () => {
       if (data.error) {
         console.log(data.error);
       } else {
-        console.log(data.data.dob.substring(0, 10));
         setProfile({
           ...profile,
           name: data.data.name,
@@ -50,7 +49,6 @@ const EditProfile = () => {
   const handleChange = (name) => (event) => {
     const value = name === "photo" ? event.target.files[0] : event.target.value;
     formData.set(name, value);
-    console.log({ [name]: value });
     setProfile({
       ...profile,
       errors: false,
