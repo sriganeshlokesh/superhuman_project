@@ -39,18 +39,16 @@ const ProductPage = ({ id }) => {
   const addToCart = () => {
     if (selectedFlavour.length > 0) {
       addItem(product, selectedFlavour, () => {
-        setRedirect(true);
+        refreshPage();
       });
     } else {
       setError("Select Flavour");
     }
   };
 
-  const redirectToCart = (redirect) => {
-    if (redirect) {
-      return <Redirect to="/cart" />;
-    }
-  };
+  function refreshPage() {
+    window.location.reload(false);
+  }
 
   const singleProduct = () => {
     getProduct(id).then((data) => {
@@ -196,8 +194,6 @@ const ProductPage = ({ id }) => {
       </div>
       <div className="row">
         {productCategory(product.category)}
-
-        {redirectToCart(redirect)}
         <div className="col mb-4">
           <ProductImage item={id} url="product" height="100" />
         </div>

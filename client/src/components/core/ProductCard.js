@@ -8,7 +8,6 @@ import "../../App.css";
 import { useEffect } from "react";
 
 const ProductCard = ({ product }) => {
-  const [redirect, setRedirect] = useState(false);
   const [selectedFlavour, setSelectedFlavour] = useState("");
   const [errors, setErrors] = useState("");
   const [category, setCategory] = useState("");
@@ -16,7 +15,7 @@ const ProductCard = ({ product }) => {
   const addToCart = () => {
     if (selectedFlavour.length > 0) {
       addItem(product, selectedFlavour, () => {
-        setRedirect(true);
+        refreshPage();
       });
     } else {
       setErrors("Select Flavour");
@@ -34,12 +33,6 @@ const ProductCard = ({ product }) => {
         setCategory(data.data.name);
       }
     });
-  };
-
-  const redirectToCart = (redirect) => {
-    if (redirect) {
-      return <Redirect to="/cart" />;
-    }
   };
 
   const handleFlavour = () => (event) => {
@@ -63,7 +56,6 @@ const ProductCard = ({ product }) => {
         </div>
 
         <div className="card-body">
-          {redirectToCart(redirect)}
           <h5 className="card-title">{product.name}</h5>
           <h6 className="card-subtitle mb-2 text-muted">{category}</h6>
           <div className="options d-flex flex-fill">
